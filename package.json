@@ -1,0 +1,9 @@
+{
+  "name": "tsaurus",
+  "version": "0.0.1",
+  "description": "An attempt of creating integration between TypeDoc and Docusaurus, hopefully it will work!",
+  "main": "index.js",
+  "repository": "git@github.com:imballinst/tsaurus.git",
+  "author": "Try Ajitiono <ballinst@gmail.com>",
+  "license": "MIT"
+}

@@ -1,0 +1,689 @@
+{
+	"id": 0,
+	"name": "tsaurus",
+	"kind": 1,
+	"flags": {},
+	"originalName": "",
+	"children": [
+		{
+			"id": 1,
+			"name": "components/TestComponent",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"children": [
+				{
+					"id": 5,
+					"name": "TestComponentProps",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"comment": {
+						"shortText": "The props passed to TestComponent."
+					},
+					"children": [
+						{
+							"id": 8,
+							"name": "information",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"tags": [
+									{
+										"tag": "deprecated",
+										"text": "Deprecated since 1.11.1. Please use `metadata` field instead as this might be\nremoved in the future.\n\nThe component information.\n"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "components/TestComponent.tsx",
+									"line": 17,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 20,
+								"name": "Metadata"
+							}
+						},
+						{
+							"id": 7,
+							"name": "metadata",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "The metadata of the component."
+							},
+							"sources": [
+								{
+									"fileName": "components/TestComponent.tsx",
+									"line": 10,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 20,
+								"name": "Metadata"
+							}
+						},
+						{
+							"id": 6,
+							"name": "title",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "The title of the component. This is NOT the component ID."
+							},
+							"sources": [
+								{
+									"fileName": "components/TestComponent.tsx",
+									"line": 8,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								8,
+								7,
+								6
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "components/TestComponent.tsx",
+							"line": 6,
+							"character": 17
+						}
+					]
+				},
+				{
+					"id": 2,
+					"name": "TestComponent",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "components/TestComponent.tsx",
+							"line": 23,
+							"character": 16
+						}
+					],
+					"signatures": [
+						{
+							"id": 3,
+							"name": "TestComponent",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "Renders a hello world text, the title, as well as the metadata."
+							},
+							"parameters": [
+								{
+									"id": 4,
+									"name": "__namedParameters",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 5,
+										"name": "TestComponentProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"qualifiedName": "global.JSX.Element",
+								"package": "@types/react",
+								"name": "Element"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Interfaces",
+					"kind": 256,
+					"children": [
+						5
+					]
+				},
+				{
+					"title": "Functions",
+					"kind": 64,
+					"children": [
+						2
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "components/TestComponent.tsx",
+					"line": 1,
+					"character": 0
+				}
+			]
+		},
+		{
+			"id": 9,
+			"name": "helpers/metadata",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"children": [
+				{
+					"id": 13,
+					"name": "convertToMetadata",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "helpers/metadata.ts",
+							"line": 13,
+							"character": 16
+						}
+					],
+					"signatures": [
+						{
+							"id": 14,
+							"name": "convertToMetadata",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "Converts the information to metadata."
+							},
+							"parameters": [
+								{
+									"id": 15,
+									"name": "information",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 16,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"children": [
+												{
+													"id": 17,
+													"name": "id",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "helpers/metadata.ts",
+															"line": 14,
+															"character": 2
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												},
+												{
+													"id": 18,
+													"name": "size",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "helpers/metadata.ts",
+															"line": 15,
+															"character": 2
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "number"
+													}
+												}
+											],
+											"groups": [
+												{
+													"title": "Properties",
+													"kind": 1024,
+													"children": [
+														17,
+														18
+													]
+												}
+											]
+										}
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 20,
+								"name": "Metadata"
+							}
+						}
+					]
+				},
+				{
+					"id": 10,
+					"name": "getInformation",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "helpers/metadata.ts",
+							"line": 6,
+							"character": 16
+						}
+					],
+					"signatures": [
+						{
+							"id": 11,
+							"name": "getInformation",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "Gets the component information from the given metadata."
+							},
+							"parameters": [
+								{
+									"id": 12,
+									"name": "metadata",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 20,
+										"name": "Metadata"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 23,
+								"name": "ComponentInfo"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Functions",
+					"kind": 64,
+					"children": [
+						13,
+						10
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "helpers/metadata.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
+		},
+		{
+			"id": 19,
+			"name": "helpers/types",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"children": [
+				{
+					"id": 23,
+					"name": "ComponentInfo",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"comment": {
+						"shortText": "Component info."
+					},
+					"children": [
+						{
+							"id": 24,
+							"name": "size",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "This determines the size of the component."
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 14,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							}
+						},
+						{
+							"id": 25,
+							"name": "sizeArray",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "This determines the size array of the component."
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 16,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "number"
+								}
+							}
+						},
+						{
+							"id": 26,
+							"name": "test",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Sampel test field"
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 18,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "literal",
+									"value": "World2"
+								}
+							}
+						},
+						{
+							"id": 27,
+							"name": "test2",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Sampel test field"
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 20,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "union",
+									"types": [
+										{
+											"type": "literal",
+											"value": "World2"
+										},
+										{
+											"type": "literal",
+											"value": "Hello2"
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 28,
+							"name": "test3",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Sampel test field"
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 22,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"id": 30,
+									"name": "World"
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								24,
+								25,
+								26,
+								27,
+								28
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "helpers/types.ts",
+							"line": 12,
+							"character": 17
+						}
+					]
+				},
+				{
+					"id": 20,
+					"name": "Metadata",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"comment": {
+						"shortText": "The metadata used for the test component."
+					},
+					"children": [
+						{
+							"id": 21,
+							"name": "componentId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "The component ID."
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 6,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 22,
+							"name": "componentInfo",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"shortText": "The component information."
+							},
+							"sources": [
+								{
+									"fileName": "helpers/types.ts",
+									"line": 8,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 23,
+								"name": "ComponentInfo"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								21,
+								22
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "helpers/types.ts",
+							"line": 4,
+							"character": 17
+						}
+					]
+				},
+				{
+					"id": 29,
+					"name": "Hello",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"shortText": "Test normal type assign."
+					},
+					"sources": [
+						{
+							"fileName": "helpers/types.ts",
+							"line": 28,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "literal",
+						"value": "World2"
+					}
+				},
+				{
+					"id": 30,
+					"name": "World",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"shortText": "Test normal type assign 2."
+					},
+					"sources": [
+						{
+							"fileName": "helpers/types.ts",
+							"line": 33,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "Hello2"
+							},
+							{
+								"type": "literal",
+								"value": "World2"
+							}
+						]
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Interfaces",
+					"kind": 256,
+					"children": [
+						23,
+						20
+					]
+				},
+				{
+					"title": "Type aliases",
+					"kind": 4194304,
+					"children": [
+						29,
+						30
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "helpers/types.ts",
+					"line": 4,
+					"character": 0
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Modules",
+			"kind": 2,
+			"children": [
+				1,
+				9,
+				19
+			]
+		}
+	]
+}

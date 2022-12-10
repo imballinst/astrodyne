@@ -186,6 +186,12 @@ interface RecordEntry {
   }
 
   await Promise.allSettled([
+    fs.rm('docs/components', { force: true }),
+    fs.rm('docs/types', { force: true }),
+    fs.rm('docs/functions', { force: true })
+  ]);
+
+  await Promise.allSettled([
     fs.mkdirp('docs/components'),
     fs.mkdirp('docs/types'),
     fs.mkdirp('docs/functions')

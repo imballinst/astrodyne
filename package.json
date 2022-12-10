@@ -1,9 +1,9 @@
 {
-  "name": "tsaurus",
+  "name": "astrodyne",
   "version": "0.0.1",
   "private": true,
   "description": "An attempt of creating integration between TypeDoc and Docusaurus, hopefully it will work!",
-  "repository": "git@github.com:imballinst/tsaurus.git",
+  "repository": "git@github.com:imballinst/astrodyne.git",
   "scripts": {
     "typedoc": "typedoc --tsconfig tsconfig.esm.json"
   },

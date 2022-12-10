@@ -4,7 +4,7 @@
     "lib": ["esnext", "dom"],
     "strict": true,
     "jsx": "react-jsx",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "isolatedModules": true,
     "esModuleInterop": true,

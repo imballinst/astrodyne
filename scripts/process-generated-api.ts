@@ -1,8 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-const currentPath = new URL(import.meta.url).pathname;
-
 type KindString =
   | 'Module'
   | 'Function'
@@ -128,7 +126,7 @@ interface RecordEntry {
 
 (async () => {
   const file = await fs.readFile(
-    path.join(path.dirname(currentPath), '../api.json'),
+    path.join(process.cwd(), 'api.json'),
     'utf-8'
   );
   const json = JSON.parse(file) as TopLevelFields;
@@ -328,7 +326,20 @@ ${
   type.children
     ? type.children
         .map(
-          (child) => `  ${child.name}: ${getChildType(child, typeIdRecord)};\n`
+          (child) => {
+            let fieldDescription = ''
+            if (child.comment.tags) {
+              fieldDescription = child.comment.tags.map(tag => {
+                const description = tag.text.trim().split('\n').map(line => `  // ${line}`).join('\n')
+
+                return `// @${tag.tag}\n${description}`
+              }).join('\n')
+            } else {
+              fieldDescription = `// ${child.comment.shortText || ''}`
+            }
+
+            return `  ${fieldDescription}\n  ${child.name}: ${getChildType(child, typeIdRecord)};\n`
+          }
         )
         .join('')
     : ''
@@ -354,10 +365,12 @@ function getChildType(
 }
 
 function getEffectiveType(
-  type: ChildType,
+  type: ChildType | undefined,
   name: string,
   typeIdRecord: Record<number, Child>
 ): string {
+  if (type === undefined) return ''
+
   if (type.type === 'array') {
     return `${getEffectiveType(type.elementType, name, typeIdRecord)}[]`;
   }
@@ -376,6 +389,13 @@ function getEffectiveType(
           .join(' | ') +
         ')'
       );
+    case 'reflection': {
+      const fields = (type.declaration.children || []).map((inner) => {
+        return `  ${inner.name}: ${getEffectiveType(inner.type, name, typeIdRecord)}`
+      }).join(';\n')
+
+      return `{\n${fields}\n}`
+    }
   }
 
   return '';

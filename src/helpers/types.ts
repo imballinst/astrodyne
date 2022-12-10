@@ -31,3 +31,12 @@ export type Hello = 'World2';
  * Test normal type assign 2.
  */
 export type World = 'Hello2' | 'World2';
+
+/**
+ * Test normal type object.
+ */
+export type XD = {
+  test: string
+};
+
+type IgnoredInterface = 123

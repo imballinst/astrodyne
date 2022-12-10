@@ -3,7 +3,7 @@ import { Metadata } from '../helpers/types';
 /**
  * The props passed to TestComponent.
  */
-export interface TestComponentProps {
+interface TestComponentProps {
   /** The title of the component. This is NOT the component ID. */
   title: string;
   /** The metadata of the component. */

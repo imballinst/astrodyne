@@ -1,8 +1,0 @@
-{
-  "name": "scripts",
-  "version": "0.0.1",
-  "type": "module",
-  "scripts": {
-    "gen-md": "node --loader ts-node/esm process-generated-api.ts"
-  }
-}

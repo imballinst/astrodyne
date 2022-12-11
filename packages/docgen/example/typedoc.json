@@ -6,5 +6,6 @@
   "cleanOutputDir": true,
   "tsconfig": "./tsconfig.json",
   "exclude": ["**/*.test.(ts|tsx)"],
+  "excludeExternals": true,
   "excludeInternal": true
 }

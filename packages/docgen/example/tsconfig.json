@@ -11,6 +11,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["src", "scripts", "./setupTests.ts"],
+  "include": ["src", "scripts"],
   "exclude": ["src/index.ts"]
 }

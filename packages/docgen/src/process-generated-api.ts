@@ -56,7 +56,10 @@ interface Source {
 }
 
 interface Comment {
-  shortText?: string;
+  summary?: Array<{
+    kind: string;
+    text: string;
+  }>
   tags?: TagComment[];
 }
 
@@ -210,7 +213,7 @@ interface RecordEntry {
         `
 ### ${component.name}
 
-${component.signatures![0].comment.shortText || ''}
+${(component.signatures![0].comment.summary || []).map(block => block.text)}
 
       `.trim()
       );
@@ -292,7 +295,7 @@ function getFunctionStringArray(record: Record<string, Child>) {
     return `
 ### ${fn.name}
 
-${fn.signatures![0].comment.shortText || ''}
+${(fn.signatures![0].comment.summary || []).map(block => block.text)}
   
     `.trim();
   });
@@ -306,7 +309,7 @@ function getTypeStringArray(
     return `
 ### ${type.name}
 
-${type.comment.shortText || ''}
+${(type.comment.summary || []).map(block => block.text)}
 
 ${getTypeBlock(type, typeIdRecord)}
     `.trim();
@@ -335,7 +338,7 @@ ${
                 return `// @${tag.tag}\n${description}`
               }).join('\n')
             } else {
-              fieldDescription = `// ${child.comment.shortText || ''}`
+              fieldDescription = `// ${(child.comment.summary || []).map(block => block.text)}`
             }
 
             return `  ${fieldDescription}\n  ${child.name}: ${getChildType(child, typeIdRecord)};\n`

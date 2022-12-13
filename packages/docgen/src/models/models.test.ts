@@ -24,7 +24,6 @@ describe('Comment', () => {
       const parsed = Comment.safeParse(comment);
       if (!parsed.success) throw new Error();
 
-      expect(parsed.data.type).toBe('description');
       expect(parsed.data.summary).toEqual(comment?.summary);
       expect(parsed.data.blockTags).toBeUndefined();
     });
@@ -36,8 +35,7 @@ describe('Comment', () => {
       const parsed = Comment.safeParse(comment);
       if (!parsed.success) throw new Error();
 
-      expect(parsed.data.type).toBe('tags');
-      expect(parsed.data.summary).toBeUndefined();
+      expect(parsed.data.summary).toEqual(comment?.summary);
       expect(parsed.data.blockTags).toEqual(comment?.blockTags);
     });
   });

@@ -11,22 +11,14 @@ const TagComment = z.object({
 });
 type TagComment = z.infer<typeof TagComment>;
 
-export const Comment = z
-  .object({
+export const Comment = z.union([
+  z.object({
     summary: z.array(Content),
-    blockTags: z.array(TagComment).optional()
+    blockTags: z.undefined()
+  }),
+  z.object({
+    summary: z.array(Content),
+    blockTags: z.array(TagComment)
   })
-  .transform((result) => {
-    if (result.blockTags) {
-      return {
-        type: 'tags',
-        blockTags: result.blockTags
-      };
-    }
-
-    return {
-      type: 'description',
-      summary: result.summary
-    };
-  });
+]);
 export type Comment = z.infer<typeof Comment>;

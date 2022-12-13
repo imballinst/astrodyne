@@ -1,0 +1,144 @@
+[
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The props passed to TestComponent."
+      }
+    ]
+  },
+  {
+    "summary": [],
+    "blockTags": [
+      {
+        "tag": "@deprecated",
+        "content": [
+          {
+            "kind": "text",
+            "text": "Deprecated since 1.11.1. Please use "
+          },
+          {
+            "kind": "code",
+            "text": "`metadata`"
+          },
+          {
+            "kind": "text",
+            "text": " field instead as this might be\nremoved in the future.\n\nThe component information."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The metadata of the component."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The title of the component. This is NOT the component ID."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Component info."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "This determines the size of the component."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "This determines the size array of the component."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Sampel test field"
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Sampel test field"
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Sampel test field"
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The metadata used for the test component."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The component ID."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "The component information."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Test normal type assign."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Test normal type assign 2."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Test normal type object."
+      }
+    ]
+  }
+]

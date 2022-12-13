@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Comment } from './comment';
 
 export const KindString = z.enum([
   'Module',
@@ -13,11 +14,6 @@ export const Flags = z.object({
   isOptional: z.boolean().optional()
 });
 export type Flags = z.infer<typeof Flags>;
-
-export const TagComment = z.object({
-  tag: z.string(),
-  text: z.string()
-});
 
 export interface Child {
   id: number;
@@ -59,19 +55,6 @@ export const Source = z.object({
   character: z.number()
 });
 export type Source = z.infer<typeof Source>;
-
-export const Comment = z.object({
-  summary: z
-    .array(
-      z.object({
-        kind: z.string(),
-        text: z.string()
-      })
-    )
-    .optional(),
-  tags: z.array(TagComment).optional()
-});
-export type Comment = z.infer<typeof Comment>;
 
 export const Signature = z.object({
   id: z.number(),

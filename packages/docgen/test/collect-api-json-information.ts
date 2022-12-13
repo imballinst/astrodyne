@@ -3,6 +3,7 @@ import path from 'path';
 
 interface AllApiOutputInfo {
   kindStrings: Set<string>;
+  comment: any[];
 }
 
 async function main() {
@@ -13,15 +14,28 @@ async function main() {
   const json = JSON.parse(content);
 
   const result: AllApiOutputInfo = {
-    kindStrings: new Set()
+    kindStrings: new Set(),
+    comment: []
   };
 
   dive(json, result);
 
-  await fs.writeFile(
-    path.join(process.cwd(), 'src/test-resources/kind-strings.json'),
-    JSON.stringify(Array.from(result.kindStrings)),
-    'utf-8'
+  const keys = Object.keys(result) as Array<keyof AllApiOutputInfo>;
+  await Promise.all(
+    keys.map((key) => {
+      let obj: any = {};
+      if (result[key] instanceof Set) {
+        obj = Array.from(result[key]);
+      } else {
+        obj = result[key];
+      }
+
+      fs.writeFile(
+        path.join(process.cwd(), `src/test-resources/${key}.json`),
+        JSON.stringify(obj, null, 2),
+        'utf-8'
+      );
+    })
   );
 }
 
@@ -32,6 +46,7 @@ function dive(json: any, result: AllApiOutputInfo) {
   if (!json) return;
 
   if (json.kindString) result.kindStrings.add(json.kindString);
+  if (json.comment) result.comment.push(json.comment);
   if (json.children) {
     for (const child of json.children) {
       dive(child, result);

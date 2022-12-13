@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { KindString } from './models';
 
-import validKinds from './test-resources/kind-strings.json';
+import validKinds from '../test-resources/kindStrings.json';
 
 describe('KindString', () => {
   describe('valid kind', () => {

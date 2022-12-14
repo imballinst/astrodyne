@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { Comment } from './comment';
+import { Source } from './source';
 
 export const KindString = z.enum([
   'Module',
@@ -48,13 +49,6 @@ export const Group = z.object({
   children: z.array(z.number())
 });
 export type Group = z.infer<typeof Group>;
-
-export const Source = z.object({
-  fileName: z.string(),
-  line: z.number(),
-  character: z.number()
-});
-export type Source = z.infer<typeof Source>;
 
 export const Signature = z.object({
   id: z.number(),

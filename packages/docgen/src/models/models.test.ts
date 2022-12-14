@@ -1,54 +1,35 @@
 import { describe, expect, test } from 'vitest';
+import { KindString } from './models';
 
-import validComments from '../test-resources/comment.json';
-import { Comment } from './comment';
+import validKinds from '../test-resources/kindStrings.json';
 
-describe('Comment', () => {
-  describe('valid comment', () => {
-    for (const comment of validComments) {
-      let commentStr = JSON.stringify(comment);
-      if (commentStr.length > 20) {
-        commentStr = `${commentStr.slice(0, 20)}...`;
-      }
+describe('KindString', () => {
+  describe('valid kind', () => {
+    test('valid kind: has length > 0', () => {
+      expect(validKinds.length > 0).toBe(true);
+    });
 
-      test(`parse ${commentStr}`, () => {
-        const parsed = Comment.safeParse(comment);
-        expect(parsed.success).toBe(true);
+    for (const kind of validKinds) {
+      test(`valid kind: ${kind}`, () => {
+        expect(KindString.safeParse(kind).success).toBe(true);
       });
     }
-
-    test('parse comment with just summary', () => {
-      const comment = validComments.find(
-        (item) => item.blockTags === undefined
-      );
-      const parsed = Comment.safeParse(comment);
-      if (!parsed.success) throw new Error();
-
-      expect(parsed.data.summary).toEqual(comment?.summary);
-      expect(parsed.data.blockTags).toBeUndefined();
-    });
-
-    test('parse comment with blockTags', () => {
-      const comment = validComments.find(
-        (item) => item.blockTags !== undefined
-      );
-      const parsed = Comment.safeParse(comment);
-      if (!parsed.success) throw new Error();
-
-      expect(parsed.data.summary).toEqual(comment?.summary);
-      expect(parsed.data.blockTags).toEqual(comment?.blockTags);
-    });
   });
 
-  describe('invalid comment', () => {
-    test('insufficient fields', () => {
-      const invalidComment = {};
-      expect(Comment.safeParse(invalidComment).success).toBe(false);
-    });
+  describe('invalid kind', () => {
+    const invalidKinds = [
+      'zz Module',
+      'zz Function',
+      'zz Interface',
+      'zz Parameter',
+      'zz Call signature',
+      'zz Type alias'
+    ];
 
-    test('blockTags without summary', () => {
-      const invalidComment = { blockTags: [] };
-      expect(Comment.safeParse(invalidComment).success).toBe(false);
-    });
+    for (const kind of invalidKinds) {
+      test(`invalid kind: ${kind}`, () => {
+        expect(KindString.safeParse(kind).success).toBe(false);
+      });
+    }
   });
 });

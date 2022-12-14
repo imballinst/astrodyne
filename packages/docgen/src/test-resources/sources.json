@@ -1,0 +1,156 @@
+[
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 1,
+      "character": 0
+    }
+  ],
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 6,
+      "character": 10
+    }
+  ],
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 17,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 10,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 8,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "components/TestComponent.tsx",
+      "line": 23,
+      "character": 16
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/metadata.ts",
+      "line": 1,
+      "character": 0
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/metadata.ts",
+      "line": 13,
+      "character": 16
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/metadata.ts",
+      "line": 6,
+      "character": 16
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 4,
+      "character": 0
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 12,
+      "character": 17
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 14,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 16,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 18,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 20,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 22,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 4,
+      "character": 17
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 6,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 8,
+      "character": 2
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 28,
+      "character": 12
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 33,
+      "character": 12
+    }
+  ],
+  [
+    {
+      "fileName": "helpers/types.ts",
+      "line": 38,
+      "character": 12
+    }
+  ]
+]

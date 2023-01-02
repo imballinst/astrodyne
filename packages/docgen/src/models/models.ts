@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { Comment } from './comment';
+import { Group } from './group';
 import { Source } from './source';
 
 export const KindString = z.enum([
@@ -35,20 +36,13 @@ export const Child: z.ZodType<Child> = z.object({
   kind: z.number(),
   kindString: KindString,
   flags: Flags,
-  comment: z.lazy(() => Comment),
+  comment: Comment,
   type: z.lazy(() => ChildTypeUnion).optional(),
-  groups: z.array(z.lazy(() => Group)),
+  groups: z.array(Group),
   signatures: z.array(z.lazy(() => Signature)).optional(),
   sources: z.array(z.lazy(() => Source)),
   children: z.array(z.lazy(() => Child)).optional()
 });
-
-export const Group = z.object({
-  title: z.string(),
-  kind: z.number(),
-  children: z.array(z.number())
-});
-export type Group = z.infer<typeof Group>;
 
 export const Signature = z.object({
   id: z.number(),

@@ -5,6 +5,7 @@ interface AllApiOutputInfo {
   kindStrings: Set<string>;
   sources: any[];
   comment: any[];
+  groups: any[];
 }
 
 async function main() {
@@ -17,7 +18,8 @@ async function main() {
   const result: AllApiOutputInfo = {
     kindStrings: new Set(),
     comment: [],
-    sources: []
+    sources: [],
+    groups: [],
   };
 
   dive(json, result);
@@ -50,6 +52,7 @@ function dive(json: any, result: AllApiOutputInfo) {
   if (json.kindString) result.kindStrings.add(json.kindString);
   if (json.comment) result.comment.push(json.comment);
   if (json.sources) result.sources.push(json.sources);
+  if (json.groups) result.groups.push(json.groups);
   if (json.children) {
     for (const child of json.children) {
       dive(child, result);

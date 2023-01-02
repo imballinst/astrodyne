@@ -59,7 +59,7 @@ interface Comment {
   summary?: Array<{
     kind: string;
     text: string;
-  }>
+  }>;
   tags?: TagComment[];
 }
 
@@ -128,10 +128,7 @@ interface RecordEntry {
 }
 
 (async () => {
-  const file = await fs.readFile(
-    path.join(process.cwd(), 'api.json'),
-    'utf-8'
-  );
+  const file = await fs.readFile(path.join(process.cwd(), 'api.json'), 'utf-8');
   const json = JSON.parse(file) as TopLevelFields;
   const typeIdRecord: Record<number, Child> = {};
 
@@ -213,7 +210,7 @@ interface RecordEntry {
         `
 ### ${component.name}
 
-${(component.signatures![0].comment.summary || []).map(block => block.text)}
+${(component.signatures![0].comment.summary || []).map((block) => block.text)}
 
       `.trim()
       );
@@ -295,7 +292,7 @@ function getFunctionStringArray(record: Record<string, Child>) {
     return `
 ### ${fn.name}
 
-${(fn.signatures![0].comment.summary || []).map(block => block.text)}
+${(fn.signatures![0].comment.summary || []).map((block) => block.text)}
   
     `.trim();
   });
@@ -309,7 +306,7 @@ function getTypeStringArray(
     return `
 ### ${type.name}
 
-${(type.comment.summary || []).map(block => block.text)}
+${(type.comment.summary || []).map((block) => block.text)}
 
 ${getTypeBlock(type, typeIdRecord)}
     `.trim();
@@ -328,22 +325,31 @@ interface ${type.name} {
 ${
   type.children
     ? type.children
-        .map(
-          (child) => {
-            let fieldDescription = ''
-            if (child.comment.tags) {
-              fieldDescription = child.comment.tags.map(tag => {
-                const description = tag.text.trim().split('\n').map(line => `  // ${line}`).join('\n')
+        .map((child) => {
+          let fieldDescription = '';
+          if (child.comment.tags) {
+            fieldDescription = child.comment.tags
+              .map((tag) => {
+                const description = tag.text
+                  .trim()
+                  .split('\n')
+                  .map((line) => `  // ${line}`)
+                  .join('\n');
 
-                return `// @${tag.tag}\n${description}`
-              }).join('\n')
-            } else {
-              fieldDescription = `// ${(child.comment.summary || []).map(block => block.text)}`
-            }
-
-            return `  ${fieldDescription}\n  ${child.name}: ${getChildType(child, typeIdRecord)};\n`
+                return `// @${tag.tag}\n${description}`;
+              })
+              .join('\n');
+          } else {
+            fieldDescription = `// ${(child.comment.summary || []).map(
+              (block) => block.text
+            )}`;
           }
-        )
+
+          return `  ${fieldDescription}\n  ${child.name}: ${getChildType(
+            child,
+            typeIdRecord
+          )};\n`;
+        })
         .join('')
     : ''
 }}`;
@@ -372,7 +378,7 @@ function getEffectiveType(
   name: string,
   typeIdRecord: Record<number, Child>
 ): string {
-  if (type === undefined) return ''
+  if (type === undefined) return '';
 
   if (type.type === 'array') {
     return `${getEffectiveType(type.elementType, name, typeIdRecord)}[]`;
@@ -393,11 +399,17 @@ function getEffectiveType(
         ')'
       );
     case 'reflection': {
-      const fields = (type.declaration.children || []).map((inner) => {
-        return `  ${inner.name}: ${getEffectiveType(inner.type, name, typeIdRecord)}`
-      }).join(';\n')
+      const fields = (type.declaration.children || [])
+        .map((inner) => {
+          return `  ${inner.name}: ${getEffectiveType(
+            inner.type,
+            name,
+            typeIdRecord
+          )}`;
+        })
+        .join(';\n');
 
-      return `{\n${fields}\n}`
+      return `{\n${fields}\n}`;
     }
   }
 

@@ -15,10 +15,10 @@ export const Comment = z.union([
   z.object({
     summary: z.array(Content),
     blockTags: z.undefined()
-  }),
+  }).strict(),
   z.object({
     summary: z.array(Content),
     blockTags: z.array(TagComment)
-  })
+  }).strict()
 ]);
 export type Comment = z.infer<typeof Comment>;

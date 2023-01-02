@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { KindString } from './models';
+import { KindString } from './kindString';
 
 import validKinds from '../test-resources/kindStrings.json';
 

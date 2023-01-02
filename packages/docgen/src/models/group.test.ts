@@ -22,14 +22,12 @@ describe('Group', () => {
 
   describe('invalid group', () => {
     test('insufficient fields', () => {
-      const invalidGroup = {};
-      expect(Group.safeParse(invalidGroup).success).toBe(false);
-    });
-
-    test('blockTags without summary', () => {
-      let invalidGroup: any = { title: 'hello' };
+      let invalidGroup: any = {};
       expect(Group.safeParse(invalidGroup).success).toBe(false);
       
+      invalidGroup = { title: 'hello' };
+      expect(Group.safeParse(invalidGroup).success).toBe(false);
+  
       invalidGroup = { children: 'hello' };
       expect(Group.safeParse(invalidGroup).success).toBe(false);
     });

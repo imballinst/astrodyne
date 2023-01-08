@@ -7,7 +7,12 @@ interface AllApiOutputInfo {
   comment: any[];
   groups: any[];
   flags: any[];
+  signatures: any[];
+  // Declaration types.
   reflections: any[];
+  intrinsics: any[];
+  literals: any[];
+  references: any[];
 }
 
 async function main() {
@@ -23,7 +28,12 @@ async function main() {
     sources: [],
     groups: [],
     flags: [],
-    reflections: []
+    signatures: [],
+    // Declaration types.
+    reflections: [],
+    intrinsics: [],
+    literals: [],
+    references: []
   };
 
   dive(json, result);
@@ -57,10 +67,16 @@ function dive(json: any, result: AllApiOutputInfo) {
   if (json.comment) result.comment.push(json.comment);
   if (json.sources) result.sources.push(json.sources);
   if (json.groups) result.groups.push(json.groups);
-  if (json.flags && Object.keys(json.flags).length > 0)
+  if (json.signatures) result.signatures.push(json.signatures);
+  if (json.flags && Object.keys(json.flags).length > 0) {
     result.flags.push(json.flags);
-  if (json.type && json.type.type === 'reflection')
-    result.reflections.push(json.type);
+  }
+
+  // Declaration types.
+  if (json.type?.type === 'reflection') result.reflections.push(json.type);
+  if (json.type?.type === 'intrinsic') result.intrinsics.push(json.type);
+  if (json.type?.type === 'literal') result.literals.push(json.type);
+  if (json.type?.type === 'reference') result.references.push(json.type);
 
   if (json.children) {
     for (const child of json.children) {

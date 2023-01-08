@@ -1,0 +1,14 @@
+[
+  {
+    "type": "intrinsic",
+    "name": "string"
+  },
+  {
+    "type": "intrinsic",
+    "name": "number"
+  },
+  {
+    "type": "intrinsic",
+    "name": "string"
+  }
+]

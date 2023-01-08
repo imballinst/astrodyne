@@ -1,0 +1,170 @@
+[
+  [
+    {
+      "id": 3,
+      "name": "TestComponent",
+      "kind": 4096,
+      "kindString": "Call signature",
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Renders a hello world text, the title, as well as the metadata."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "id": 4,
+          "name": "__namedParameters",
+          "kind": 32768,
+          "kindString": "Parameter",
+          "flags": {},
+          "type": {
+            "type": "reference",
+            "id": 31,
+            "name": "TestComponentProps"
+          }
+        }
+      ],
+      "type": {
+        "type": "reference",
+        "name": "Element",
+        "qualifiedName": "global.JSX.Element",
+        "package": "@types/react"
+      }
+    }
+  ],
+  [
+    {
+      "id": 10,
+      "name": "convertToMetadata",
+      "kind": 4096,
+      "kindString": "Call signature",
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Converts the information to metadata."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "id": 11,
+          "name": "information",
+          "kind": 32768,
+          "kindString": "Parameter",
+          "flags": {},
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 12,
+              "name": "__type",
+              "kind": 65536,
+              "kindString": "Type literal",
+              "flags": {},
+              "children": [
+                {
+                  "id": 13,
+                  "name": "id",
+                  "kind": 1024,
+                  "kindString": "Property",
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "helpers/metadata.ts",
+                      "line": 14,
+                      "character": 2
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 14,
+                  "name": "size",
+                  "kind": 1024,
+                  "kindString": "Property",
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "helpers/metadata.ts",
+                      "line": 15,
+                      "character": 2
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    13,
+                    14
+                  ]
+                }
+              ],
+              "sources": [
+                {
+                  "fileName": "helpers/metadata.ts",
+                  "line": 13,
+                  "character": 47
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "type": {
+        "type": "reference",
+        "id": 16,
+        "name": "Metadata"
+      }
+    }
+  ],
+  [
+    {
+      "id": 7,
+      "name": "getInformation",
+      "kind": 4096,
+      "kindString": "Call signature",
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Gets the component information from the given metadata."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "id": 8,
+          "name": "metadata",
+          "kind": 32768,
+          "kindString": "Parameter",
+          "flags": {},
+          "type": {
+            "type": "reference",
+            "id": 16,
+            "name": "Metadata"
+          }
+        }
+      ],
+      "type": {
+        "type": "reference",
+        "id": 19,
+        "name": "ComponentInfo"
+      }
+    }
+  ]
+]

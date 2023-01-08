@@ -1,0 +1,47 @@
+[
+  {
+    "type": "reflection",
+    "declaration": {
+      "id": 28,
+      "name": "__type",
+      "kind": 65536,
+      "kindString": "Type literal",
+      "flags": {},
+      "children": [
+        {
+          "id": 29,
+          "name": "test",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "helpers/types.ts",
+              "line": 39,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            29
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "helpers/types.ts",
+          "line": 38,
+          "character": 17
+        }
+      ]
+    }
+  }
+]

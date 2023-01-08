@@ -7,6 +7,7 @@ interface AllApiOutputInfo {
   comment: any[];
   groups: any[];
   flags: any[];
+  reflections: any[];
 }
 
 async function main() {
@@ -21,7 +22,8 @@ async function main() {
     comment: [],
     sources: [],
     groups: [],
-    flags: []
+    flags: [],
+    reflections: []
   };
 
   dive(json, result);
@@ -55,7 +57,11 @@ function dive(json: any, result: AllApiOutputInfo) {
   if (json.comment) result.comment.push(json.comment);
   if (json.sources) result.sources.push(json.sources);
   if (json.groups) result.groups.push(json.groups);
-  if (json.flags && Object.keys(json.flags).length > 0) result.flags.push(json.flags);
+  if (json.flags && Object.keys(json.flags).length > 0)
+    result.flags.push(json.flags);
+  if (json.type && json.type.type === 'reflection')
+    result.reflections.push(json.type);
+
   if (json.children) {
     for (const child of json.children) {
       dive(child, result);

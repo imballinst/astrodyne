@@ -5,6 +5,9 @@ export const KindString = z.enum([
   'Interface',
   'Property',
   'Function',
-  'Type alias'
+  'Type alias',
+  'Call signature',
+  'Parameter',
+  'Type literal'
 ]);
 export type KindString = z.infer<typeof KindString>;

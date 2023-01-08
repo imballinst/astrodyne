@@ -5,15 +5,16 @@ import { Group } from './group';
 import { KindString } from './kindString';
 import { Source } from './source';
 
+// These are the remaining types that need to be in 1 file together so we're not do circular imports.
 export interface Child {
   id: number;
   name: string;
   kind: number;
   kindString: KindString;
   flags: Flags;
-  comment: Comment;
+  comment?: Comment;
   type?: ChildTypeUnion;
-  groups: Group[];
+  groups?: Group[];
   signatures?: Signature[];
   sources: Source[];
   children?: Child[];
@@ -24,9 +25,9 @@ export const Child: z.ZodType<Child> = z.object({
   kind: z.number(),
   kindString: KindString,
   flags: Flags,
-  comment: Comment,
+  comment: Comment.optional(),
   type: z.lazy(() => ChildTypeUnion).optional(),
-  groups: z.array(Group),
+  groups: z.array(Group).optional(),
   signatures: z.array(z.lazy(() => Signature)).optional(),
   sources: z.array(z.lazy(() => Source)),
   children: z.array(z.lazy(() => Child)).optional()

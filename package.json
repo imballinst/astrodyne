@@ -9,6 +9,9 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "test:docgen": "yarn workspace @astrodyne/docgen test"
+  },
   "devDependencies": {
     "eslint": "8.29.0",
     "eslint-config-standard": "17.0.0",

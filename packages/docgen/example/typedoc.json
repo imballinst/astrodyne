@@ -7,5 +7,5 @@
   "tsconfig": "./tsconfig.json",
   "exclude": ["**/*.test.(ts|tsx)"],
   "excludeExternals": true,
-  "excludeInternal": true
+  "excludeInternal": false
 }

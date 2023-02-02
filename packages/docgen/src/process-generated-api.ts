@@ -1,131 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
-
-type KindString =
-  | 'Module'
-  | 'Function'
-  | 'Interface'
-  | 'Parameter'
-  | 'Call signature'
-  | 'Type alias';
-
-interface Flags {
-  isOptional?: true;
-}
-
-interface TagComment {
-  tag: string;
-  text: string;
-}
-
-interface Child {
-  id: number;
-  name: string;
-  kind: number;
-  kindString: KindString;
-  flags: Flags;
-  comment: Comment;
-  type?: ChildType;
-  groups: Group[];
-  signatures?: Signature[];
-  sources: Source[];
-  children?: Child[];
-}
-
-interface Signature {
-  id: number;
-  name: string;
-  kind: number;
-  kindString: KindString;
-  flags: Flags;
-  comment: Comment;
-  type?: ChildType;
-  parameters: Child[];
-}
-
-interface Group {
-  title: string;
-  kind: number;
-  children: number[];
-}
-
-interface Source {
-  fileName: string;
-  line: number;
-  character: number;
-}
-
-interface Comment {
-  summary?: Array<{
-    kind: string;
-    text: string;
-  }>;
-  tags?: TagComment[];
-}
-
-type NonArrayType =
-  | IntrinsicType
-  | ReferenceType
-  | ReflectionType
-  | JSXType
-  | LiteralType
-  | UnionType;
-type ChildType = NonArrayType | ArrayType;
-
-interface ReflectionType {
-  type: 'reflection';
-  declaration: Child;
-}
-
-interface IntrinsicType {
-  type: 'intrinsic';
-  name: string;
-}
-
-interface ReferenceType {
-  type: 'reference';
-  id: number;
-  name: string;
-}
-
-interface LiteralType {
-  type: 'literal';
-  value: string;
-}
-
-interface UnionType {
-  type: 'union';
-  types: NonArrayType[];
-}
-
-interface JSXType {
-  type: 'reference';
-  qualifiedName: 'global.JSX.Element';
-  package: '@types/react';
-  name: 'Element';
-}
-
-interface ArrayType {
-  type: 'array';
-  elementType: NonArrayType;
-}
-
-interface TopLevelFields {
-  id: number;
-  name: string;
-  kind: number;
-  flags: Flags;
-  originalName: string;
-  children: Child[];
-  groups: Group[];
-}
-
-interface RecordEntry {
-  fileName: string;
-  components: Record<string, Child>;
-  functions: Record<string, Child>;
-  types: Record<string, Child>;
-}
+import {
+  TopLevelFields,
+  Child,
+  RecordEntry,
+  ChildTypeUnion
+} from './models/models';
+import { JSXType } from './models/_base';
 
 (async () => {
   const file = await fs.readFile(path.join(process.cwd(), 'api.json'), 'utf-8');
@@ -162,6 +43,13 @@ interface RecordEntry {
       } else if (child.kindString === 'Function') {
         // Functions.
         tempObj.functions[child.name] = child;
+      } else if (child.kindString === 'Module') {
+        const moduleChildren = child.children || [];
+
+        for (const moduleChild of moduleChildren) {
+          tempObj.types[moduleChild.name] = moduleChild;
+          typeIdRecord[moduleChild.id] = moduleChild;
+        }
       }
     }
 
@@ -279,7 +167,7 @@ ${types.join('\n\n')}
 })();
 
 // Helper functions.
-function isJsxReturnType(type: ChildType | undefined): type is JSXType {
+function isJsxReturnType(type: ChildTypeUnion | undefined): type is JSXType {
   if (type === undefined) {
     return false;
   }
@@ -306,7 +194,8 @@ function getTypeStringArray(
     return `
 ### ${type.name}
 
-${(type.comment.summary || []).map((block) => block.text)}
+${(type.comment?.summary || []).map((block) => block.text)}
+${(type.comment?.blockTags || []).map((block) => block.content.map(c => c.text).join(''))}
 
 ${getTypeBlock(type, typeIdRecord)}
     `.trim();
@@ -326,21 +215,20 @@ ${
   type.children
     ? type.children
         .map((child) => {
+          const tags = child.comment?.blockTags;
           let fieldDescription = '';
-          if (child.comment.tags) {
-            fieldDescription = child.comment.tags
+          if (tags) {
+            fieldDescription = tags
               .map((tag) => {
-                const description = tag.text
-                  .trim()
-                  .split('\n')
-                  .map((line) => `  // ${line}`)
+                const description = tag.content
+                  .map((block) => `  // ${block.text}`)
                   .join('\n');
 
                 return `// @${tag.tag}\n${description}`;
               })
               .join('\n');
           } else {
-            fieldDescription = `// ${(child.comment.summary || []).map(
+            fieldDescription = `// ${(child.comment?.summary || []).map(
               (block) => block.text
             )}`;
           }
@@ -374,7 +262,7 @@ function getChildType(
 }
 
 function getEffectiveType(
-  type: ChildType | undefined,
+  type: ChildTypeUnion | undefined,
   name: string,
   typeIdRecord: Record<number, Child>
 ): string {

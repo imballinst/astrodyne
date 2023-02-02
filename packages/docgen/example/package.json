@@ -4,7 +4,14 @@
   "description": "@astrodyne/docgen example",
   "license": "MIT",
   "scripts": {
-    "gen-md": "ts-node scripts/process-generated-api.ts",
+    "gen-md": "ts-node ../src/process-generated-api.ts",
     "typedoc": "typedoc --tsconfig tsconfig.esm.json"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "ts-node": "10.9.1",
+    "typedoc": "0.23.24",
+    "typedoc-plugin-missing-exports": "1.0.0",
+    "typescript": "4.9.5"
   }
 }

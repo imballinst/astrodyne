@@ -1,30 +1,13 @@
-import fs from 'fs-extra';
 import path from 'path';
 import {
-  TopLevelFields,
+  ChildTypeUnion,
   Child,
   RecordEntry,
-  ChildTypeUnion
-} from './models/models';
-import { JSXType } from './models/_base';
+  TopLevelFields
+} from '../models/models';
+import { JSXType } from '../models/_base';
 
-(async () => {
-  const file = await fs.readFile(path.join(process.cwd(), 'api.json'), 'utf-8');
-  
-  // Clean output folder.
-  await Promise.allSettled([
-    fs.rm('docs/components', { force: true }),
-    fs.rm('docs/types', { force: true }),
-    fs.rm('docs/functions', { force: true })
-  ]);
-
-  await Promise.allSettled([
-    fs.mkdirp('docs/components'),
-    fs.mkdirp('docs/types'),
-    fs.mkdirp('docs/functions')
-  ]);
-
-  const json = JSON.parse(file) as TopLevelFields;
+export function convertApiJSONToMarkdown(json: TopLevelFields) {
   const typeIdRecord: Record<number, Child> = {};
 
   const componentsSection: Omit<RecordEntry, 'functions'>[] = [];
@@ -85,7 +68,7 @@ import { JSXType } from './models/_base';
     }
   }
 
-  const contents: string[][] = [];
+  const contents: Record<string, string> = {};
 
   // Components.
   for (const section of componentsSection) {
@@ -108,18 +91,16 @@ ${(component.signatures![0].comment.summary || []).map((block) => block.text)}
 
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
-    contents.push([
-      `docs/components/${path.basename(section.fileName)}.md`,
-      `
+    const key = `docs/components/${path.basename(section.fileName)}.md`;
+    contents[key] = `
 ## Components
 
 ${components.join('\n\n')}
 
-## Types
+## API
 
 ${types.join('\n\n')}
-    `.trim()
-    ]);
+    `.trim();
   }
 
   // Functions.
@@ -130,9 +111,8 @@ ${types.join('\n\n')}
     functions.push(...getFunctionStringArray(section.functions));
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
-    contents.push([
-      `docs/functions/${path.basename(section.fileName)}.md`,
-      `
+    const key = `docs/functions/${path.basename(section.fileName)}.md`;
+    contents[key] = `
 ## Functions
 
 ${functions.join('\n\n')}
@@ -140,8 +120,7 @@ ${functions.join('\n\n')}
 ## Types
 
 ${types.join('\n\n')}
-        `.trim()
-    ]);
+        `.trim();
   }
 
   // Types.
@@ -149,22 +128,17 @@ ${types.join('\n\n')}
     const types: string[] = [];
 
     types.push(...getTypeStringArray(section.types, typeIdRecord));
-    contents.push([
-      `docs/types/${path.basename(section.fileName)}.md`,
-      `
+
+    const key = `docs/types/${path.basename(section.fileName)}.md`;
+    contents[key] = `
 ## Types
 
 ${types.join('\n\n')}
-        `.trim()
-    ]);
+        `.trim();
   }
 
-  await Promise.allSettled(
-    contents.map(([filePath, content]) =>
-      fs.writeFile(filePath, content, { encoding: 'utf-8' })
-    )
-  );
-})();
+  return contents;
+}
 
 // Helper functions.
 function isJsxReturnType(type: ChildTypeUnion | undefined): type is JSXType {
@@ -206,50 +180,85 @@ ${getTypeBlock(type, typeIdRecord)}
 
 // TODO(imballinst): perhaps table is better.
 function getTypeBlock(type: Child, typeIdRecord: Record<number, Child>) {
-  let content = '';
-
   if (type.kindString === 'Type alias') {
-    content = `type ${type.name} = ${getChildType(type, typeIdRecord)};\n`;
-  } else if (type.kindString === 'Interface') {
-    content = `
-interface ${type.name} {
-${
-  type.children
-    ? type.children
-        .map((child) => {
-          const tags = child.comment?.blockTags;
-          let fieldDescription = '';
-          if (tags) {
-            fieldDescription = tags
-              .map((tag) => {
-                const description = tag.content
-                  .map((block) => `  // ${block.text}`)
-                  .join('\n');
-
-                return `// @${tag.tag}\n${description}`;
-              })
-              .join('\n');
-          } else {
-            fieldDescription = `// ${(child.comment?.summary || []).map(
-              (block) => block.text
-            )}`;
-          }
-
-          return `  ${fieldDescription}\n  ${child.name}: ${getChildType(
-            child,
-            typeIdRecord
-          )};\n`;
-        })
-        .join('')
-    : ''
-}}`;
-  }
-
-  return `
+    return `
 \`\`\`ts
-${content.trim()}
+type ${type.name} = ${getChildType(type, typeIdRecord)};\n
 \`\`\`
   `.trim();
+  }
+
+  if (type.kindString === 'Interface') {
+    const { children = [] } = type;
+
+    return `
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+${processChildrenFields(children, typeIdRecord)}
+`.trim();
+  }
+
+  return '';
+}
+
+function processChildrenFields(
+  children: Child[],
+  typeIdRecord: Record<number, Child>
+) {
+  const rows: string[] = [];
+
+  for (const child of children) {
+    const tags = child.comment?.blockTags;
+    const summary = child.comment?.summary;
+    // This only misses description, which we will extract from the tags below.
+    const row = [
+      child.name,
+      getChildType(child, typeIdRecord)
+    ];
+    let description = ''
+
+    if (tags) {
+      description = tags
+      .map((tag) => {
+        const description = tag.content
+          .map((block) => `  // ${block.text}`)
+          .join('\n');
+
+        return `// @${tag.tag}\n${description}`;
+      })
+      .join('\n');
+    } else {
+    }
+  }
+
+  return rows.join('\n');
+
+  return children
+    .map((child) => {
+      const tags = child.comment?.blockTags;
+      let fieldDescription = '';
+      if (tags) {
+        fieldDescription = tags
+          .map((tag) => {
+            const description = tag.content
+              .map((block) => `  // ${block.text}`)
+              .join('\n');
+
+            return `// @${tag.tag}\n${description}`;
+          })
+          .join('\n');
+      } else {
+        fieldDescription = `// ${(child.comment?.summary || []).map(
+          (block) => block.text
+        )}`;
+      }
+
+      return `  ${fieldDescription}\n  ${child.name}: ${getChildType(
+        child,
+        typeIdRecord
+      )};\n`;
+    })
+    .join('');
 }
 
 function getChildType(

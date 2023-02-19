@@ -7,6 +7,14 @@ import {
 } from '../models/models';
 import { JSXType } from '../models/_base';
 
+const TAG_TO_TAG_DESCRIPTION: Record<string, string> = {
+  '@deprecated': 'Deprecated'
+};
+enum NewlinePresentation {
+  LineBreak = '\n',
+  HTMLLineBreak = '<br/>'
+}
+
 export function convertApiJSONToMarkdown(json: TopLevelFields) {
   const typeIdRecord: Record<number, Child> = {};
 
@@ -168,17 +176,13 @@ function getTypeStringArray(
     return `
 ### ${type.name}
 
-${(type.comment?.summary || []).map((block) => block.text)}
-${(type.comment?.blockTags || []).map((block) =>
-  block.content.map((c) => c.text).join('')
-)}
+${getChildDescription(type, NewlinePresentation.LineBreak)}
 
 ${getTypeBlock(type, typeIdRecord)}
     `.trim();
   });
 }
 
-// TODO(imballinst): perhaps table is better.
 function getTypeBlock(type: Child, typeIdRecord: Record<number, Child>) {
   if (type.kindString === 'Type alias') {
     return `
@@ -206,59 +210,17 @@ function processChildrenFields(
   typeIdRecord: Record<number, Child>
 ) {
   const rows: string[] = [];
+  children.sort((a, b) => a.id - b.id);
 
   for (const child of children) {
-    const tags = child.comment?.blockTags;
-    const summary = child.comment?.summary;
     // This only misses description, which we will extract from the tags below.
-    const row = [
-      child.name,
-      getChildType(child, typeIdRecord)
-    ];
-    let description = ''
+    const row = [child.name, getChildType(child, typeIdRecord)];
 
-    if (tags) {
-      description = tags
-      .map((tag) => {
-        const description = tag.content
-          .map((block) => `  // ${block.text}`)
-          .join('\n');
-
-        return `// @${tag.tag}\n${description}`;
-      })
-      .join('\n');
-    } else {
-    }
+    row.push(getChildDescription(child, NewlinePresentation.HTMLLineBreak));
+    rows.push(`| ${row.join(' | ')} |`);
   }
 
   return rows.join('\n');
-
-  return children
-    .map((child) => {
-      const tags = child.comment?.blockTags;
-      let fieldDescription = '';
-      if (tags) {
-        fieldDescription = tags
-          .map((tag) => {
-            const description = tag.content
-              .map((block) => `  // ${block.text}`)
-              .join('\n');
-
-            return `// @${tag.tag}\n${description}`;
-          })
-          .join('\n');
-      } else {
-        fieldDescription = `// ${(child.comment?.summary || []).map(
-          (block) => block.text
-        )}`;
-      }
-
-      return `  ${fieldDescription}\n  ${child.name}: ${getChildType(
-        child,
-        typeIdRecord
-      )};\n`;
-    })
-    .join('');
 }
 
 function getChildType(
@@ -310,7 +272,39 @@ function getEffectiveType(
 
       return `{\n${fields}\n}`;
     }
+    default:
+      return '';
+  }
+}
+
+function getChildDescription(
+  child: Child,
+  newlineCharacter: NewlinePresentation
+) {
+  const tags = child.comment?.blockTags || [];
+  const summary = child.comment?.summary || [];
+  let description = '';
+
+  if (tags.length > 0) {
+    description += tags
+      .map((tag) => {
+        const description = tag.content
+          .map((block) => block.text.replace(/\n/g, newlineCharacter))
+          .join('');
+        const tagName = TAG_TO_TAG_DESCRIPTION[tag.tag]
+          ? `**[${TAG_TO_TAG_DESCRIPTION[tag.tag]}]** `
+          : '';
+
+        return `${tagName}${description}`;
+      })
+      .join('\n');
   }
 
-  return '';
+  if (summary.length > 0) {
+    description += (summary || [])
+      .map((block) => block.text.replace(/\n/g, newlineCharacter))
+      .join('');
+  }
+
+  return description;
 }

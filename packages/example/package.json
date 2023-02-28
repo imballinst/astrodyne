@@ -4,7 +4,7 @@
   "description": "@astrodyne/docgen example",
   "license": "MIT",
   "scripts": {
-    "gen-md": "ts-node ../src/process-generated-api.ts",
+    "gen-md": "yarn ts-node ../docgen/src/process-generated-api.ts ./website/src/pages",
     "typedoc": "typedoc --tsconfig tsconfig.esm.json"
   },
   "devDependencies": {

@@ -211,24 +211,24 @@ function processChildrenFields(
     const tags = child.comment?.blockTags;
     const summary = child.comment?.summary;
     // This only misses description, which we will extract from the tags below.
-    const row = [
-      child.name,
-      getChildType(child, typeIdRecord)
-    ];
-    let description = ''
+    const row = [child.name, getChildType(child, typeIdRecord)];
+    let description = '';
 
     if (tags) {
       description = tags
-      .map((tag) => {
-        const description = tag.content
-          .map((block) => `  // ${block.text}`)
-          .join('\n');
+        .map((tag) => {
+          const description = tag.content
+            .map((block) => `  // ${block.text}`)
+            .join('\n');
 
-        return `// @${tag.tag}\n${description}`;
-      })
-      .join('\n');
-    } else {
+          return `// @${tag.tag}\n${description}`;
+        })
+        .join('\n');
+    } else if (summary) {
+      description = summary.map((block) => block.text).join('\n');
     }
+
+    row.push(description);
   }
 
   return rows.join('\n');

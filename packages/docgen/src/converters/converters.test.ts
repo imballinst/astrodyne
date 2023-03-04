@@ -47,13 +47,13 @@ Converts the information to metadata.
 
 #### Parameters
 
-| Prop | Type | Description |
+| Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| information | object | The information object. |
-| information.id | object | The component ID. |
-| information.number | object | The component information's size. |
+| information | [Object](#information_12) |  |
 
 #### Returns
+
+Metadata
 
 ### getInformation
 

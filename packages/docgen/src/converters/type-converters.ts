@@ -1,4 +1,6 @@
 import { Child, ChildTypeUnion } from '../models/models';
+import { mergeTypeIdRecord } from './type-id-record';
+import { EffectiveTypeResult } from './types';
 
 export enum NewlinePresentation {
   LineBreak = '\n',
@@ -60,7 +62,7 @@ export function getChildType(
     return '';
   }
 
-  return `${getEffectiveType(child.type, child.name, typeIdRecord)}`;
+  return `${getEffectiveType(child.type, child.name, typeIdRecord).typeString}`;
 }
 
 export function getChildDescription(
@@ -95,11 +97,6 @@ export function getChildDescription(
   return description;
 }
 
-interface EffectiveTypeResult {
-  typeString: string;
-  localTypeIdRecord: Record<number, Child>;
-}
-
 export function getEffectiveType(
   type: ChildTypeUnion | undefined,
   name: string,
@@ -132,9 +129,10 @@ export function getEffectiveType(
         const childResult = getEffectiveType(typeChild, name, typeIdRecord);
         unions.push(childResult.typeString);
 
-        for (const [k, v] of Object.entries(childResult.localTypeIdRecord)) {
-          result.localTypeIdRecord[Number(k)] = v;
-        }
+        mergeTypeIdRecord(
+          result.localTypeIdRecord,
+          childResult.localTypeIdRecord
+        );
       }
 
       result.typeString = '(' + unions.join(' | ') + ')';
@@ -145,10 +143,10 @@ export function getEffectiveType(
 
       for (const child of children) {
         const childResult = getEffectiveType(child.type, name, typeIdRecord);
-
-        for (const [k, v] of Object.entries(childResult.localTypeIdRecord)) {
-          result.localTypeIdRecord[Number(k)] = v;
-        }
+        mergeTypeIdRecord(
+          result.localTypeIdRecord,
+          childResult.localTypeIdRecord
+        );
       }
 
       break;

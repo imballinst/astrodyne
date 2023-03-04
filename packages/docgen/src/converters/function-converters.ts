@@ -1,6 +1,8 @@
 import { Child, ReflectionType, Signature } from '../models/models';
 import { getEffectiveType } from './type-converters';
 import { ReferenceType } from '../models/_base';
+import { EffectiveTypeResult, TypeIdRecord } from './types';
+import { mergeTypeIdRecord } from './type-id-record';
 
 export function getFunctionStringArray(
   entities: Record<string, Child>,
@@ -21,6 +23,7 @@ export function getFunctionStringArray(
         content.push(getFunctionParameters(overload.parameters, typeIdRecord));
       }
 
+      content.push(getFunctionReturns(overload, typeIdRecord));
       result.push(content.join('\n\n'));
     }
   }
@@ -45,36 +48,49 @@ function getFunctionParameters(
   let result = '';
 
   for (const child of children) {
-    const parameterBlockInformation = getParameterBlock(child, typeIdRecord);
+    const childResult = getParameterBlock(child, typeIdRecord);
+    result += childResult.typeString;
+
+    mergeTypeIdRecord(localTypeIdRecord, childResult.localTypeIdRecord);
   }
 
   return `
 #### Parameters
 
 ${children.map((child) => {
-  return getParameterBlock(child, typeIdRecord);
+  return getParameterBlock(child, typeIdRecord).typeString;
 })}
   `.trim();
 }
 
 // Note that we can't use getTypeBlock here because Parameter has its own name.
 function getParameterBlock(child: Child, typeIdRecord: Record<number, Child>) {
-  let localTypeIdRecord: Record<string, Child> = {};
+  let result: EffectiveTypeResult = {
+    typeString: '',
+    localTypeIdRecord: {}
+  };
 
   // TODO: return string and localTypeIdRecord here.
   if (child.type?.type === 'reflection') {
-    const result = getEffectiveType(child.type, child.name, typeIdRecord);
-    const typeString = result.typeString;
-    localTypeIdRecord = result.localTypeIdRecord;
+    const temp = getEffectiveType(child.type, child.name, typeIdRecord);
 
-    return `
+    result.typeString = `
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| ${child.name} | ${typeString} | ${(child.comment?.summary || []).map(
-      (block) => block.text
-    )} |
+| ${child.name} | ${temp.typeString} | ${(child.comment?.summary || [])
+      .map((block) => block.text)
+      .join('')} |
   `.trim();
+    result.localTypeIdRecord = temp.localTypeIdRecord;
   }
 
-  return '';
+  return result;
+}
+
+function getFunctionReturns(fn: Signature, typeIdRecord: TypeIdRecord) {
+  return `
+#### Returns
+
+${getEffectiveType(fn.type, '', typeIdRecord).typeString}
+  `.trim();
 }

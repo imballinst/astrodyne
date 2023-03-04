@@ -6,12 +6,9 @@ import {
   TopLevelFields
 } from '../models/models';
 import { JSXType } from '../models/_base';
+import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
-import {
-  getChildDescription,
-  getTypeBlock,
-  NewlinePresentation
-} from './type-converters';
+import { getTypeBlock, NewlinePresentation } from './type-converters';
 
 export function convertApiJSONToMarkdown(json: TopLevelFields) {
   const typeIdRecord: Record<number, Child> = {};
@@ -163,7 +160,7 @@ function getTypeStringArray(
     return `
 ### ${type.name}
 
-${getChildDescription(type, NewlinePresentation.LineBreak)}
+${convertCommentToString(type.comment, NewlinePresentation.LineBreak)}
 
 ${getTypeBlock(type, typeIdRecord)}
     `.trim();

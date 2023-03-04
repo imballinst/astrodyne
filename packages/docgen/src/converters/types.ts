@@ -6,3 +6,7 @@ export interface EffectiveTypeResult {
   typeString: string;
   localTypeIdRecord: TypeIdRecord;
 }
+
+export interface EffectiveTypeResultWithDescription extends EffectiveTypeResult {
+  description: string
+}

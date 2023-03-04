@@ -1,6 +1,11 @@
 import { Child, ChildTypeUnion } from '../models/models';
+import { JSXType, ReferenceType } from '../models/_base';
+import { convertCommentToString } from './comment-converters';
 import { mergeTypeIdRecord } from './type-id-record';
-import { EffectiveTypeResult } from './types';
+import {
+  EffectiveTypeResult,
+  EffectiveTypeResultWithDescription
+} from './types';
 
 export enum NewlinePresentation {
   LineBreak = '\n',
@@ -47,7 +52,9 @@ export function processChildrenFields(
     // This only misses description, which we will extract from the tags below.
     const row = [child.name, getChildType(child, typeIdRecord)];
 
-    row.push(getChildDescription(child, NewlinePresentation.HTMLLineBreak));
+    row.push(
+      convertCommentToString(child.comment, NewlinePresentation.HTMLLineBreak)
+    );
     rows.push(`| ${row.join(' | ')} |`);
   }
 
@@ -65,45 +72,14 @@ export function getChildType(
   return `${getEffectiveType(child.type, child.name, typeIdRecord).typeString}`;
 }
 
-export function getChildDescription(
-  child: Child,
-  newlineCharacter: NewlinePresentation
-) {
-  const tags = child.comment?.blockTags || [];
-  const summary = child.comment?.summary || [];
-  let description = '';
-
-  if (tags.length > 0) {
-    description += tags
-      .map((tag) => {
-        const description = tag.content
-          .map((block) => block.text.replace(/\n/g, newlineCharacter))
-          .join('');
-        const tagName = TAG_TO_TAG_DESCRIPTION[tag.tag]
-          ? `**[${TAG_TO_TAG_DESCRIPTION[tag.tag]}]** `
-          : '';
-
-        return `${tagName}${description}`;
-      })
-      .join('\n');
-  }
-
-  if (summary.length > 0) {
-    description += (summary || [])
-      .map((block) => block.text.replace(/\n/g, newlineCharacter))
-      .join('');
-  }
-
-  return description;
-}
-
 export function getEffectiveType(
   type: ChildTypeUnion | undefined,
   name: string,
   typeIdRecord: Record<number, Child>
-): EffectiveTypeResult {
-  const result: EffectiveTypeResult = {
+): EffectiveTypeResultWithDescription {
+  const result: EffectiveTypeResultWithDescription = {
     typeString: '',
+    description: '',
     localTypeIdRecord: {}
   };
 
@@ -114,7 +90,23 @@ export function getEffectiveType(
   }
 
   switch (type.type) {
-    case 'reference':
+    case 'reference': {
+      const parsedJSX = JSXType.safeParse(type);
+      if (parsedJSX.success) {
+        result.typeString = 'ReactElement';
+      }
+
+      const parsedReference = ReferenceType.safeParse(type);
+      if (parsedReference.success) {
+        result.typeString = type.name;
+        result.description = convertCommentToString(
+          typeIdRecord[parsedReference.data.id].comment,
+          NewlinePresentation.HTMLLineBreak
+        );
+      }
+
+      break;
+    }
     case 'intrinsic':
       result.typeString = type.name;
       break;

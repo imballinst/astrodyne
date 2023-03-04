@@ -24,6 +24,7 @@ export function getFunctionStringArray(
       }
 
       content.push(getFunctionReturns(overload, typeIdRecord));
+      // TODO: add types here and have it hyperlinked.
       result.push(content.join('\n\n'));
     }
   }
@@ -70,7 +71,6 @@ function getParameterBlock(child: Child, typeIdRecord: Record<number, Child>) {
     localTypeIdRecord: {}
   };
 
-  // TODO: return string and localTypeIdRecord here.
   if (child.type?.type === 'reflection') {
     const temp = getEffectiveType(child.type, child.name, typeIdRecord);
 
@@ -80,6 +80,17 @@ function getParameterBlock(child: Child, typeIdRecord: Record<number, Child>) {
 | ${child.name} | ${temp.typeString} | ${(child.comment?.summary || [])
       .map((block) => block.text)
       .join('')} |
+  `.trim();
+    result.localTypeIdRecord = temp.localTypeIdRecord;
+  }
+
+  if (child.type?.type === 'reference') {
+    const temp = getEffectiveType(child.type, child.name, typeIdRecord);
+
+    result.typeString = `
+| Parameter | Type | Description |
+| ---- | ---- | ----------- |
+| ${child.name} | ${temp.typeString} | ${temp.description} |
   `.trim();
     result.localTypeIdRecord = temp.localTypeIdRecord;
   }

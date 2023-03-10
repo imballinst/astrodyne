@@ -8,7 +8,7 @@ import {
 import { JSXType } from '../models/_base';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
-import { getTypeBlock, NewlinePresentation } from './type-converters';
+import { getTypeStringArray, NewlinePresentation } from './type-converters';
 
 export function convertApiJSONToMarkdown(json: TopLevelFields) {
   const typeIdRecord: Record<number, Child> = {};
@@ -76,17 +76,19 @@ export function convertApiJSONToMarkdown(json: TopLevelFields) {
   // Components.
   for (const section of componentsSection) {
     const components: string[] = [];
-    const types: string[] = [];
+    const types: string[][] = [];
 
     for (const componentKey in section.components) {
       const component = section.components[componentKey];
 
-      // TODO(imballinst): handle deprecated tags, etc.
       components.push(
         `
 ### ${component.name}
 
-${(component.signatures![0].comment.summary || []).map((block) => block.text)}
+${convertCommentToString(
+  component.signatures?.[0].comment,
+  NewlinePresentation.LineBreak
+)}
 
       `.trim()
       );
@@ -100,44 +102,43 @@ ${(component.signatures![0].comment.summary || []).map((block) => block.text)}
 
 ${components.join('\n\n')}
 
-## API
+## Types
 
-${types.join('\n\n')}
+${sortAndMapTuple(types).join('\n\n')}
     `.trim();
   }
 
   // Functions.
   for (const section of functionsSection) {
     const functions: string[] = [];
-    const types: string[] = [];
+    const types: string[][] = [];
 
     functions.push(...getFunctionStringArray(section.functions, typeIdRecord));
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
     const key = `docs/functions/${path.basename(section.fileName)}.md`;
-    contents[key] = `
-## Functions
-
-${functions.join('\n\n')}
-
-## Types
-
-${types.join('\n\n')}
-        `.trim();
+    contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
+    contents[key] += addTextIfArrayIsNonEmpty(
+      '## Types',
+      sortAndMapTuple(types)
+    );
   }
 
   // Types.
   for (const section of typesSection) {
-    const types: string[] = [];
+    const types: string[][] = [];
 
-    types.push(...getTypeStringArray(section.types, typeIdRecord));
+    types.push(
+      ...getTypeStringArray(section.types, typeIdRecord, {
+        extractInPlace: true
+      })
+    );
 
     const key = `docs/types/${path.basename(section.fileName)}.md`;
-    contents[key] = `
-## Types
-
-${types.join('\n\n')}
-        `.trim();
+    contents[key] = addTextIfArrayIsNonEmpty(
+      '## Types',
+      sortAndMapTuple(types)
+    );
   }
 
   return contents;
@@ -152,17 +153,23 @@ function isJsxReturnType(type: ChildTypeUnion | undefined): type is JSXType {
   return type.type === 'reference' && type.name === 'Element';
 }
 
-function getTypeStringArray(
-  record: Record<string, Child>,
-  typeIdRecord: Record<number, Child>
-) {
-  return Object.values(record).map((type) => {
-    return `
-### ${type.name}
+function addTextIfArrayIsNonEmpty(heading: string, content: string[]) {
+  if (content.length === 0) return '';
 
-${convertCommentToString(type.comment, NewlinePresentation.LineBreak)}
+  return `
+${heading}
 
-${getTypeBlock(type, typeIdRecord)}
-    `.trim();
+${content.join('\n\n')}
+  `.trim();
+}
+
+function sortAndMapTuple(array: string[][]) {
+  const newArray = [...array];
+  newArray.sort((a, b) => {
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+    return 0;
   });
+
+  return newArray.map((item) => item[1]);
 }

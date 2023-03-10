@@ -2,28 +2,52 @@ import { Child, ChildTypeUnion } from '../models/models';
 import { JSXType, ReferenceType } from '../models/_base';
 import { convertCommentToString } from './comment-converters';
 import { mergeTypeIdRecord } from './type-id-record';
-import {
-  EffectiveTypeResult,
-  EffectiveTypeResultWithDescription
-} from './types';
+import { EffectiveTypeResultWithDescription } from './types';
 
 export enum NewlinePresentation {
   LineBreak = '\n',
   HTMLLineBreak = '<br/>'
 }
 
-const TAG_TO_TAG_DESCRIPTION: Record<string, string> = {
-  '@deprecated': 'Deprecated'
-};
+interface Options {
+  extractInPlace?: boolean;
+}
 
-export function getTypeBlock(
+export function getTypeStringArray(
+  record: Record<string, Child>,
+  typeIdRecord: Record<number, Child>,
+  options?: Options
+) {
+  return Object.values(record).map((type) => {
+    return [
+      type.name,
+      `
+### ${type.name}
+
+${convertCommentToString(type.comment, NewlinePresentation.LineBreak)}
+
+${getTypeBlock(type, typeIdRecord, options)}
+    `.trim()
+    ];
+  });
+}
+
+function getTypeBlock(
   child: Child,
-  typeIdRecord: Record<number, Child>
+  typeIdRecord: Record<number, Child>,
+  options?: Options
 ) {
   if (child.kindString === 'Type alias') {
+    const childTypeString = getChildType(child, typeIdRecord, options);
+
+    if (options?.extractInPlace && child.type?.type === 'reflection') {
+      // If it's reflection and we use extract in place, then it'll generate tables like usual.
+      return childTypeString;
+    }
+
     return `
 \`\`\`ts
-type ${child.name} = ${getChildType(child, typeIdRecord)};\n
+type ${child.name} = ${getChildType(child, typeIdRecord, options)};
 \`\`\`
   `.trim();
   }
@@ -31,11 +55,7 @@ type ${child.name} = ${getChildType(child, typeIdRecord)};\n
   if (child.kindString === 'Interface' || child.kindString === 'Type literal') {
     const { children = [] } = child;
 
-    return `
-| Prop | Type | Description |
-| ---- | ---- | ----------- |
-${processChildrenFields(children, typeIdRecord)}
-`.trim();
+    return processChildrenFields(children, typeIdRecord);
   }
 
   return '';
@@ -58,24 +78,31 @@ export function processChildrenFields(
     rows.push(`| ${row.join(' | ')} |`);
   }
 
-  return rows.join('\n');
+  return `
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+${rows.join('\n')}
+  `.trim();
 }
 
 export function getChildType(
   child: Child,
-  typeIdRecord: Record<number, Child>
+  typeIdRecord: Record<number, Child>,
+  options?: Options
 ): string {
   if (child.type?.type === undefined) {
     return '';
   }
 
-  return `${getEffectiveType(child.type, child.name, typeIdRecord).typeString}`;
+  return getEffectiveType(child.type, child.name, typeIdRecord, options)
+    .typeString;
 }
 
 export function getEffectiveType(
   type: ChildTypeUnion | undefined,
   name: string,
-  typeIdRecord: Record<number, Child>
+  typeIdRecord: Record<number, Child>,
+  options?: Options
 ): EffectiveTypeResultWithDescription {
   const result: EffectiveTypeResultWithDescription = {
     typeString: '',
@@ -86,7 +113,7 @@ export function getEffectiveType(
   if (type === undefined) return result;
 
   if (type.type === 'array') {
-    return getEffectiveType(type.elementType, name, typeIdRecord);
+    return getEffectiveType(type.elementType, name, typeIdRecord, options);
   }
 
   switch (type.type) {
@@ -118,7 +145,12 @@ export function getEffectiveType(
       const unions: string[] = [];
 
       for (const typeChild of type.types) {
-        const childResult = getEffectiveType(typeChild, name, typeIdRecord);
+        const childResult = getEffectiveType(
+          typeChild,
+          name,
+          typeIdRecord,
+          options
+        );
         unions.push(childResult.typeString);
 
         mergeTypeIdRecord(
@@ -130,11 +162,24 @@ export function getEffectiveType(
       result.typeString = '(' + unions.join(' | ') + ')';
       break;
     case 'reflection': {
-      result.typeString = `[Object](#${name}_${type.declaration.id})`;
+      if (options?.extractInPlace) {
+        result.typeString = processChildrenFields(
+          type.declaration.children || [],
+          typeIdRecord
+        );
+      } else {
+        result.typeString = `[Object](#${name}_${type.declaration.id})`;
+      }
+
       const children = type.declaration.children || [];
 
       for (const child of children) {
-        const childResult = getEffectiveType(child.type, name, typeIdRecord);
+        const childResult = getEffectiveType(
+          child.type,
+          name,
+          typeIdRecord,
+          options
+        );
         mergeTypeIdRecord(
           result.localTypeIdRecord,
           childResult.localTypeIdRecord

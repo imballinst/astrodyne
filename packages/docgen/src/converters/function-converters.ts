@@ -1,6 +1,5 @@
-import { Child, ReflectionType, Signature } from '../models/models';
+import { Child, Signature } from '../models/models';
 import { getEffectiveType } from './type-converters';
-import { ReferenceType } from '../models/_base';
 import { EffectiveTypeResult, TypeIdRecord } from './types';
 import { mergeTypeIdRecord } from './type-id-record';
 
@@ -10,8 +9,6 @@ export function getFunctionStringArray(
 ) {
   const result: string[] = [];
   const values = Object.values(entities);
-
-  const localTypeIdRecord: Record<string, Child> = {};
 
   for (const value of values) {
     const overloads = value.signatures || [];

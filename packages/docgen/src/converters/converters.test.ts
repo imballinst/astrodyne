@@ -86,7 +86,7 @@ Component info.
 | size | number | This determines the size of the component. |
 | sizeArray | number | This determines the size array of the component. |
 | test | "World2" | Sampel test field |
-| test2 | ("World2" | "Hello2") | Sampel test field |
+| test2 | ("World2" \\| "Hello2") | Sampel test field |
 | test3 | World | Sampel test field |
 
 ### Hello

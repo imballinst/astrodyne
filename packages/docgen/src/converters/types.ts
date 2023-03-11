@@ -1,12 +1,13 @@
-import { Child } from "../models/models";
+import { Child } from '../models/models';
 
-export type TypeIdRecord = Record<number, Child>
+export type TypeIdRecord = Record<number, Child>;
 
 export interface EffectiveTypeResult {
   typeString: string;
-  localTypeIdRecord: TypeIdRecord;
+  inlineTypeIds: number[];
 }
 
-export interface EffectiveTypeResultWithDescription extends EffectiveTypeResult {
-  description: string
+export interface EffectiveTypeResultWithDescription
+  extends EffectiveTypeResult {
+  description: string;
 }

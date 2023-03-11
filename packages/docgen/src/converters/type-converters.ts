@@ -1,7 +1,6 @@
 import { Child, ChildTypeUnion } from '../models/models';
 import { JSXType, ReferenceType } from '../models/_base';
 import { convertCommentToString } from './comment-converters';
-import { mergeTypeIdRecord } from './type-id-record';
 import { EffectiveTypeResultWithDescription } from './types';
 
 export enum NewlinePresentation {
@@ -19,16 +18,13 @@ export function getTypeStringArray(
   options?: Options
 ) {
   return Object.values(record).map((type) => {
-    return [
-      type.name,
-      `
-### ${type.name}
+    const text = [
+      `### ${type.name}`,
+      convertCommentToString(type.comment, NewlinePresentation.LineBreak),
+      getTypeBlock(type, typeIdRecord, options)
+    ].filter(Boolean);
 
-${convertCommentToString(type.comment, NewlinePresentation.LineBreak)}
-
-${getTypeBlock(type, typeIdRecord, options)}
-    `.trim()
-    ];
+    return [type.name, text.join('\n\n')];
   });
 }
 
@@ -110,7 +106,7 @@ export function getEffectiveType(
   const result: EffectiveTypeResultWithDescription = {
     typeString: '',
     description: '',
-    localTypeIdRecord: {}
+    inlineTypeIds: []
   };
 
   if (type === undefined) return result;
@@ -155,11 +151,6 @@ export function getEffectiveType(
           options
         );
         unions.push(childResult.typeString);
-
-        mergeTypeIdRecord(
-          result.localTypeIdRecord,
-          childResult.localTypeIdRecord
-        );
       }
 
       result.typeString = '(' + unions.join(' | ') + ')';
@@ -171,22 +162,14 @@ export function getEffectiveType(
           typeIdRecord
         );
       } else {
-        result.typeString = `[Object](#${name}_${type.declaration.id})`;
-      }
+        const id = type.declaration.id;
 
-      const children = type.declaration.children || [];
-
-      for (const child of children) {
-        const childResult = getEffectiveType(
-          child.type,
-          name,
-          typeIdRecord,
-          options
-        );
-        mergeTypeIdRecord(
-          result.localTypeIdRecord,
-          childResult.localTypeIdRecord
-        );
+        result.typeString = `[Object](#${name}_${id})`;
+        result.inlineTypeIds.push(id);
+        typeIdRecord[id] = {
+          ...type.declaration,
+          name: `${name}_${id}`
+        };
       }
 
       break;

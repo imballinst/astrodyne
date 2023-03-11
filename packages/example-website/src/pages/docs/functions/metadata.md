@@ -27,3 +27,12 @@ Gets the component information from the given metadata.
 #### Returns
 
 ComponentInfo
+
+## Types
+
+### information_12
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| id | string |  |
+| size | number |  |

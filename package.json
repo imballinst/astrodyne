@@ -10,8 +10,8 @@
     ]
   },
   "scripts": {
-    "test:docgen": "yarn workspace @astrodyne/docgen test",
-    "gen:example": "yarn workspace @astrodyne/example gen-md"
+    "test:docgen": "yarn workspace docgen test",
+    "gen:example": "yarn workspace example gen-md"
   },
   "devDependencies": {
     "eslint": "8.29.0",

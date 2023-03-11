@@ -113,13 +113,20 @@ ${sortAndMapTuple(types).join('\n\n')}
     const functions: string[] = [];
     const types: string[][] = [];
 
-    functions.push(...getFunctionStringArray(section.functions, typeIdRecord));
+    const result = getFunctionStringArray(section.functions, typeIdRecord);
+
+    functions.push(...result.textArray);
+
+    for (const id of result.inlineTypeIds) {
+      section.types[id] = typeIdRecord[id];
+    }
+
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
     const key = `docs/functions/${path.basename(section.fileName)}.md`;
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
     contents[key] += addTextIfArrayIsNonEmpty(
-      '## Types',
+      '\n\n## Types',
       sortAndMapTuple(types)
     );
   }
@@ -156,11 +163,9 @@ function isJsxReturnType(type: ChildTypeUnion | undefined): type is JSXType {
 function addTextIfArrayIsNonEmpty(heading: string, content: string[]) {
   if (content.length === 0) return '';
 
-  return `
-${heading}
+  return `${heading}
 
-${content.join('\n\n')}
-  `.trim();
+${content.join('\n\n')}`;
 }
 
 function sortAndMapTuple(array: string[][]) {

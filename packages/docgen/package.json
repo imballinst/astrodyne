@@ -1,5 +1,5 @@
 {
-  "name": "@astrodyne/docgen",
+  "name": "docgen",
   "version": "0.0.1",
   "description": "Astrodyne's TypeScript documentation generator",
   "license": "MIT",

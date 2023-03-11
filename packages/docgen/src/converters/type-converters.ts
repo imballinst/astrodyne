@@ -159,7 +159,7 @@ export function getEffectiveType(
         );
       }
 
-      result.typeString = '(' + unions.join(' | ') + ')';
+      result.typeString = '(' + unions.join(' \\| ') + ')';
       break;
     case 'reflection': {
       if (options?.extractInPlace) {

@@ -9,7 +9,7 @@ Component info.
 | size | number | This determines the size of the component. |
 | sizeArray | number | This determines the size array of the component. |
 | test | "World2" | Sampel test field |
-| test2 | ("World2" | "Hello2") | Sampel test field |
+| test2 | ("World2" \| "Hello2") | Sampel test field |
 | test3 | World | Sampel test field |
 
 ### Hello
@@ -34,7 +34,7 @@ The metadata used for the test component.
 Test normal type assign 2.
 
 ```ts
-type World = ("Hello2" | "World2");
+type World = ("Hello2" \| "World2");
 ```
 
 ### XD

@@ -34,7 +34,7 @@ The metadata used for the test component.
 Test normal type assign 2.
 
 ```ts
-type World = ("Hello2" \| "World2");
+type World = ("Hello2" | "World2");
 ```
 
 ### XD

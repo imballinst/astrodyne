@@ -11,7 +11,6 @@ export enum NewlinePresentation {
 
 interface Options {
   extractInPlace?: boolean;
-  isEscapePipes?: boolean;
 }
 
 export function getTypeStringArray(
@@ -71,15 +70,15 @@ export function processChildrenFields(
 
   for (const child of children) {
     // This only misses description, which we will extract from the tags below.
-    const row = [
+    const columns = [
       child.name,
-      getChildType(child, typeIdRecord, { isEscapePipes: true })
+      getChildType(child, typeIdRecord).replace(/\|/, '\\|')
     ];
-
-    row.push(
+    columns.push(
       convertCommentToString(child.comment, NewlinePresentation.HTMLLineBreak)
     );
-    rows.push(`| ${row.join(' | ')} |`);
+
+    rows.push(`| ${columns.join(' | ')} |`);
   }
 
   return `
@@ -163,8 +162,7 @@ export function getEffectiveType(
         );
       }
 
-      result.typeString =
-        '(' + unions.join(options?.isEscapePipes ? ' \\| ' : ' | ') + ')';
+      result.typeString = '(' + unions.join(' | ') + ')';
       break;
     case 'reflection': {
       if (options?.extractInPlace) {

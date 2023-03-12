@@ -1,4 +1,7 @@
-import { Child, Signature } from '../models/models';
+import { Child, ReflectionType, Signature } from '../models/models';
+import { Source } from '../models/source';
+import { ReferenceType } from '../models/_base';
+import { getRelativePath } from '../utils/file';
 import { convertCommentToString } from './comment-converters';
 import { getEffectiveType, NewlinePresentation } from './type-converters';
 import { EffectiveTypeResult, TypeIdRecord } from './types';
@@ -32,7 +35,9 @@ export function getFunctionStringArray(
         ];
       }
 
-      content.push(getFunctionReturns(overload, typeIdRecord));
+      content.push(
+        getFunctionReturns(overload, typeIdRecord, value.sources?.[0])
+      );
       result.textArray.push(content.join('\n\n'));
     }
   }
@@ -122,11 +127,31 @@ function getParameterBlock(
   return result;
 }
 
-function getFunctionReturns(fn: Signature, typeIdRecord: TypeIdRecord) {
+function getFunctionReturns(
+  fn: Signature,
+  typeIdRecord: TypeIdRecord,
+  functionSource: Source | undefined
+) {
+  const reference = ReferenceType.safeParse(fn.type);
+  const reflection = ReflectionType.safeParse(fn.type);
+  let link: string | undefined;
+
+  if (reference.success) {
+    link = getRelativePath(
+      functionSource,
+      typeIdRecord[reference.data.id].sources?.[0]
+    );
+  } else if (reflection.success) {
+    link = getLocalFunctionParameterName(fn.name, reflection.data.declaration);
+  }
+
+  const effectiveType = getEffectiveType(fn.type, '', typeIdRecord).typeString;
+  const rendered = link ? `[${effectiveType}](${link})` : effectiveType;
+
   return `
 #### Returns
 
-${getEffectiveType(fn.type, '', typeIdRecord).typeString}
+${rendered}
   `.trim();
 }
 

@@ -8,11 +8,11 @@ Converts the information to metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| information | [Object](#information_12) |  |
+| information | [Object](#convertToMetadata_information) |  |
 
 #### Returns
 
-Metadata
+[Metadata](../types.md)
 
 ### getInformation
 
@@ -26,11 +26,11 @@ Gets the component information from the given metadata.
 
 #### Returns
 
-ComponentInfo
+[ComponentInfo](../types.md)
 
 ## Types
 
-### information_12
+### convertToMetadata_information
 
 | Prop | Type | Description |
 | ---- | ---- | ----------- |

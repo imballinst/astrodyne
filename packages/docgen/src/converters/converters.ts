@@ -96,7 +96,7 @@ ${convertCommentToString(
 
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
-    const key = `docs/components/${path.basename(section.fileName)}.md`;
+    const key = `docs/components/${section.fileName}.md`;
     contents[key] = `
 ## Components
 
@@ -123,7 +123,7 @@ ${sortAndMapTuple(types).join('\n\n')}
 
     types.push(...getTypeStringArray(section.types, typeIdRecord));
 
-    const key = `docs/functions/${path.basename(section.fileName)}.md`;
+    const key = `docs/functions/${section.fileName}.md`;
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
     contents[key] += addTextIfArrayIsNonEmpty(
       '\n\n## Types',
@@ -141,7 +141,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       })
     );
 
-    const key = `docs/types/${path.basename(section.fileName)}.md`;
+    const key = `docs/types/${section.fileName}.md`;
     contents[key] = addTextIfArrayIsNonEmpty(
       '## Types',
       sortAndMapTuple(types)

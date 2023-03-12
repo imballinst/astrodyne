@@ -7,5 +7,8 @@ export function getRelativePath(
 ) {
   if (!src || !dst) return '';
 
-  return relative(src.fileName, dst.fileName).replace(/\.tsx?/, '.md');
+  return relative(
+    `docs/stub/${src.fileName}`,
+    `docs/types/${dst.fileName}`
+  ).replace(/\.tsx?/, '.md');
 }

@@ -13,7 +13,7 @@ describe('convertApiJSONToMarkdown', () => {
   const result = convertApiJSONToMarkdown(JSON.parse(apiJson));
 
   test('components', () => {
-    expect(result['docs/components/TestComponent.md']).toBe(
+    expect(result['docs/components/components/TestComponent.md']).toBe(
       `
 ## Components
 
@@ -37,7 +37,7 @@ The props passed to TestComponent.
   });
 
   test('functions', () => {
-    expect(result['docs/functions/metadata.md']).toBe(
+    expect(result['docs/functions/helpers/metadata.md']).toBe(
       `
 ## Functions
 
@@ -53,7 +53,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../types.md)
+[Metadata](../../../types/helpers/types.md)
 
 ### getInformation
 
@@ -67,7 +67,7 @@ Gets the component information from the given metadata.
 
 #### Returns
 
-[ComponentInfo](../types.md)
+[ComponentInfo](../../../types/helpers/types.md)
 
 ## Types
 
@@ -82,7 +82,7 @@ Gets the component information from the given metadata.
   });
 
   test('types', () => {
-    expect(result['docs/types/types.md']).toBe(
+    expect(result['docs/types/helpers/types.md']).toBe(
       `
 ## Types
 

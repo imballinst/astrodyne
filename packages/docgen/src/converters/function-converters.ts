@@ -142,7 +142,7 @@ function getFunctionReturns(
   const reference = ReferenceType.safeParse(fn.type);
   const reflection = ReflectionType.safeParse(fn.type);
   const inlineTypeIds: number[] = [];
-  let link: string | undefined;
+  let link = '';
 
   if (reference.success) {
     link = getRelativePath(
@@ -161,8 +161,14 @@ function getFunctionReturns(
     inlineTypeIds.push(reflection.data.declaration.id);
   }
 
-  const effectiveType = getEffectiveType(fn.type, '', typeIdRecord).typeString;
-  const rendered = link ? `[${effectiveType}](${link})` : effectiveType;
+  const effectiveType = getEffectiveType(
+    fn.type,
+    link,
+    typeIdRecord
+  ).typeString;
+  const rendered = !effectiveType.includes('[Object]')
+    ? `[${effectiveType}](${link})`
+    : effectiveType;
 
   return {
     returns: `

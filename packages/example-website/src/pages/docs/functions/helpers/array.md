@@ -8,7 +8,7 @@ Converts a string into an array of each characters.
 
 #### Returns
 
-[[Object](#)](splitCharacters_returnValue)
+[Object](#splitCharacters_returnValue)
 
 ## Types
 

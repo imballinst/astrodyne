@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import { relative } from 'path';
 import { Source } from '../models/source';
 
@@ -11,4 +12,13 @@ export function getRelativePath(
     `docs/stub/${src.fileName}`,
     `docs/types/${dst.fileName}`
   ).replace(/\.tsx?/, '.md');
+}
+
+export async function isDirectoryExist(dir: string) {
+  try {
+    await fs.stat(dir);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }

@@ -53,7 +53,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../../../types/helpers/types.md)
+[Metadata](../../types/helpers/types.md)
 
 ### getInformation
 
@@ -67,7 +67,7 @@ Gets the component information from the given metadata.
 
 #### Returns
 
-[ComponentInfo](../../../types/helpers/types.md)
+[ComponentInfo](../../types/helpers/types.md)
 
 ## Types
 

@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { relative } from 'path';
+import { dirname, relative } from 'path';
 import { Source } from '../models/source';
 
 export function getRelativePath(
@@ -9,7 +9,7 @@ export function getRelativePath(
   if (!src || !dst) return '';
 
   return relative(
-    `docs/stub/${src.fileName}`,
+    `docs/stub/${dirname(src.fileName)}`,
     `docs/types/${dst.fileName}`
   ).replace(/\.tsx?/, '.md');
 }

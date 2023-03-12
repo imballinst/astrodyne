@@ -49,7 +49,7 @@ Converts the information to metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| information | [Object](#information_12) |  |
+| information | [Object](#convertToMetadata_information) |  |
 
 #### Returns
 
@@ -71,7 +71,7 @@ ComponentInfo
 
 ## Types
 
-### information_12
+### convertToMetadata_information
 
 | Prop | Type | Description |
 | ---- | ---- | ----------- |

@@ -164,11 +164,12 @@ export function getEffectiveType(
       } else {
         const id = type.declaration.id;
 
-        result.typeString = `[Object](#${name}_${id})`;
+        result.typeString = `[Object](#${name})`;
         result.inlineTypeIds.push(id);
+
         typeIdRecord[id] = {
           ...type.declaration,
-          name: `${name}_${id}`
+          name
         };
       }
 

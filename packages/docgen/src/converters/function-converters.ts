@@ -23,10 +23,7 @@ export function getFunctionStringArray(
       const content: string[] = [getFunctionSummary(overload)];
 
       if (overload.parameters.length) {
-        const childResult = getFunctionParameters(
-          overload.parameters,
-          typeIdRecord
-        );
+        const childResult = getFunctionParameters(overload, typeIdRecord);
 
         content.push(childResult.parameters);
         result.inlineTypeIds = [
@@ -53,7 +50,7 @@ ${(fn.comment.summary || []).map((block) => block.text)}
 }
 
 function getFunctionParameters(
-  children: Child[],
+  overload: Signature,
   typeIdRecord: Record<string, Child>
 ) {
   const result: EffectiveTypeResult = {
@@ -61,8 +58,8 @@ function getFunctionParameters(
     inlineTypeIds: []
   };
 
-  for (const child of children) {
-    const childResult = getParameterBlock(child, typeIdRecord);
+  for (const child of overload.parameters) {
+    const childResult = getParameterBlock(child, typeIdRecord, overload.name);
 
     result.typeString += childResult.typeString;
     result.inlineTypeIds.push(...childResult.inlineTypeIds);
@@ -79,14 +76,22 @@ ${result.typeString}
 }
 
 // Note that we can't use getTypeBlock here because Parameter has its own name.
-function getParameterBlock(child: Child, typeIdRecord: Record<number, Child>) {
+function getParameterBlock(
+  child: Child,
+  typeIdRecord: Record<number, Child>,
+  functionName: string
+) {
   let result: EffectiveTypeResult = {
     typeString: '',
     inlineTypeIds: []
   };
 
   if (child.type?.type === 'reflection') {
-    const temp = getEffectiveType(child.type, child.name, typeIdRecord);
+    const temp = getEffectiveType(
+      child.type,
+      getLocalFunctionParameterName(functionName, child),
+      typeIdRecord
+    );
 
     result.typeString = `
 | Parameter | Type | Description |
@@ -100,7 +105,11 @@ function getParameterBlock(child: Child, typeIdRecord: Record<number, Child>) {
   }
 
   if (child.type?.type === 'reference') {
-    const temp = getEffectiveType(child.type, child.name, typeIdRecord);
+    const temp = getEffectiveType(
+      child.type,
+      getLocalFunctionParameterName(functionName, child),
+      typeIdRecord
+    );
 
     result.typeString = `
 | Parameter | Type | Description |
@@ -119,4 +128,8 @@ function getFunctionReturns(fn: Signature, typeIdRecord: TypeIdRecord) {
 
 ${getEffectiveType(fn.type, '', typeIdRecord).typeString}
   `.trim();
+}
+
+function getLocalFunctionParameterName(functionName: string, child: Child) {
+  return `${functionName}_${child.name}`;
 }

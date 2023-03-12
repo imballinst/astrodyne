@@ -79,6 +79,30 @@ Gets the component information from the given metadata.
 | size | number |  |
     `.trim()
     );
+
+    expect(result['docs/functions/helpers/array.md']).toBe(
+      `
+## Functions
+
+### splitCharacters
+
+Converts a string into an array of each characters.
+
+#### Parameters
+
+#### Returns
+
+[[Object](#)](splitCharacters_returnValue)
+
+## Types
+
+### splitCharacters_returnValue
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| array | string |  |
+    `.trim()
+    );
   });
 
   test('types', () => {

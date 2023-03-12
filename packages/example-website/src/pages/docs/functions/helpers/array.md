@@ -8,4 +8,12 @@ Converts a string into an array of each characters.
 
 #### Returns
 
-[[Object](#)](splitCharacters___type)
+[[Object](#)](splitCharacters_returnValue)
+
+## Types
+
+### splitCharacters_returnValue
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| array | string |  |

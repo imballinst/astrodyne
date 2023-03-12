@@ -34,10 +34,17 @@ export function getFunctionStringArray(
           ...childResult.inlineTypeIds
         ];
       }
-
-      content.push(
-        getFunctionReturns(overload, typeIdRecord, value.sources?.[0])
+      const childResult = getFunctionReturns(
+        overload,
+        typeIdRecord,
+        value.sources?.[0]
       );
+      content.push(childResult.returns);
+      result.inlineTypeIds = [
+        ...result.inlineTypeIds,
+        ...childResult.inlineTypeIds
+      ];
+
       result.textArray.push(content.join('\n\n'));
     }
   }
@@ -134,6 +141,7 @@ function getFunctionReturns(
 ) {
   const reference = ReferenceType.safeParse(fn.type);
   const reflection = ReflectionType.safeParse(fn.type);
+  const inlineTypeIds: number[] = [];
   let link: string | undefined;
 
   if (reference.success) {
@@ -142,17 +150,28 @@ function getFunctionReturns(
       typeIdRecord[reference.data.id].sources?.[0]
     );
   } else if (reflection.success) {
-    link = getLocalFunctionParameterName(fn.name, reflection.data.declaration);
+    link = getLocalFunctionParameterName(fn.name, {
+      ...reflection.data.declaration,
+      name: 'returnValue'
+    });
+    typeIdRecord[reflection.data.declaration.id] = {
+      ...typeIdRecord[reflection.data.declaration.id],
+      name: link
+    };
+    inlineTypeIds.push(reflection.data.declaration.id);
   }
 
   const effectiveType = getEffectiveType(fn.type, '', typeIdRecord).typeString;
   const rendered = link ? `[${effectiveType}](${link})` : effectiveType;
 
-  return `
+  return {
+    returns: `
 #### Returns
 
 ${rendered}
-  `.trim();
+      `.trim(),
+    inlineTypeIds
+  };
 }
 
 function getLocalFunctionParameterName(functionName: string, child: Child) {

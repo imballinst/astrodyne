@@ -169,7 +169,7 @@ export function getEffectiveType(
 
         typeIdRecord[id] = {
           ...type.declaration,
-          name
+          name: typeIdRecord[id]?.name || name
         };
       }
 

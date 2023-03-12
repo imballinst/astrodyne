@@ -121,7 +121,11 @@ ${sortAndMapTuple(types).join('\n\n')}
       section.types[id] = typeIdRecord[id];
     }
 
-    types.push(...getTypeStringArray(section.types, typeIdRecord));
+    types.push(
+      ...getTypeStringArray(section.types, typeIdRecord, {
+        extractInPlace: true
+      })
+    );
 
     const key = `docs/functions/${section.fileName}.md`;
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);

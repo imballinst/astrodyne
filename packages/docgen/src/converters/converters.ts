@@ -10,7 +10,10 @@ import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
 
-export function convertApiJSONToMarkdown(json: TopLevelFields) {
+export function convertApiJSONToMarkdown(
+  json: TopLevelFields,
+  output: 'md' | 'mdx'
+) {
   const typeIdRecord: Record<number, Child> = {};
 
   const componentsSection: Omit<RecordEntry, 'functions'>[] = [];

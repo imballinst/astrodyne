@@ -27,8 +27,12 @@ import { isDirectoryExist } from './utils/file';
       '$0 gen-md api.json src/pages/docs',
       'generates documentation files from api.json and outputs it into src/pages/docs folder'
     )
+    .option('mode', {
+      describe: 'the output mode. Available options are "github" or "astro"',
+      default: 'github'
+    })
     .parse();
-
+  return console.info(argv);
   const [_command, input, output] = argv._;
   const file = await fs.readFile(path.join(process.cwd(), `${input}`), 'utf-8');
 

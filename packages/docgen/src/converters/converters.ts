@@ -6,13 +6,14 @@ import {
   TopLevelFields
 } from '../models/models';
 import { JSXType } from '../models/_base';
+import { generateTextBasedOnMode, OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
 
 export function convertApiJSONToMarkdown(
   json: TopLevelFields,
-  output: 'md' | 'mdx'
+  mode: OutputMode
 ) {
   const typeIdRecord: Record<number, Child> = {};
 
@@ -97,9 +98,11 @@ ${convertCommentToString(
       );
     }
 
-    types.push(...getTypeStringArray(section.types, typeIdRecord));
+    types.push(
+      ...getTypeStringArray({ record: section.types, typeIdRecord, mode })
+    );
 
-    const key = `components/${section.fileName}.md`;
+    const key = generateTextBasedOnMode(`components/${section.fileName}`, mode);
     contents[key] = `
 ## Components
 
@@ -116,7 +119,11 @@ ${sortAndMapTuple(types).join('\n\n')}
     const functions: string[] = [];
     const types: string[][] = [];
 
-    const result = getFunctionStringArray(section.functions, typeIdRecord);
+    const result = getFunctionStringArray({
+      entities: section.functions,
+      typeIdRecord,
+      mode
+    });
 
     functions.push(...result.textArray);
 
@@ -125,12 +132,17 @@ ${sortAndMapTuple(types).join('\n\n')}
     }
 
     types.push(
-      ...getTypeStringArray(section.types, typeIdRecord, {
-        extractInPlace: true
+      ...getTypeStringArray({
+        record: section.types,
+        typeIdRecord,
+        options: {
+          extractInPlace: true
+        },
+        mode
       })
     );
 
-    const key = `functions/${section.fileName}.md`;
+    const key = generateTextBasedOnMode(`functions/${section.fileName}`, mode);
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
     contents[key] += addTextIfArrayIsNonEmpty(
       '\n\n## Types',
@@ -143,12 +155,17 @@ ${sortAndMapTuple(types).join('\n\n')}
     const types: string[][] = [];
 
     types.push(
-      ...getTypeStringArray(section.types, typeIdRecord, {
-        extractInPlace: true
+      ...getTypeStringArray({
+        record: section.types,
+        typeIdRecord,
+        options: {
+          extractInPlace: true
+        },
+        mode
       })
     );
 
-    const key = `types/${section.fileName}.md`;
+    const key = generateTextBasedOnMode(`types/${section.fileName}`, mode);
     contents[key] = addTextIfArrayIsNonEmpty(
       '## Types',
       sortAndMapTuple(types)

@@ -2,14 +2,20 @@ import { Child, ReflectionType, Signature } from '../models/models';
 import { Source } from '../models/source';
 import { ReferenceType } from '../models/_base';
 import { getRelativePath } from '../utils/file';
+import { OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { getEffectiveType, NewlinePresentation } from './type-converters';
 import { EffectiveTypeResult, TypeIdRecord } from './types';
 
-export function getFunctionStringArray(
-  entities: Record<string, Child>,
-  typeIdRecord: Record<string, Child>
-) {
+export function getFunctionStringArray({
+  entities,
+  typeIdRecord,
+  mode
+}: {
+  entities: Record<string, Child>;
+  typeIdRecord: Record<string, Child>;
+  mode: OutputMode;
+}) {
   const result: {
     textArray: string[];
     inlineTypeIds: number[];
@@ -26,7 +32,11 @@ export function getFunctionStringArray(
       const content: string[] = [getFunctionSummary(overload)];
 
       if (overload.parameters.length) {
-        const childResult = getFunctionParameters(overload, typeIdRecord);
+        const childResult = getFunctionParameters({
+          overload,
+          typeIdRecord,
+          mode
+        });
 
         content.push(childResult.parameters);
         result.inlineTypeIds = [
@@ -34,11 +44,12 @@ export function getFunctionStringArray(
           ...childResult.inlineTypeIds
         ];
       }
-      const childResult = getFunctionReturns(
-        overload,
+      const childResult = getFunctionReturns({
+        signature: overload,
         typeIdRecord,
-        value.sources?.[0]
-      );
+        functionSource: value.sources?.[0],
+        mode
+      });
       content.push(childResult.returns);
       result.inlineTypeIds = [
         ...result.inlineTypeIds,
@@ -61,17 +72,27 @@ ${(fn.comment.summary || []).map((block) => block.text)}
   `.trim();
 }
 
-function getFunctionParameters(
-  overload: Signature,
-  typeIdRecord: Record<string, Child>
-) {
+function getFunctionParameters({
+  overload,
+  typeIdRecord,
+  mode
+}: {
+  overload: Signature;
+  typeIdRecord: Record<string, Child>;
+  mode: OutputMode;
+}) {
   const result: EffectiveTypeResult = {
     typeString: '',
     inlineTypeIds: []
   };
 
   for (const child of overload.parameters) {
-    const childResult = getParameterBlock(child, typeIdRecord, overload.name);
+    const childResult = getParameterBlock({
+      child,
+      typeIdRecord,
+      functionName: overload.name,
+      mode
+    });
 
     result.typeString += childResult.typeString;
     result.inlineTypeIds.push(...childResult.inlineTypeIds);
@@ -88,22 +109,29 @@ ${result.typeString}
 }
 
 // Note that we can't use getTypeBlock here because Parameter has its own name.
-function getParameterBlock(
-  child: Child,
-  typeIdRecord: Record<number, Child>,
-  functionName: string
-) {
+function getParameterBlock({
+  child,
+  typeIdRecord,
+  functionName,
+  mode
+}: {
+  child: Child;
+  typeIdRecord: Record<number, Child>;
+  functionName: string;
+  mode: OutputMode;
+}) {
   let result: EffectiveTypeResult = {
     typeString: '',
     inlineTypeIds: []
   };
 
   if (child.type?.type === 'reflection') {
-    const temp = getEffectiveType(
-      child.type,
-      getLocalFunctionParameterName(functionName, child),
-      typeIdRecord
-    );
+    const temp = getEffectiveType({
+      type: child.type,
+      name: getLocalFunctionParameterName(functionName, child),
+      typeIdRecord,
+      mode
+    });
 
     result.typeString = `
 | Parameter | Type | Description |
@@ -117,11 +145,12 @@ function getParameterBlock(
   }
 
   if (child.type?.type === 'reference') {
-    const temp = getEffectiveType(
-      child.type,
-      getLocalFunctionParameterName(functionName, child),
-      typeIdRecord
-    );
+    const temp = getEffectiveType({
+      type: child.type,
+      name: getLocalFunctionParameterName(functionName, child),
+      typeIdRecord,
+      mode
+    });
 
     result.typeString = `
 | Parameter | Type | Description |
@@ -134,23 +163,30 @@ function getParameterBlock(
   return result;
 }
 
-function getFunctionReturns(
-  fn: Signature,
-  typeIdRecord: TypeIdRecord,
-  functionSource: Source | undefined
-) {
-  const reference = ReferenceType.safeParse(fn.type);
-  const reflection = ReflectionType.safeParse(fn.type);
+function getFunctionReturns({
+  signature,
+  typeIdRecord,
+  functionSource,
+  mode
+}: {
+  signature: Signature;
+  typeIdRecord: TypeIdRecord;
+  functionSource: Source | undefined;
+  mode: OutputMode;
+}) {
+  const reference = ReferenceType.safeParse(signature.type);
+  const reflection = ReflectionType.safeParse(signature.type);
   const inlineTypeIds: number[] = [];
   let link = '';
 
   if (reference.success) {
     link = getRelativePath(
       functionSource,
-      typeIdRecord[reference.data.id].sources?.[0]
+      typeIdRecord[reference.data.id].sources?.[0],
+      mode
     );
   } else if (reflection.success) {
-    link = getLocalFunctionParameterName(fn.name, {
+    link = getLocalFunctionParameterName(signature.name, {
       ...reflection.data.declaration,
       name: 'returnValue'
     });
@@ -161,11 +197,12 @@ function getFunctionReturns(
     inlineTypeIds.push(reflection.data.declaration.id);
   }
 
-  const effectiveType = getEffectiveType(
-    fn.type,
-    link,
-    typeIdRecord
-  ).typeString;
+  const effectiveType = getEffectiveType({
+    type: signature.type,
+    name: link,
+    typeIdRecord,
+    mode
+  }).typeString;
   const rendered = !effectiveType.includes('[Object]')
     ? `[${effectiveType}](${link})`
     : effectiveType;

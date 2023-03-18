@@ -1,5 +1,6 @@
 import { Child, ChildTypeUnion } from '../models/models';
 import { JSXType, ReferenceType } from '../models/_base';
+import { OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { EffectiveTypeResultWithDescription } from './types';
 
@@ -12,29 +13,46 @@ interface Options {
   extractInPlace?: boolean;
 }
 
-export function getTypeStringArray(
-  record: Record<string, Child>,
-  typeIdRecord: Record<number, Child>,
-  options?: Options
-) {
-  return Object.values(record).map((type) => {
+export function getTypeStringArray({
+  record,
+  typeIdRecord,
+  options,
+  mode
+}: {
+  record: Record<string, Child>;
+  typeIdRecord: Record<number, Child>;
+  options?: Options;
+  mode: OutputMode;
+}) {
+  return Object.values(record).map((child) => {
     const text = [
-      `### ${type.name}`,
-      convertCommentToString(type.comment, NewlinePresentation.LineBreak),
-      getTypeBlock(type, typeIdRecord, options)
+      `### ${child.name}`,
+      convertCommentToString(child.comment, NewlinePresentation.LineBreak),
+      getTypeBlock({ child, typeIdRecord, options, mode })
     ].filter(Boolean);
 
-    return [type.name, text.join('\n\n')];
+    return [child.name, text.join('\n\n')];
   });
 }
 
-function getTypeBlock(
-  child: Child,
-  typeIdRecord: Record<number, Child>,
-  options?: Options
-) {
+function getTypeBlock({
+  child,
+  typeIdRecord,
+  options,
+  mode
+}: {
+  child: Child;
+  typeIdRecord: Record<number, Child>;
+  options?: Options;
+  mode: OutputMode;
+}) {
   if (child.kindString === 'Type alias') {
-    const childTypeString = getChildType(child, typeIdRecord, options);
+    const childTypeString = getChildType({
+      child,
+      typeIdRecord,
+      options,
+      mode
+    });
 
     if (options?.extractInPlace && child.type?.type === 'reflection') {
       // If it's reflection and we use extract in place, then it'll generate tables like usual.
@@ -43,7 +61,7 @@ function getTypeBlock(
 
     return `
 \`\`\`ts
-type ${child.name} = ${getChildType(child, typeIdRecord, options)};
+type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
 \`\`\`
   `.trim();
   }
@@ -51,16 +69,21 @@ type ${child.name} = ${getChildType(child, typeIdRecord, options)};
   if (child.kindString === 'Interface' || child.kindString === 'Type literal') {
     const { children = [] } = child;
 
-    return processChildrenFields(children, typeIdRecord);
+    return processChildrenFields({ children, typeIdRecord, mode });
   }
 
   return '';
 }
 
-export function processChildrenFields(
-  children: Child[],
-  typeIdRecord: Record<number, Child>
-) {
+export function processChildrenFields({
+  children,
+  typeIdRecord,
+  mode
+}: {
+  children: Child[];
+  typeIdRecord: Record<number, Child>;
+  mode: OutputMode;
+}) {
   const rows: string[] = [];
   children.sort((a, b) => a.id - b.id);
 
@@ -68,7 +91,7 @@ export function processChildrenFields(
     // This only misses description, which we will extract from the tags below.
     const columns = [
       child.name,
-      getChildType(child, typeIdRecord).replace(/\|/, '\\|')
+      getChildType({ child, typeIdRecord, mode }).replace(/\|/, '\\|')
     ];
     columns.push(
       convertCommentToString(child.comment, NewlinePresentation.HTMLLineBreak)
@@ -84,25 +107,43 @@ ${rows.join('\n')}
   `.trim();
 }
 
-export function getChildType(
-  child: Child,
-  typeIdRecord: Record<number, Child>,
-  options?: Options
-): string {
+export function getChildType({
+  child,
+  typeIdRecord,
+  options,
+  mode
+}: {
+  child: Child;
+  typeIdRecord: Record<number, Child>;
+  options?: Options;
+  mode: OutputMode;
+}): string {
   if (child.type?.type === undefined) {
     return '';
   }
 
-  return getEffectiveType(child.type, child.name, typeIdRecord, options)
-    .typeString;
+  return getEffectiveType({
+    type: child.type,
+    name: child.name,
+    typeIdRecord,
+    options,
+    mode
+  }).typeString;
 }
 
-export function getEffectiveType(
-  type: ChildTypeUnion | undefined,
-  name: string,
-  typeIdRecord: Record<number, Child>,
-  options?: Options
-): EffectiveTypeResultWithDescription {
+export function getEffectiveType({
+  type,
+  name,
+  typeIdRecord,
+  options,
+  mode
+}: {
+  type: ChildTypeUnion | undefined;
+  name: string;
+  typeIdRecord: Record<number, Child>;
+  options?: Options;
+  mode: OutputMode;
+}): EffectiveTypeResultWithDescription {
   const result: EffectiveTypeResultWithDescription = {
     typeString: '',
     description: '',
@@ -112,7 +153,13 @@ export function getEffectiveType(
   if (type === undefined) return result;
 
   if (type.type === 'array') {
-    return getEffectiveType(type.elementType, name, typeIdRecord, options);
+    return getEffectiveType({
+      type: type.elementType,
+      name,
+      typeIdRecord,
+      options,
+      mode
+    });
   }
 
   switch (type.type) {
@@ -144,12 +191,13 @@ export function getEffectiveType(
       const unions: string[] = [];
 
       for (const typeChild of type.types) {
-        const childResult = getEffectiveType(
-          typeChild,
+        const childResult = getEffectiveType({
+          type: typeChild,
           name,
           typeIdRecord,
-          options
-        );
+          options,
+          mode
+        });
         unions.push(childResult.typeString);
       }
 
@@ -157,10 +205,11 @@ export function getEffectiveType(
       break;
     case 'reflection': {
       if (options?.extractInPlace) {
-        result.typeString = processChildrenFields(
-          type.declaration.children || [],
-          typeIdRecord
-        );
+        result.typeString = processChildrenFields({
+          children: type.declaration.children || [],
+          typeIdRecord,
+          mode
+        });
       } else {
         const id = type.declaration.id;
 

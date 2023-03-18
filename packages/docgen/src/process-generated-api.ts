@@ -6,6 +6,7 @@ import { hideBin } from 'yargs/helpers';
 import { convertApiJSONToMarkdown } from './converters/converters';
 import { TopLevelFields } from './models/models';
 import { isDirectoryExist } from './utils/file';
+import { OutputMode } from './utils/mode';
 
 (async () => {
   const cwd = process.cwd();
@@ -28,11 +29,12 @@ import { isDirectoryExist } from './utils/file';
       'generates documentation files from api.json and outputs it into src/pages/docs folder'
     )
     .option('mode', {
-      describe: 'the output mode. Available options are "github" or "astro"',
+      describe: 'the output mode',
+      choices: ['github', 'astro'],
       default: 'github'
     })
     .parse();
-  return console.info(argv);
+
   const [_command, input, output] = argv._;
   const file = await fs.readFile(path.join(process.cwd(), `${input}`), 'utf-8');
 
@@ -52,7 +54,8 @@ import { isDirectoryExist } from './utils/file';
   ]);
 
   const json = JSON.parse(file) as TopLevelFields;
-  const contents = convertApiJSONToMarkdown(json, 'md');
+  // TODO: add yaml entry metadata at the top
+  const contents = convertApiJSONToMarkdown(json, argv.mode as OutputMode);
 
   await Promise.allSettled(
     Object.entries(contents).map(async ([filePath, content]) => {

@@ -10,10 +10,10 @@ const apiJson = fs.readFileSync(
 );
 
 describe('convertApiJSONToMarkdown', () => {
-  const result = convertApiJSONToMarkdown(JSON.parse(apiJson));
+  const result = convertApiJSONToMarkdown(JSON.parse(apiJson), 'md');
 
   test('components', () => {
-    expect(result['docs/components/components/TestComponent.md']).toBe(
+    expect(result['components/components/TestComponent.md']).toBe(
       `
 ## Components
 
@@ -37,7 +37,7 @@ The props passed to TestComponent.
   });
 
   test('functions', () => {
-    expect(result['docs/functions/helpers/metadata.md']).toBe(
+    expect(result['functions/helpers/metadata.md']).toBe(
       `
 ## Functions
 
@@ -80,7 +80,7 @@ Gets the component information from the given metadata.
     `.trim()
     );
 
-    expect(result['docs/functions/helpers/array.md']).toBe(
+    expect(result['functions/helpers/array.md']).toBe(
       `
 ## Functions
 
@@ -106,7 +106,7 @@ Converts a string into an array of each characters.
   });
 
   test('types', () => {
-    expect(result['docs/types/helpers/types.md']).toBe(
+    expect(result['types/helpers/types.md']).toBe(
       `
 ## Types
 

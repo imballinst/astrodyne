@@ -1,6 +1,6 @@
 {
   "name": "astrodyne",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "private": true,
   "description": "An attempt of creating integration between TypeDoc and Astro, hopefully it will work!",
   "repository": "git@github.com:imballinst/astrodyne.git",

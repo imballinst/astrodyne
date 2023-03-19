@@ -1,3 +1,8 @@
+---
+title: Array helpers
+description: This file contains the array helpers
+---
+
 ## Functions
 
 ### splitCharacters

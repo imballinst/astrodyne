@@ -9,9 +9,17 @@ const apiJson = fs.readFileSync(
   'utf-8'
 );
 
-describe('convertApiJSONToMarkdown', () => {
-  const result = convertApiJSONToMarkdown(JSON.parse(apiJson), 'github');
-  const resultAstro = convertApiJSONToMarkdown(JSON.parse(apiJson), 'astro');
+describe('convertApiJSONToMarkdown', async () => {
+  const result = await convertApiJSONToMarkdown({
+    json: JSON.parse(apiJson),
+    mode: 'github',
+    input: 'src'
+  });
+  const resultAstro = await convertApiJSONToMarkdown({
+    json: JSON.parse(apiJson),
+    mode: 'astro',
+    input: 'src'
+  });
 
   test('components', () => {
     expect(result['components/components/TestComponent.md']).toBe(
@@ -146,6 +154,11 @@ Gets the component information from the given metadata.
 
     expect(result['functions/helpers/array.md']).toBe(
       `
+---
+title: Array helpers
+description: This file contains the array helpers
+---
+
 ## Functions
 
 ### splitCharacters
@@ -169,6 +182,11 @@ Converts a string into an array of each characters.
     );
     expect(resultAstro['functions/helpers/array.mdx']).toBe(
       `
+---
+title: Array helpers
+description: This file contains the array helpers
+---
+
 ## Functions
 
 ### splitCharacters

@@ -73,7 +73,7 @@
 											"fileName": "components/TestComponent.tsx",
 											"line": 19,
 											"character": 2,
-											"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L19"
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L19"
 										}
 									],
 									"type": {
@@ -101,7 +101,7 @@
 											"fileName": "components/TestComponent.tsx",
 											"line": 12,
 											"character": 2,
-											"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L12"
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L12"
 										}
 									],
 									"type": {
@@ -129,7 +129,7 @@
 											"fileName": "components/TestComponent.tsx",
 											"line": 10,
 											"character": 2,
-											"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L10"
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L10"
 										}
 									],
 									"type": {
@@ -153,7 +153,7 @@
 									"fileName": "components/TestComponent.tsx",
 									"line": 8,
 									"character": 10,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L8"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L8"
 								}
 							]
 						}
@@ -178,7 +178,7 @@
 							"fileName": "components/TestComponent.tsx",
 							"line": 25,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L25"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L25"
 						}
 					],
 					"signatures": [
@@ -239,7 +239,7 @@
 					"fileName": "components/TestComponent.tsx",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/components/TestComponent.tsx#L1"
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L1"
 				}
 			]
 		},
@@ -249,6 +249,14 @@
 			"kind": 2,
 			"kindString": "Module",
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "$title: Array helpers\n$description: This file contains the array helpers.\n\nHello world, this is the package description"
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 6,
@@ -259,8 +267,9 @@
 					"sources": [
 						{
 							"fileName": "helpers/array.ts",
-							"line": 4,
-							"character": 16
+							"line": 13,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
 						}
 					],
 					"signatures": [
@@ -309,8 +318,9 @@
 											"sources": [
 												{
 													"fileName": "helpers/array.ts",
-													"line": 4,
-													"character": 48
+													"line": 13,
+													"character": 48,
+													"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
 												}
 											],
 											"type": {
@@ -333,8 +343,9 @@
 									"sources": [
 										{
 											"fileName": "helpers/array.ts",
-											"line": 4,
-											"character": 46
+											"line": 13,
+											"character": 46,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
 										}
 									]
 								}
@@ -354,8 +365,9 @@
 			"sources": [
 				{
 					"fileName": "helpers/array.ts",
-					"line": 4,
-					"character": 0
+					"line": 13,
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
 				}
 			]
 		},
@@ -377,7 +389,7 @@
 							"fileName": "helpers/metadata.ts",
 							"line": 13,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L13"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L13"
 						}
 					],
 					"signatures": [
@@ -422,7 +434,7 @@
 															"fileName": "helpers/metadata.ts",
 															"line": 14,
 															"character": 2,
-															"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L14"
+															"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L14"
 														}
 													],
 													"type": {
@@ -441,7 +453,7 @@
 															"fileName": "helpers/metadata.ts",
 															"line": 15,
 															"character": 2,
-															"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L15"
+															"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L15"
 														}
 													],
 													"type": {
@@ -464,7 +476,7 @@
 													"fileName": "helpers/metadata.ts",
 													"line": 13,
 													"character": 47,
-													"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L13"
+													"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L13"
 												}
 											]
 										}
@@ -490,7 +502,7 @@
 							"fileName": "helpers/metadata.ts",
 							"line": 6,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L6"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L6"
 						}
 					],
 					"signatures": [
@@ -545,7 +557,7 @@
 					"fileName": "helpers/metadata.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/metadata.ts#L1"
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L1"
 				}
 			]
 		},
@@ -590,7 +602,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 14,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L14"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L14"
 								}
 							],
 							"type": {
@@ -617,7 +629,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 16,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L16"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L16"
 								}
 							],
 							"type": {
@@ -649,7 +661,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 18,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L18"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L18"
 								}
 							],
 							"type": {
@@ -681,7 +693,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 20,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L20"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L20"
 								}
 							],
 							"type": {
@@ -722,7 +734,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 22,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L22"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L22"
 								}
 							],
 							"type": {
@@ -752,7 +764,7 @@
 							"fileName": "helpers/types.ts",
 							"line": 12,
 							"character": 17,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L12"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L12"
 						}
 					]
 				},
@@ -790,7 +802,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 6,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L6"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L6"
 								}
 							],
 							"type": {
@@ -817,7 +829,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 8,
 									"character": 2,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L8"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L8"
 								}
 							],
 							"type": {
@@ -841,7 +853,7 @@
 							"fileName": "helpers/types.ts",
 							"line": 4,
 							"character": 17,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L4"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 						}
 					]
 				},
@@ -864,7 +876,7 @@
 							"fileName": "helpers/types.ts",
 							"line": 28,
 							"character": 12,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L28"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L28"
 						}
 					],
 					"type": {
@@ -891,7 +903,7 @@
 							"fileName": "helpers/types.ts",
 							"line": 33,
 							"character": 12,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L33"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L33"
 						}
 					],
 					"type": {
@@ -927,7 +939,7 @@
 							"fileName": "helpers/types.ts",
 							"line": 38,
 							"character": 12,
-							"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L38"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
 						}
 					],
 					"type": {
@@ -950,7 +962,7 @@
 											"fileName": "helpers/types.ts",
 											"line": 39,
 											"character": 2,
-											"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L39"
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L39"
 										}
 									],
 									"type": {
@@ -972,7 +984,7 @@
 									"fileName": "helpers/types.ts",
 									"line": 38,
 									"character": 17,
-									"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L38"
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
 								}
 							]
 						}
@@ -1001,7 +1013,7 @@
 					"fileName": "helpers/types.ts",
 					"line": 4,
 					"character": 0,
-					"url": "https://github.com/imballinst/astrodyne/blob/b564b0c/packages/example/src/helpers/types.ts#L4"
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 				}
 			]
 		}

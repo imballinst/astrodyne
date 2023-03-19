@@ -10,8 +10,10 @@
     ]
   },
   "scripts": {
-    "test:docgen": "yarn workspace docgen test",
-    "gen:example": "yarn workspace example gen-md",
+    "docgen:test": "yarn workspace docgen test",
+    "docgen:test:setup": "yarn workspace docgen test:setup",
+    "example:gen": "yarn workspace example gen-md",
+    "example:typedoc": "yarn workspace example typedoc",
     "site:dev": "yarn workspace example-website dev"
   },
   "devDependencies": {

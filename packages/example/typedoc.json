@@ -4,6 +4,7 @@
   "entryPoints": ["./src"],
   "entryPointStrategy": "expand",
   "cleanOutputDir": true,
+  "gitRevision": "main",
   "tsconfig": "./tsconfig.json",
   "exclude": ["**/*.test.(ts|tsx)"],
   "excludeExternals": true,

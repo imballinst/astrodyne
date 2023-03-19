@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import path from 'path';
 import {
   ChildTypeUnion,
@@ -5,21 +6,39 @@ import {
   RecordEntry,
   TopLevelFields
 } from '../models/models';
+import { Source } from '../models/source';
 import { JSXType } from '../models/_base';
+import {
+  Frontmatter,
+  prependWithFrontmatterIfExist
+} from '../utils/frontmatter';
 import { generateTextBasedOnMode, OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
 
-export function convertApiJSONToMarkdown(
-  json: TopLevelFields,
-  mode: OutputMode
-) {
-  const typeIdRecord: Record<number, Child> = {};
+const FRONTMATTER_REGEX = /\$(\w+): ([\w\s]+)/;
 
-  const componentsSection: Omit<RecordEntry, 'functions'>[] = [];
-  const functionsSection: Omit<RecordEntry, 'components'>[] = [];
-  const typesSection: Omit<RecordEntry, 'functions' | 'components'>[] = [];
+export async function convertApiJSONToMarkdown({
+  json,
+  mode,
+  input
+}: {
+  json: TopLevelFields;
+  mode: OutputMode;
+  input: string;
+}) {
+  const typeIdRecord: Record<number, Child> = {};
+  const frontmatterRecord: Record<string, Frontmatter> = {};
+
+  const componentsSection: Omit<RecordEntry, 'functions' | 'frontmatter'>[] =
+    [];
+  const functionsSection: Omit<RecordEntry, 'components' | 'frontmatter'>[] =
+    [];
+  const typesSection: Omit<
+    RecordEntry,
+    'functions' | 'components' | 'frontmatter'
+  >[] = [];
 
   for (const file of json.children) {
     if (!file.children) {
@@ -33,6 +52,44 @@ export function convertApiJSONToMarkdown(
       types: {}
     };
 
+    // Read the package's frontmatter.
+    const fileComment = convertCommentToString(
+      file.comment,
+      NewlinePresentation.LineBreak
+    );
+    if (fileComment) {
+      const lines = fileComment.split('\n');
+      let frontmatterIndexEnd = -1;
+
+      for (let i = 0; i < lines.length; i++) {
+        if (!lines[i].startsWith('$')) {
+          frontmatterIndexEnd = i;
+          break;
+        }
+      }
+
+      if (frontmatterIndexEnd > -1) {
+        const frontmatters = lines.slice(0, frontmatterIndexEnd);
+        for (const frontmatter of frontmatters) {
+          const regexResult = FRONTMATTER_REGEX.exec(frontmatter);
+          if (!regexResult) continue;
+
+          const [, key, value] = regexResult;
+
+          if (!frontmatterRecord[file.name]) {
+            // Initialize if it doesn't exist in the record yet.
+            frontmatterRecord[file.name] = {
+              description: '',
+              title: ''
+            };
+          }
+
+          frontmatterRecord[file.name][key as keyof Frontmatter] = value;
+        }
+      }
+    }
+
+    // Iterate the children.
     for (const child of file.children) {
       if (child.signatures && isJsxReturnType(child.signatures[0].type)) {
         // Component: JSX.
@@ -112,6 +169,12 @@ ${components.join('\n\n')}
 
 ${sortAndMapTuple(types).join('\n\n')}
     `.trim();
+
+    // Prepend frontmatter.
+    contents[key] = prependWithFrontmatterIfExist(
+      contents[key],
+      frontmatterRecord[section.fileName]
+    );
   }
 
   // Functions.
@@ -148,6 +211,12 @@ ${sortAndMapTuple(types).join('\n\n')}
       '\n\n## Types',
       sortAndMapTuple(types)
     );
+
+    // Prepend frontmatter.
+    contents[key] = prependWithFrontmatterIfExist(
+      contents[key],
+      frontmatterRecord[section.fileName]
+    );
   }
 
   // Types.
@@ -169,6 +238,12 @@ ${sortAndMapTuple(types).join('\n\n')}
     contents[key] = addTextIfArrayIsNonEmpty(
       '## Types',
       sortAndMapTuple(types)
+    );
+
+    // Prepend frontmatter.
+    contents[key] = prependWithFrontmatterIfExist(
+      contents[key],
+      frontmatterRecord[section.fileName]
     );
   }
 

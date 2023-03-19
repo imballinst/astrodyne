@@ -12,7 +12,7 @@ import { OutputMode } from './utils/mode';
   const cwd = process.cwd();
   const argv = await yargs(hideBin(process.argv))
     .usage('Usage: $0 <command> [options]')
-    .demandCommand(2)
+    .demandCommand(3)
     .command(
       'gen-md',
       'Generates documentation files from the output of typedoc JSON',
@@ -54,8 +54,11 @@ import { OutputMode } from './utils/mode';
   ]);
 
   const json = JSON.parse(file) as TopLevelFields;
-  // TODO: add yaml entry metadata at the top
-  const contents = convertApiJSONToMarkdown(json, argv.mode as OutputMode);
+  const contents = await convertApiJSONToMarkdown({
+    json,
+    mode: argv.mode as OutputMode,
+    input: `${input}`
+  });
 
   await Promise.allSettled(
     Object.entries(contents).map(async ([filePath, content]) => {

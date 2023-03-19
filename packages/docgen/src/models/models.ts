@@ -50,7 +50,6 @@ export const Signature = z
   .strict();
 export type Signature = z.infer<typeof Signature>;
 
-// TODO: next, continue on this.
 export const ReflectionType = z
   .object({
     type: z.literal('reflection'),
@@ -107,5 +106,5 @@ export const ArrayType = z
   .strict();
 export type ArrayType = z.infer<typeof ArrayType>;
 
-export const ChildTypeUnion = z.union([NonArrayType, ArrayType]);
+export const ChildTypeUnion = z.union([NonArrayType, UnionType, ArrayType]);
 export type ChildTypeUnion = z.infer<typeof ChildTypeUnion>;

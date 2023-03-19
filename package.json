@@ -9,6 +9,13 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "docgen:test": "yarn workspace docgen test",
+    "docgen:test:setup": "yarn workspace docgen test:setup",
+    "example:gen-md": "yarn workspace example gen-md",
+    "example:typedoc": "yarn workspace example typedoc",
+    "site:dev": "yarn workspace example-website dev"
+  },
   "devDependencies": {
     "eslint": "8.29.0",
     "eslint-config-standard": "17.0.0",

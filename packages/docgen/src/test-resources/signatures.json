@@ -23,7 +23,7 @@
           "flags": {},
           "type": {
             "type": "reference",
-            "id": 31,
+            "id": 37,
             "name": "TestComponentProps"
           }
         }
@@ -38,7 +38,87 @@
   ],
   [
     {
-      "id": 10,
+      "id": 7,
+      "name": "splitCharacters",
+      "kind": 4096,
+      "kindString": "Call signature",
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Converts a string into an array of each characters."
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "id": 8,
+          "name": "str",
+          "kind": 32768,
+          "kindString": "Parameter",
+          "flags": {},
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 9,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "children": [
+            {
+              "id": 10,
+              "name": "array",
+              "kind": 1024,
+              "kindString": "Property",
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "helpers/array.ts",
+                  "line": 13,
+                  "character": 48,
+                  "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+                }
+              ],
+              "type": {
+                "type": "array",
+                "elementType": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              }
+            }
+          ],
+          "groups": [
+            {
+              "title": "Properties",
+              "children": [
+                10
+              ]
+            }
+          ],
+          "sources": [
+            {
+              "fileName": "helpers/array.ts",
+              "line": 13,
+              "character": 46,
+              "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  [
+    {
+      "id": 16,
       "name": "convertToMetadata",
       "kind": 4096,
       "kindString": "Call signature",
@@ -53,7 +133,7 @@
       },
       "parameters": [
         {
-          "id": 11,
+          "id": 17,
           "name": "information",
           "kind": 32768,
           "kindString": "Parameter",
@@ -61,14 +141,14 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 12,
+              "id": 18,
               "name": "__type",
               "kind": 65536,
               "kindString": "Type literal",
               "flags": {},
               "children": [
                 {
-                  "id": 13,
+                  "id": 19,
                   "name": "id",
                   "kind": 1024,
                   "kindString": "Property",
@@ -77,7 +157,8 @@
                     {
                       "fileName": "helpers/metadata.ts",
                       "line": 14,
-                      "character": 2
+                      "character": 2,
+                      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L14"
                     }
                   ],
                   "type": {
@@ -86,7 +167,7 @@
                   }
                 },
                 {
-                  "id": 14,
+                  "id": 20,
                   "name": "size",
                   "kind": 1024,
                   "kindString": "Property",
@@ -95,7 +176,8 @@
                     {
                       "fileName": "helpers/metadata.ts",
                       "line": 15,
-                      "character": 2
+                      "character": 2,
+                      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L15"
                     }
                   ],
                   "type": {
@@ -108,8 +190,8 @@
                 {
                   "title": "Properties",
                   "children": [
-                    13,
-                    14
+                    19,
+                    20
                   ]
                 }
               ],
@@ -117,7 +199,8 @@
                 {
                   "fileName": "helpers/metadata.ts",
                   "line": 13,
-                  "character": 47
+                  "character": 47,
+                  "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L13"
                 }
               ]
             }
@@ -126,14 +209,14 @@
       ],
       "type": {
         "type": "reference",
-        "id": 16,
+        "id": 22,
         "name": "Metadata"
       }
     }
   ],
   [
     {
-      "id": 7,
+      "id": 13,
       "name": "getInformation",
       "kind": 4096,
       "kindString": "Call signature",
@@ -148,21 +231,21 @@
       },
       "parameters": [
         {
-          "id": 8,
+          "id": 14,
           "name": "metadata",
           "kind": 32768,
           "kindString": "Parameter",
           "flags": {},
           "type": {
             "type": "reference",
-            "id": 16,
+            "id": 22,
             "name": "Metadata"
           }
         }
       ],
       "type": {
         "type": "reference",
-        "id": 19,
+        "id": 25,
         "name": "ComponentInfo"
       }
     }

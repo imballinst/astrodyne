@@ -1,9 +1,15 @@
 [
   {
-    "summary": [
+    "summary": [],
+    "blockTags": [
       {
-        "kind": "text",
-        "text": "The props passed to TestComponent."
+        "tag": "@docgeninclude",
+        "content": [
+          {
+            "kind": "text",
+            "text": "The props passed to TestComponent."
+          }
+        ]
       }
     ]
   },
@@ -42,6 +48,14 @@
       {
         "kind": "text",
         "text": "The title of the component. This is NOT the component ID."
+      }
+    ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "$title: Array helpers\n$description: This file contains the array helpers.\n\nHello world, this is the package description"
       }
     ]
   },

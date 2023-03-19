@@ -13,29 +13,35 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 30,
+					"id": 36,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 31,
+							"id": 37,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
 							"flags": {},
 							"comment": {
-								"summary": [
+								"summary": [],
+								"blockTags": [
 									{
-										"kind": "text",
-										"text": "The props passed to TestComponent."
+										"tag": "@docgeninclude",
+										"content": [
+											{
+												"kind": "text",
+												"text": "The props passed to TestComponent."
+											}
+										]
 									}
 								]
 							},
 							"children": [
 								{
-									"id": 34,
+									"id": 40,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -65,18 +71,19 @@
 									"sources": [
 										{
 											"fileName": "components/TestComponent.tsx",
-											"line": 17,
-											"character": 2
+											"line": 19,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L19"
 										}
 									],
 									"type": {
 										"type": "reference",
-										"id": 16,
+										"id": 22,
 										"name": "Metadata"
 									}
 								},
 								{
-									"id": 33,
+									"id": 39,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -92,18 +99,19 @@
 									"sources": [
 										{
 											"fileName": "components/TestComponent.tsx",
-											"line": 10,
-											"character": 2
+											"line": 12,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L12"
 										}
 									],
 									"type": {
 										"type": "reference",
-										"id": 16,
+										"id": 22,
 										"name": "Metadata"
 									}
 								},
 								{
-									"id": 32,
+									"id": 38,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -119,8 +127,9 @@
 									"sources": [
 										{
 											"fileName": "components/TestComponent.tsx",
-											"line": 8,
-											"character": 2
+											"line": 10,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L10"
 										}
 									],
 									"type": {
@@ -133,17 +142,18 @@
 								{
 									"title": "Properties",
 									"children": [
-										34,
-										33,
-										32
+										40,
+										39,
+										38
 									]
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/TestComponent.tsx",
-									"line": 6,
-									"character": 10
+									"line": 8,
+									"character": 10,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L8"
 								}
 							]
 						}
@@ -152,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								31
+								37
 							]
 						}
 					]
@@ -166,8 +176,9 @@
 					"sources": [
 						{
 							"fileName": "components/TestComponent.tsx",
-							"line": 23,
-							"character": 16
+							"line": 25,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L25"
 						}
 					],
 					"signatures": [
@@ -194,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 31,
+										"id": 37,
 										"name": "TestComponentProps"
 									}
 								}
@@ -213,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						30
+						36
 					]
 				},
 				{
@@ -227,19 +238,148 @@
 				{
 					"fileName": "components/TestComponent.tsx",
 					"line": 1,
-					"character": 0
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/components/TestComponent.tsx#L1"
 				}
 			]
 		},
 		{
 			"id": 5,
+			"name": "helpers/array",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "$title: Array helpers\n$description: This file contains the array helpers.\n\nHello world, this is the package description"
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 6,
+					"name": "splitCharacters",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "helpers/array.ts",
+							"line": 13,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+						}
+					],
+					"signatures": [
+						{
+							"id": 7,
+							"name": "splitCharacters",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Converts a string into an array of each characters."
+									}
+								]
+							},
+							"parameters": [
+								{
+									"id": 8,
+									"name": "str",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 9,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"children": [
+										{
+											"id": 10,
+											"name": "array",
+											"kind": 1024,
+											"kindString": "Property",
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "helpers/array.ts",
+													"line": 13,
+													"character": 48,
+													"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+												}
+											],
+											"type": {
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												10
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "helpers/array.ts",
+											"line": 13,
+											"character": 46,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Functions",
+					"children": [
+						6
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "helpers/array.ts",
+					"line": 13,
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/array.ts#L13"
+				}
+			]
+		},
+		{
+			"id": 11,
 			"name": "helpers/metadata",
 			"kind": 2,
 			"kindString": "Module",
 			"flags": {},
 			"children": [
 				{
-					"id": 9,
+					"id": 15,
 					"name": "convertToMetadata",
 					"kind": 64,
 					"kindString": "Function",
@@ -248,12 +388,13 @@
 						{
 							"fileName": "helpers/metadata.ts",
 							"line": 13,
-							"character": 16
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L13"
 						}
 					],
 					"signatures": [
 						{
-							"id": 10,
+							"id": 16,
 							"name": "convertToMetadata",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -268,7 +409,7 @@
 							},
 							"parameters": [
 								{
-									"id": 11,
+									"id": 17,
 									"name": "information",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -276,14 +417,14 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 12,
+											"id": 18,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"children": [
 												{
-													"id": 13,
+													"id": 19,
 													"name": "id",
 													"kind": 1024,
 													"kindString": "Property",
@@ -292,7 +433,8 @@
 														{
 															"fileName": "helpers/metadata.ts",
 															"line": 14,
-															"character": 2
+															"character": 2,
+															"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L14"
 														}
 													],
 													"type": {
@@ -301,7 +443,7 @@
 													}
 												},
 												{
-													"id": 14,
+													"id": 20,
 													"name": "size",
 													"kind": 1024,
 													"kindString": "Property",
@@ -310,7 +452,8 @@
 														{
 															"fileName": "helpers/metadata.ts",
 															"line": 15,
-															"character": 2
+															"character": 2,
+															"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L15"
 														}
 													],
 													"type": {
@@ -323,8 +466,8 @@
 												{
 													"title": "Properties",
 													"children": [
-														13,
-														14
+														19,
+														20
 													]
 												}
 											],
@@ -332,7 +475,8 @@
 												{
 													"fileName": "helpers/metadata.ts",
 													"line": 13,
-													"character": 47
+													"character": 47,
+													"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L13"
 												}
 											]
 										}
@@ -341,14 +485,14 @@
 							],
 							"type": {
 								"type": "reference",
-								"id": 16,
+								"id": 22,
 								"name": "Metadata"
 							}
 						}
 					]
 				},
 				{
-					"id": 6,
+					"id": 12,
 					"name": "getInformation",
 					"kind": 64,
 					"kindString": "Function",
@@ -357,12 +501,13 @@
 						{
 							"fileName": "helpers/metadata.ts",
 							"line": 6,
-							"character": 16
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L6"
 						}
 					],
 					"signatures": [
 						{
-							"id": 7,
+							"id": 13,
 							"name": "getInformation",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -377,21 +522,21 @@
 							},
 							"parameters": [
 								{
-									"id": 8,
+									"id": 14,
 									"name": "metadata",
 									"kind": 32768,
 									"kindString": "Parameter",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 16,
+										"id": 22,
 										"name": "Metadata"
 									}
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 19,
+								"id": 25,
 								"name": "ComponentInfo"
 							}
 						}
@@ -402,8 +547,8 @@
 				{
 					"title": "Functions",
 					"children": [
-						9,
-						6
+						15,
+						12
 					]
 				}
 			],
@@ -411,19 +556,20 @@
 				{
 					"fileName": "helpers/metadata.ts",
 					"line": 1,
-					"character": 0
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/metadata.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 15,
+			"id": 21,
 			"name": "helpers/types",
 			"kind": 2,
 			"kindString": "Module",
 			"flags": {},
 			"children": [
 				{
-					"id": 19,
+					"id": 25,
 					"name": "ComponentInfo",
 					"kind": 256,
 					"kindString": "Interface",
@@ -438,7 +584,7 @@
 					},
 					"children": [
 						{
-							"id": 20,
+							"id": 26,
 							"name": "size",
 							"kind": 1024,
 							"kindString": "Property",
@@ -455,7 +601,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 14,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L14"
 								}
 							],
 							"type": {
@@ -464,7 +611,7 @@
 							}
 						},
 						{
-							"id": 21,
+							"id": 27,
 							"name": "sizeArray",
 							"kind": 1024,
 							"kindString": "Property",
@@ -481,7 +628,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 16,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L16"
 								}
 							],
 							"type": {
@@ -493,7 +641,7 @@
 							}
 						},
 						{
-							"id": 22,
+							"id": 28,
 							"name": "test",
 							"kind": 1024,
 							"kindString": "Property",
@@ -512,7 +660,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 18,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L18"
 								}
 							],
 							"type": {
@@ -524,7 +673,7 @@
 							}
 						},
 						{
-							"id": 23,
+							"id": 29,
 							"name": "test2",
 							"kind": 1024,
 							"kindString": "Property",
@@ -543,7 +692,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 20,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L20"
 								}
 							],
 							"type": {
@@ -564,7 +714,7 @@
 							}
 						},
 						{
-							"id": 24,
+							"id": 30,
 							"name": "test3",
 							"kind": 1024,
 							"kindString": "Property",
@@ -583,14 +733,15 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 22,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L22"
 								}
 							],
 							"type": {
 								"type": "array",
 								"elementType": {
 									"type": "reference",
-									"id": 26,
+									"id": 32,
 									"name": "World"
 								}
 							}
@@ -600,11 +751,11 @@
 						{
 							"title": "Properties",
 							"children": [
-								20,
-								21,
-								22,
-								23,
-								24
+								26,
+								27,
+								28,
+								29,
+								30
 							]
 						}
 					],
@@ -612,12 +763,13 @@
 						{
 							"fileName": "helpers/types.ts",
 							"line": 12,
-							"character": 17
+							"character": 17,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L12"
 						}
 					]
 				},
 				{
-					"id": 16,
+					"id": 22,
 					"name": "Metadata",
 					"kind": 256,
 					"kindString": "Interface",
@@ -632,7 +784,7 @@
 					},
 					"children": [
 						{
-							"id": 17,
+							"id": 23,
 							"name": "componentId",
 							"kind": 1024,
 							"kindString": "Property",
@@ -649,7 +801,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 6,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L6"
 								}
 							],
 							"type": {
@@ -658,7 +811,7 @@
 							}
 						},
 						{
-							"id": 18,
+							"id": 24,
 							"name": "componentInfo",
 							"kind": 1024,
 							"kindString": "Property",
@@ -675,12 +828,13 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 8,
-									"character": 2
+									"character": 2,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L8"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 19,
+								"id": 25,
 								"name": "ComponentInfo"
 							}
 						}
@@ -689,8 +843,8 @@
 						{
 							"title": "Properties",
 							"children": [
-								17,
-								18
+								23,
+								24
 							]
 						}
 					],
@@ -698,12 +852,13 @@
 						{
 							"fileName": "helpers/types.ts",
 							"line": 4,
-							"character": 17
+							"character": 17,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 						}
 					]
 				},
 				{
-					"id": 25,
+					"id": 31,
 					"name": "Hello",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -720,7 +875,8 @@
 						{
 							"fileName": "helpers/types.ts",
 							"line": 28,
-							"character": 12
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L28"
 						}
 					],
 					"type": {
@@ -729,7 +885,7 @@
 					}
 				},
 				{
-					"id": 26,
+					"id": 32,
 					"name": "World",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -746,7 +902,8 @@
 						{
 							"fileName": "helpers/types.ts",
 							"line": 33,
-							"character": 12
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L33"
 						}
 					],
 					"type": {
@@ -764,7 +921,7 @@
 					}
 				},
 				{
-					"id": 27,
+					"id": 33,
 					"name": "XD",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -781,20 +938,21 @@
 						{
 							"fileName": "helpers/types.ts",
 							"line": 38,
-							"character": 12
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
 						}
 					],
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 28,
+							"id": 34,
 							"name": "__type",
 							"kind": 65536,
 							"kindString": "Type literal",
 							"flags": {},
 							"children": [
 								{
-									"id": 29,
+									"id": 35,
 									"name": "test",
 									"kind": 1024,
 									"kindString": "Property",
@@ -803,7 +961,8 @@
 										{
 											"fileName": "helpers/types.ts",
 											"line": 39,
-											"character": 2
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L39"
 										}
 									],
 									"type": {
@@ -816,7 +975,7 @@
 								{
 									"title": "Properties",
 									"children": [
-										29
+										35
 									]
 								}
 							],
@@ -824,7 +983,8 @@
 								{
 									"fileName": "helpers/types.ts",
 									"line": 38,
-									"character": 17
+									"character": 17,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
 								}
 							]
 						}
@@ -835,16 +995,16 @@
 				{
 					"title": "Interfaces",
 					"children": [
-						19,
-						16
+						25,
+						22
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						25,
-						26,
-						27
+						31,
+						32,
+						33
 					]
 				}
 			],
@@ -852,7 +1012,8 @@
 				{
 					"fileName": "helpers/types.ts",
 					"line": 4,
-					"character": 0
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 				}
 			]
 		}
@@ -863,7 +1024,8 @@
 			"children": [
 				1,
 				5,
-				15
+				11,
+				21
 			]
 		}
 	]

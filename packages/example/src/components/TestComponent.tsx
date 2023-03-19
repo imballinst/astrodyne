@@ -1,6 +1,8 @@
 import { Metadata } from '../helpers/types';
 
 /**
+ * @docgeninclude
+ *
  * The props passed to TestComponent.
  */
 interface TestComponentProps {

@@ -17,7 +17,7 @@ interface AllApiOutputInfo {
 
 async function main() {
   const content = await fs.readFile(
-    path.join(process.cwd(), 'example/api.json'),
+    path.join(process.cwd(), '../example/api.json'),
     'utf-8'
   );
   const json = JSON.parse(content);

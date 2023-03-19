@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "0.0.1",
+  "description": "@astrodyne/docgen example",
+  "license": "MIT",
+  "scripts": {
+    "gen-md": "node -r esbuild-register ../docgen/src/process-generated-api.ts gen-md ./api.json ../example-website/src/pages/docs",
+    "typedoc": "typedoc --tsconfig tsconfig.esm.json"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "esbuild-register": "3.4.2",
+    "typedoc": "0.23.24",
+    "typedoc-plugin-missing-exports": "1.0.0",
+    "typescript": "4.9.5"
+  }
+}

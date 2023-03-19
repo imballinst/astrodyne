@@ -2,14 +2,14 @@
   {
     "type": "reflection",
     "declaration": {
-      "id": 28,
+      "id": 34,
       "name": "__type",
       "kind": 65536,
       "kindString": "Type literal",
       "flags": {},
       "children": [
         {
-          "id": 29,
+          "id": 35,
           "name": "test",
           "kind": 1024,
           "kindString": "Property",
@@ -18,7 +18,8 @@
             {
               "fileName": "helpers/types.ts",
               "line": 39,
-              "character": 2
+              "character": 2,
+              "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L39"
             }
           ],
           "type": {
@@ -31,7 +32,7 @@
         {
           "title": "Properties",
           "children": [
-            29
+            35
           ]
         }
       ],
@@ -39,7 +40,8 @@
         {
           "fileName": "helpers/types.ts",
           "line": 38,
-          "character": 17
+          "character": 17,
+          "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
         }
       ]
     }

@@ -190,5 +190,19 @@
       "character": 12,
       "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L38"
     }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 1,
+      "character": 0
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 1,
+      "character": 16
+    }
   ]
 ]

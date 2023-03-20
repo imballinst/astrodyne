@@ -13,14 +13,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 36,
+					"id": 40,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 37,
+							"id": 41,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
@@ -41,7 +41,7 @@
 							},
 							"children": [
 								{
-									"id": 40,
+									"id": 44,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -83,7 +83,7 @@
 									}
 								},
 								{
-									"id": 39,
+									"id": 43,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -111,7 +111,7 @@
 									}
 								},
 								{
-									"id": 38,
+									"id": 42,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -142,9 +142,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										40,
-										39,
-										38
+										44,
+										43,
+										42
 									]
 								}
 							],
@@ -162,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								37
+								41
 							]
 						}
 					]
@@ -205,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 37,
+										"id": 41,
 										"name": "TestComponentProps"
 									}
 								}
@@ -224,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						36
+						40
 					]
 				},
 				{
@@ -1016,6 +1016,85 @@
 					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 				}
 			]
+		},
+		{
+			"id": 36,
+			"name": "packages/object/keys",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"children": [
+				{
+					"id": 37,
+					"name": "getObjectKeys",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 1,
+							"character": 16
+						}
+					],
+					"signatures": [
+						{
+							"id": 38,
+							"name": "getObjectKeys",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 39,
+									"name": "object",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "string"
+											},
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										],
+										"name": "Record",
+										"qualifiedName": "Record",
+										"package": "typescript"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Functions",
+					"children": [
+						37
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "packages/object/keys.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
 		}
 	],
 	"groups": [
@@ -1025,7 +1104,8 @@
 				1,
 				5,
 				11,
-				21
+				21,
+				36
 			]
 		}
 	]

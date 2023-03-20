@@ -5,6 +5,7 @@ export const KindString = z.enum([
   'Interface',
   'Property',
   'Function',
+  'Reference',
   'Type alias',
   'Call signature',
   'Parameter',

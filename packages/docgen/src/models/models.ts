@@ -50,6 +50,26 @@ export const Signature = z
   .strict();
 export type Signature = z.infer<typeof Signature>;
 
+export const TypeScriptRecordType = z
+  .object({
+    type: z.literal('reference'),
+    typeArguments: z.tuple([
+      z.object({
+        type: z.string(),
+        name: z.string()
+      }),
+      z.object({
+        type: z.string(),
+        name: z.string()
+      })
+    ]),
+    name: z.literal('Record'),
+    qualifiedName: z.literal('Record'),
+    package: z.literal('typescript')
+  })
+  .strict();
+export type TypeScriptRecordType = z.infer<typeof TypeScriptRecordType>;
+
 export const ReflectionType = z
   .object({
     type: z.literal('reflection'),

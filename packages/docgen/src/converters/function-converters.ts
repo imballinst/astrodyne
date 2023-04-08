@@ -68,7 +68,7 @@ function getFunctionSummary(fn: Signature) {
   return `
 ### ${fn.name}
 
-${(fn.comment.summary || []).map((block) => block.text)}
+${(fn.comment?.summary || []).map((block) => block.text)}
   `.trim();
 }
 

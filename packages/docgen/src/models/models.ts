@@ -43,7 +43,7 @@ export const Signature = z
     kind: z.number(),
     kindString: KindString,
     flags: Flags,
-    comment: Comment,
+    comment: Comment.optional(),
     type: z.lazy(() => ChildTypeUnion).optional(),
     parameters: z.array(Child)
   })
@@ -54,16 +54,12 @@ export type Signature = z.infer<typeof Signature>;
 export const TypeScriptRecordType = z
   .object({
     type: z.literal('reference'),
-    typeArguments: z.tuple([
-      z.object({
-        type: z.string(),
-        name: z.string()
-      }),
+    typeArguments: z.array(
       z.object({
         type: z.string(),
         name: z.string()
       })
-    ]),
+    ),
     name: z.literal('Record'),
     qualifiedName: z.literal('Record'),
     package: z.literal('typescript')
@@ -107,7 +103,8 @@ const NonArrayType = z.union([
   ReferenceType,
   ReflectionType,
   JSXType,
-  LiteralType
+  LiteralType,
+  TypeScriptRecordType
 ]);
 type NonArrayType = z.infer<typeof NonArrayType>;
 

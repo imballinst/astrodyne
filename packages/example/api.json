@@ -13,14 +13,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 40,
+					"id": 43,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 41,
+							"id": 44,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
@@ -41,7 +41,7 @@
 							},
 							"children": [
 								{
-									"id": 44,
+									"id": 47,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -83,7 +83,7 @@
 									}
 								},
 								{
-									"id": 43,
+									"id": 46,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -111,7 +111,7 @@
 									}
 								},
 								{
-									"id": 42,
+									"id": 45,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -142,9 +142,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										44,
-										43,
-										42
+										47,
+										46,
+										45
 									]
 								}
 							],
@@ -162,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								41
+								44
 							]
 						}
 					]
@@ -205,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 41,
+										"id": 44,
 										"name": "TestComponentProps"
 									}
 								}
@@ -224,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						40
+						43
 					]
 				},
 				{
@@ -1025,6 +1025,64 @@
 			"flags": {},
 			"children": [
 				{
+					"id": 40,
+					"name": "getMetadataValues",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 7,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L7"
+						}
+					],
+					"signatures": [
+						{
+							"id": 41,
+							"name": "getMetadataValues",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 42,
+									"name": "object",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "string"
+											},
+											{
+												"type": "reference",
+												"id": 22,
+												"name": "Metadata"
+											}
+										],
+										"name": "Record",
+										"qualifiedName": "Record",
+										"package": "typescript"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"id": 22,
+									"name": "Metadata"
+								}
+							}
+						}
+					]
+				},
+				{
 					"id": 37,
 					"name": "getObjectKeys",
 					"kind": 64,
@@ -1033,8 +1091,9 @@
 					"sources": [
 						{
 							"fileName": "packages/object/keys.ts",
-							"line": 1,
-							"character": 16
+							"line": 3,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
 						}
 					],
 					"signatures": [
@@ -1084,6 +1143,7 @@
 				{
 					"title": "Functions",
 					"children": [
+						40,
 						37
 					]
 				}
@@ -1092,7 +1152,8 @@
 				{
 					"fileName": "packages/object/keys.ts",
 					"line": 1,
-					"character": 0
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L1"
 				}
 			]
 		}

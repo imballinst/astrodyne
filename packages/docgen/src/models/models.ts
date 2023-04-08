@@ -50,13 +50,13 @@ export const Signature = z
   .strict();
 export type Signature = z.infer<typeof Signature>;
 
-// TODO: we need to handle Record any many more TypeScript types -_- this is going to be PITA
 export const TypeScriptRecordType = z
   .object({
     type: z.literal('reference'),
     typeArguments: z.array(
       z.object({
         type: z.string(),
+        id: z.number().optional(),
         name: z.string()
       })
     ),

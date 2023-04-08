@@ -15,7 +15,7 @@
     {
       "title": "Modules",
       "children": [
-        40
+        43
       ]
     },
     {
@@ -29,7 +29,7 @@
     {
       "title": "Interfaces",
       "children": [
-        41
+        44
       ]
     }
   ],
@@ -37,9 +37,9 @@
     {
       "title": "Properties",
       "children": [
-        44,
-        43,
-        42
+        47,
+        46,
+        45
       ]
     }
   ],
@@ -102,6 +102,7 @@
     {
       "title": "Functions",
       "children": [
+        40,
         37
       ]
     }

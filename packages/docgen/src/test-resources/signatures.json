@@ -23,7 +23,7 @@
           "flags": {},
           "type": {
             "type": "reference",
-            "id": 41,
+            "id": 44,
             "name": "TestComponentProps"
           }
         }
@@ -247,6 +247,49 @@
         "type": "reference",
         "id": 25,
         "name": "ComponentInfo"
+      }
+    }
+  ],
+  [
+    {
+      "id": 41,
+      "name": "getMetadataValues",
+      "kind": 4096,
+      "kindString": "Call signature",
+      "flags": {},
+      "parameters": [
+        {
+          "id": 42,
+          "name": "object",
+          "kind": 32768,
+          "kindString": "Parameter",
+          "flags": {},
+          "type": {
+            "type": "reference",
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "reference",
+                "id": 22,
+                "name": "Metadata"
+              }
+            ],
+            "name": "Record",
+            "qualifiedName": "Record",
+            "package": "typescript"
+          }
+        }
+      ],
+      "type": {
+        "type": "array",
+        "elementType": {
+          "type": "reference",
+          "id": 22,
+          "name": "Metadata"
+        }
       }
     }
   ],

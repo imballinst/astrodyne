@@ -13,14 +13,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 43,
+					"id": 44,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 44,
+							"id": 45,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
@@ -41,7 +41,7 @@
 							},
 							"children": [
 								{
-									"id": 47,
+									"id": 48,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -83,7 +83,7 @@
 									}
 								},
 								{
-									"id": 46,
+									"id": 47,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -111,7 +111,7 @@
 									}
 								},
 								{
-									"id": 45,
+									"id": 46,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -142,9 +142,9 @@
 								{
 									"title": "Properties",
 									"children": [
+										48,
 										47,
-										46,
-										45
+										46
 									]
 								}
 							],
@@ -162,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								44
+								45
 							]
 						}
 					]
@@ -205,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 44,
+										"id": 45,
 										"name": "TestComponentProps"
 									}
 								}
@@ -224,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						43
+						44
 					]
 				},
 				{
@@ -1025,6 +1025,223 @@
 			"flags": {},
 			"children": [
 				{
+					"id": 49,
+					"name": "<internal>",
+					"kind": 2,
+					"kindString": "Module",
+					"flags": {},
+					"children": [
+						{
+							"id": 52,
+							"name": "ExampleValue",
+							"kind": 256,
+							"kindString": "Interface",
+							"flags": {},
+							"children": [
+								{
+									"id": 53,
+									"name": "field",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "packages/object/keys.ts",
+											"line": 10,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L10"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 54,
+									"name": "num",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "packages/object/keys.ts",
+											"line": 11,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L11"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										53,
+										54
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "packages/object/keys.ts",
+									"line": 9,
+									"character": 10,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L9"
+								}
+							]
+						},
+						{
+							"id": 50,
+							"name": "OmitNumberValues",
+							"kind": 4194304,
+							"kindString": "Type alias",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "packages/object/keys.ts",
+									"line": 3,
+									"character": 5,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
+								}
+							],
+							"typeParameters": [
+								{
+									"id": 51,
+									"name": "T",
+									"kind": 131072,
+									"kindString": "Type parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "object"
+									}
+								}
+							],
+							"type": {
+								"type": "mapped",
+								"parameter": "K",
+								"parameterType": {
+									"type": "typeOperator",
+									"operator": "keyof",
+									"target": {
+										"type": "reference",
+										"id": 51,
+										"name": "T"
+									}
+								},
+								"templateType": {
+									"type": "conditional",
+									"checkType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									},
+									"extendsType": {
+										"type": "intrinsic",
+										"name": "number"
+									},
+									"trueType": {
+										"type": "intrinsic",
+										"name": "never"
+									},
+									"falseType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									}
+								},
+								"nameType": {
+									"type": "conditional",
+									"checkType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									},
+									"extendsType": {
+										"type": "intrinsic",
+										"name": "number"
+									},
+									"trueType": {
+										"type": "intrinsic",
+										"name": "never"
+									},
+									"falseType": {
+										"type": "reference",
+										"name": "K"
+									}
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Interfaces",
+							"children": [
+								52
+							]
+						},
+						{
+							"title": "Type Aliases",
+							"children": [
+								50
+							]
+						}
+					]
+				},
+				{
+					"id": 43,
+					"name": "ExampleValueWithoutNumber",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 13,
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L13"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 50,
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 52,
+								"name": "ExampleValue"
+							}
+						],
+						"name": "OmitNumberValues"
+					}
+				},
+				{
 					"id": 40,
 					"name": "getMetadataValues",
 					"kind": 64,
@@ -1033,9 +1250,9 @@
 					"sources": [
 						{
 							"fileName": "packages/object/keys.ts",
-							"line": 7,
+							"line": 19,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L7"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L19"
 						}
 					],
 					"signatures": [
@@ -1091,9 +1308,9 @@
 					"sources": [
 						{
 							"fileName": "packages/object/keys.ts",
-							"line": 3,
+							"line": 15,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L15"
 						}
 					],
 					"signatures": [
@@ -1140,6 +1357,18 @@
 				}
 			],
 			"groups": [
+				{
+					"title": "Modules",
+					"children": [
+						49
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						43
+					]
+				},
 				{
 					"title": "Functions",
 					"children": [

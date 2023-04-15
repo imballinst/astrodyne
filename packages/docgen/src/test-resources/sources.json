@@ -202,17 +202,57 @@
   [
     {
       "fileName": "packages/object/keys.ts",
-      "line": 7,
-      "character": 16,
-      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L7"
+      "line": 9,
+      "character": 10,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L9"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 10,
+      "character": 2,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L10"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 11,
+      "character": 2,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L11"
     }
   ],
   [
     {
       "fileName": "packages/object/keys.ts",
       "line": 3,
-      "character": 16,
+      "character": 5,
       "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 13,
+      "character": 12,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L13"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 19,
+      "character": 16,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L19"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 15,
+      "character": 16,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L15"
     }
   ]
 ]

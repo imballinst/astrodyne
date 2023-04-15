@@ -23,7 +23,7 @@
           "flags": {},
           "type": {
             "type": "reference",
-            "id": 44,
+            "id": 45,
             "name": "TestComponentProps"
           }
         }

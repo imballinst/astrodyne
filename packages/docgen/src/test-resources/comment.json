@@ -154,5 +154,13 @@
         "text": "Test normal type object."
       }
     ]
+  },
+  {
+    "summary": [
+      {
+        "kind": "text",
+        "text": "Use this utility type to omit field with number values."
+      }
+    ]
   }
 ]

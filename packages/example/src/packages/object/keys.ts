@@ -10,6 +10,9 @@ interface ExampleValue {
   field: string;
   num: number;
 }
+/**
+ * Use this utility type to omit field with number values.
+ */
 export type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
 
 export function getObjectKeys(object: Record<string, any>) {

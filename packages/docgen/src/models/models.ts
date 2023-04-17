@@ -4,7 +4,13 @@ import { Flags } from './flags';
 import { Group } from './group';
 import { KindString } from './kindString';
 import { Source } from './source';
-import { IntrinsicType, ReferenceType, JSXType, LiteralType } from './_base';
+import {
+  IntrinsicType,
+  ReferenceType,
+  JSXType,
+  LiteralType,
+  GenericType
+} from './_base';
 
 // These are the remaining types that need to be in 1 file together so we're not do circular imports.
 export interface Child {
@@ -104,7 +110,8 @@ const NonArrayType = z.union([
   ReflectionType,
   JSXType,
   LiteralType,
-  TypeScriptRecordType
+  TypeScriptRecordType,
+  GenericType
 ]);
 type NonArrayType = z.infer<typeof NonArrayType>;
 

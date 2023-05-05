@@ -208,6 +208,26 @@ Converts a string into an array of each characters.
 | array | string |  |
     `.trim()
     );
+
+    expect(result['functions/packages/object/keys.md']).toBe(
+      `
+## Functions
+
+### getMetadataValues
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ---- | ---- | ----------- |
+| object |  |  |
+
+#### Returns
+
+[Metadata](../../types/helpers/types.md)
+
+    `.trim()
+    );
+    expect(resultAstro['functions/packages/object/keys.mdx']).toBe('');
   });
 
   test('types', () => {

@@ -1,4 +1,4 @@
-import { Child, ReflectionType, Signature } from '../models/models';
+import { ArrayType, Child, ReflectionType, Signature } from '../models/models';
 import { Source } from '../models/source';
 import { ReferenceType } from '../models/_base';
 import { getRelativePath } from '../utils/file';
@@ -174,8 +174,15 @@ function getFunctionReturns({
   functionSource: Source | undefined;
   mode: OutputMode;
 }) {
-  const reference = ReferenceType.safeParse(signature.type);
-  const reflection = ReflectionType.safeParse(signature.type);
+  const array = ArrayType.safeParse(signature.type);
+  let object = signature.type;
+
+  if (array.success) {
+    object = array.data;
+  }
+
+  const reference = ReferenceType.safeParse(object?.type);
+  const reflection = ReflectionType.safeParse(object?.type);
   const inlineTypeIds: number[] = [];
   let link = '';
 

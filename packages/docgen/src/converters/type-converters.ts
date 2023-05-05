@@ -1,5 +1,5 @@
 import { Child, ChildTypeUnion } from '../models/models';
-import { JSXType, ReferenceType } from '../models/_base';
+import { JSXType, ReferenceType, GenericType } from '../models/_base';
 import { OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { EffectiveTypeResultWithDescription } from './types';
@@ -167,6 +167,30 @@ export function getEffectiveType({
       const parsedJSX = JSXType.safeParse(type);
       if (parsedJSX.success) {
         result.typeString = 'ReactElement';
+        break;
+      }
+
+      const parsedTypedArg = GenericType.safeParse(type);
+      if (parsedTypedArg.success) {
+        result.typeString = `${
+          parsedTypedArg.data.name
+        }<${parsedTypedArg.data.typeArguments.map((arg) => {
+          if (!arg.id) return arg.name;
+
+          return getEffectiveType({
+            type: { id: arg.id, name: arg.name, type: 'reference' },
+            name,
+            typeIdRecord,
+            options,
+            mode
+          }).typeString;
+        })}>`;
+        result.description = convertCommentToString(
+          typeIdRecord[parsedTypedArg.data.id].comment,
+          NewlinePresentation.HTMLLineBreak
+        );
+
+        break;
       }
 
       const parsedReference = ReferenceType.safeParse(type);
@@ -176,6 +200,7 @@ export function getEffectiveType({
           typeIdRecord[parsedReference.data.id].comment,
           NewlinePresentation.HTMLLineBreak
         );
+        break;
       }
 
       break;

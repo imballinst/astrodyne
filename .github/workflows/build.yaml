@@ -27,13 +27,13 @@ jobs:
       - run: yarn test
       - run: yarn build
         env:
-          BASE_PATH: /markdownclap
+          BASE_PATH: /astrodyne
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./packages/example-website/dist
           # Publish only with the latest commit.
           # Source: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-force-orphan-force_orphan.
           force_orphan: true

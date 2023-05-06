@@ -1,9 +1,9 @@
 import { FileExtension, OutputMode } from './mode';
 
 export interface LeafConfig {
-  base: string;
-  injectedFrontmatter: {
-    layout: string;
+  base?: string;
+  injectedFrontmatter?: {
+    layout?: string;
   };
 }
 

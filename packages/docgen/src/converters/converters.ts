@@ -55,7 +55,7 @@ export async function convertApiJSONToMarkdown({
     'functions' | 'components' | 'frontmatter'
   >[] = [];
 
-  const baseReplacement = path.join(outputBaseDir, leafConfig.base);
+  const baseReplacement = path.join(outputBaseDir, leafConfig.base || '');
 
   for (const file of json.children) {
     if (!file.children) {
@@ -205,12 +205,18 @@ ${sortAndMapTuple(types).join('\n\n')}
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
       frontmatterRecord[section.fileName],
-      {
-        layout: getRelativePathToLayout(
-          section.fileName,
-          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
-        )
-      }
+      // TODO: refactor this.
+      leafConfig.injectedFrontmatter?.layout
+        ? {
+            layout: getRelativePathToLayout(
+              section.fileName,
+              leafConfig.injectedFrontmatter.layout.replace(
+                '{base}',
+                baseReplacement
+              )
+            )
+          }
+        : undefined
     );
   }
 
@@ -256,12 +262,18 @@ ${sortAndMapTuple(types).join('\n\n')}
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
       frontmatterRecord[section.fileName],
-      {
-        layout: getRelativePathToLayout(
-          section.fileName,
-          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
-        )
-      }
+      // TODO: refactor this.
+      leafConfig.injectedFrontmatter?.layout
+        ? {
+            layout: getRelativePathToLayout(
+              section.fileName,
+              leafConfig.injectedFrontmatter.layout.replace(
+                '{base}',
+                baseReplacement
+              )
+            )
+          }
+        : undefined
     );
   }
 
@@ -290,12 +302,18 @@ ${sortAndMapTuple(types).join('\n\n')}
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
       frontmatterRecord[section.fileName],
-      {
-        layout: getRelativePathToLayout(
-          section.fileName,
-          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
-        )
-      }
+      // TODO: refactor this.
+      leafConfig.injectedFrontmatter?.layout
+        ? {
+            layout: getRelativePathToLayout(
+              section.fileName,
+              leafConfig.injectedFrontmatter.layout.replace(
+                '{base}',
+                baseReplacement
+              )
+            )
+          }
+        : undefined
     );
   }
 

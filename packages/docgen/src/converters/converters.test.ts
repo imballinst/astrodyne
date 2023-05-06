@@ -21,7 +21,7 @@ describe('convertApiJSONToMarkdown', async () => {
     outputDocsDir: '.',
     leafConfig: {
       base: '.',
-      injectedFrontmatter: { layout: '{base}/layouts/Layout.astro' }
+      injectedFrontmatter: {}
     }
   });
   const resultMdx = await convertApiJSONToMarkdown({
@@ -62,6 +62,10 @@ The props passed to TestComponent.
     );
     expect(resultMdx['components/components/TestComponent.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Components
 
 ### TestComponent
@@ -128,6 +132,10 @@ Gets the component information from the given metadata.
     );
     expect(resultMdx['functions/helpers/metadata.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Functions
 
 ### convertToMetadata
@@ -172,8 +180,8 @@ Gets the component information from the given metadata.
     expect(resultMd['functions/helpers/array.md']).toBe(
       `
 ---
-title: Array helpers
 description: This file contains the array helpers
+title: Array helpers
 ---
 
 ## Functions
@@ -200,8 +208,9 @@ Converts a string into an array of each characters.
     expect(resultMdx['functions/helpers/array.mdx']).toBe(
       `
 ---
-title: Array helpers
 description: This file contains the array helpers
+title: Array helpers
+layout: ../../layouts/Layout.astro
 ---
 
 ## Functions
@@ -280,6 +289,10 @@ type OmitNumberValues = ;
     );
     expect(resultMdx['functions/packages/object/keys.mdx']).toBe(
       `
+---
+layout: ../../../layouts/Layout.astro
+---
+
 ## Functions
 
 ### getMetadataValues
@@ -385,6 +398,10 @@ Test normal type object.
     );
     expect(resultMdx['types/helpers/types.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Types
 
 ### ComponentInfo

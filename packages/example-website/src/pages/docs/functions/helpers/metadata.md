@@ -22,7 +22,7 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | Metadata | The metadata used for the test component. |
+| metadata | [Metadata](../../types/helpers/types.md) | The metadata used for the test component. |
 
 #### Returns
 

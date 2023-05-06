@@ -24,7 +24,6 @@ export async function convertApiJSONToMarkdown({
   fileExtension,
   isTrailingSlashUsed,
   input,
-  outputBaseDir,
   outputDocsDir,
   leafConfig
 }: {
@@ -33,7 +32,6 @@ export async function convertApiJSONToMarkdown({
   fileExtension: FileExtension;
   isTrailingSlashUsed: boolean;
   input: string;
-  outputBaseDir: string;
   outputDocsDir: string;
   leafConfig: LeafConfig;
 }) {
@@ -55,7 +53,7 @@ export async function convertApiJSONToMarkdown({
     'functions' | 'components' | 'frontmatter'
   >[] = [];
 
-  const baseReplacement = path.join(outputBaseDir, leafConfig.base || '');
+  const baseReplacement = leafConfig.base || '';
 
   for (const file of json.children) {
     if (!file.children) {
@@ -209,7 +207,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       leafConfig.injectedFrontmatter?.layout
         ? {
             layout: getRelativePathToLayout(
-              section.fileName,
+              path.join(outputDocsDir, section.fileName),
               leafConfig.injectedFrontmatter.layout.replace(
                 '{base}',
                 baseReplacement
@@ -266,7 +264,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       leafConfig.injectedFrontmatter?.layout
         ? {
             layout: getRelativePathToLayout(
-              section.fileName,
+              path.join(outputDocsDir, section.fileName),
               leafConfig.injectedFrontmatter.layout.replace(
                 '{base}',
                 baseReplacement
@@ -306,7 +304,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       leafConfig.injectedFrontmatter?.layout
         ? {
             layout: getRelativePathToLayout(
-              section.fileName,
+              path.join(outputDocsDir, section.fileName),
               leafConfig.injectedFrontmatter.layout.replace(
                 '{base}',
                 baseReplacement

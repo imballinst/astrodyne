@@ -17,7 +17,6 @@ describe('convertApiJSONToMarkdown', async () => {
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MD,
     input: 'src',
-    outputBaseDir: '.',
     outputDocsDir: '.',
     leafConfig: {
       base: '.',
@@ -30,7 +29,6 @@ describe('convertApiJSONToMarkdown', async () => {
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MDX,
     input: 'src',
-    outputBaseDir: '.',
     outputDocsDir: '.',
     leafConfig: {
       base: '.',

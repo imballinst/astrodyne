@@ -1,3 +1,7 @@
+---
+layout: ../../../../layouts/Layout.astro
+---
+
 ## Components
 
 ### TestComponent

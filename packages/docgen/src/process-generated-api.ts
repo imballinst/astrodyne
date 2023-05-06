@@ -92,7 +92,6 @@ import { LeafConfig } from './utils/runtime-variables';
     fileExtension: argv.fileExtension as FileExtension,
     isTrailingSlashUsed: argv.trailingSlash as boolean,
     input: `${input}`,
-    outputBaseDir: cwd,
     outputDocsDir: outDirPath,
     leafConfig: config
   });

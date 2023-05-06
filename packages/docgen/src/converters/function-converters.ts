@@ -1,4 +1,4 @@
-import { Child, ReflectionType, Signature } from '../models/models';
+import { ArrayType, Child, ReflectionType, Signature } from '../models/models';
 import { Source } from '../models/source';
 import { ReferenceType } from '../models/_base';
 import { getRelativePath } from '../utils/file';
@@ -26,6 +26,7 @@ export function getFunctionStringArray({
   const values = Object.values(entities);
 
   for (const value of values) {
+    const functionSource = value.sources?.[0];
     const overloads = value.signatures || [];
 
     for (const overload of overloads) {
@@ -35,6 +36,7 @@ export function getFunctionStringArray({
         const childResult = getFunctionParameters({
           overload,
           typeIdRecord,
+          functionSource,
           mode
         });
 
@@ -68,17 +70,19 @@ function getFunctionSummary(fn: Signature) {
   return `
 ### ${fn.name}
 
-${(fn.comment.summary || []).map((block) => block.text)}
+${(fn.comment?.summary || []).map((block) => block.text)}
   `.trim();
 }
 
 function getFunctionParameters({
   overload,
   typeIdRecord,
+  functionSource,
   mode
 }: {
   overload: Signature;
   typeIdRecord: Record<string, Child>;
+  functionSource: Source | undefined;
   mode: OutputMode;
 }) {
   const result: EffectiveTypeResult = {
@@ -91,6 +95,7 @@ function getFunctionParameters({
       child,
       typeIdRecord,
       functionName: overload.name,
+      functionSource,
       mode
     });
 
@@ -113,11 +118,13 @@ function getParameterBlock({
   child,
   typeIdRecord,
   functionName,
+  functionSource,
   mode
 }: {
   child: Child;
   typeIdRecord: Record<number, Child>;
   functionName: string;
+  functionSource: Source | undefined;
   mode: OutputMode;
 }) {
   let result: EffectiveTypeResult = {
@@ -129,8 +136,7 @@ function getParameterBlock({
     const temp = getEffectiveType({
       type: child.type,
       name: getLocalFunctionParameterName(functionName, child),
-      typeIdRecord,
-      mode
+      typeIdRecord
     });
 
     result.typeString = `
@@ -142,14 +148,14 @@ function getParameterBlock({
     )} |
   `.trim();
     result.inlineTypeIds.push(...temp.inlineTypeIds);
-  }
-
-  if (child.type?.type === 'reference') {
+  } else if (child.type?.type === 'reference') {
     const temp = getEffectiveType({
       type: child.type,
       name: getLocalFunctionParameterName(functionName, child),
       typeIdRecord,
-      mode
+      options: {
+        urls: functionSource ? { src: functionSource } : undefined
+      }
     });
 
     result.typeString = `
@@ -174,17 +180,26 @@ function getFunctionReturns({
   functionSource: Source | undefined;
   mode: OutputMode;
 }) {
-  const reference = ReferenceType.safeParse(signature.type);
-  const reflection = ReflectionType.safeParse(signature.type);
+  const array = ArrayType.safeParse(signature.type);
+  let object = signature.type;
+  let isArray = false;
+
+  if (array.success) {
+    object = array.data.elementType;
+    isArray = true;
+  }
+
+  const isIntrinsic = object?.type === 'intrinsic';
+  const reference = ReferenceType.safeParse(object);
+  const reflection = ReflectionType.safeParse(object);
   const inlineTypeIds: number[] = [];
   let link = '';
 
   if (reference.success) {
-    link = getRelativePath(
-      functionSource,
-      typeIdRecord[reference.data.id].sources?.[0],
-      mode
-    );
+    link = getRelativePath({
+      src: functionSource,
+      dst: typeIdRecord[reference.data.id].sources?.[0]
+    });
   } else if (reflection.success) {
     link = getLocalFunctionParameterName(signature.name, {
       ...reflection.data.declaration,
@@ -200,12 +215,16 @@ function getFunctionReturns({
   const effectiveType = getEffectiveType({
     type: signature.type,
     name: link,
-    typeIdRecord,
-    mode
+    typeIdRecord
   }).typeString;
-  const rendered = !effectiveType.includes('[Object]')
-    ? `[${effectiveType}](${link})`
-    : effectiveType;
+  let rendered =
+    !effectiveType.includes('[Object]') && !isIntrinsic
+      ? `[${effectiveType}](${link})`
+      : effectiveType;
+
+  if (isArray) {
+    rendered = `Array<${rendered}>`;
+  }
 
   return {
     returns: `

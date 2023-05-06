@@ -13,14 +13,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 36,
+					"id": 44,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 37,
+							"id": 45,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
@@ -41,7 +41,7 @@
 							},
 							"children": [
 								{
-									"id": 40,
+									"id": 48,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -83,7 +83,7 @@
 									}
 								},
 								{
-									"id": 39,
+									"id": 47,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -111,7 +111,7 @@
 									}
 								},
 								{
-									"id": 38,
+									"id": 46,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -142,9 +142,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										40,
-										39,
-										38
+										48,
+										47,
+										46
 									]
 								}
 							],
@@ -162,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								37
+								45
 							]
 						}
 					]
@@ -205,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 37,
+										"id": 45,
 										"name": "TestComponentProps"
 									}
 								}
@@ -224,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						36
+						44
 					]
 				},
 				{
@@ -1016,6 +1016,383 @@
 					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/helpers/types.ts#L4"
 				}
 			]
+		},
+		{
+			"id": 36,
+			"name": "packages/object/keys",
+			"kind": 2,
+			"kindString": "Module",
+			"flags": {},
+			"children": [
+				{
+					"id": 49,
+					"name": "<internal>",
+					"kind": 2,
+					"kindString": "Module",
+					"flags": {},
+					"children": [
+						{
+							"id": 52,
+							"name": "ExampleValue",
+							"kind": 256,
+							"kindString": "Interface",
+							"flags": {},
+							"children": [
+								{
+									"id": 53,
+									"name": "field",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "packages/object/keys.ts",
+											"line": 10,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L10"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 54,
+									"name": "num",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "packages/object/keys.ts",
+											"line": 11,
+											"character": 2,
+											"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L11"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "number"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										53,
+										54
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "packages/object/keys.ts",
+									"line": 9,
+									"character": 10,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L9"
+								}
+							]
+						},
+						{
+							"id": 50,
+							"name": "OmitNumberValues",
+							"kind": 4194304,
+							"kindString": "Type alias",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "packages/object/keys.ts",
+									"line": 3,
+									"character": 5,
+									"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
+								}
+							],
+							"typeParameters": [
+								{
+									"id": 51,
+									"name": "T",
+									"kind": 131072,
+									"kindString": "Type parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "object"
+									}
+								}
+							],
+							"type": {
+								"type": "mapped",
+								"parameter": "K",
+								"parameterType": {
+									"type": "typeOperator",
+									"operator": "keyof",
+									"target": {
+										"type": "reference",
+										"id": 51,
+										"name": "T"
+									}
+								},
+								"templateType": {
+									"type": "conditional",
+									"checkType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									},
+									"extendsType": {
+										"type": "intrinsic",
+										"name": "number"
+									},
+									"trueType": {
+										"type": "intrinsic",
+										"name": "never"
+									},
+									"falseType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									}
+								},
+								"nameType": {
+									"type": "conditional",
+									"checkType": {
+										"type": "indexedAccess",
+										"indexType": {
+											"type": "reference",
+											"name": "K"
+										},
+										"objectType": {
+											"type": "reference",
+											"id": 51,
+											"name": "T"
+										}
+									},
+									"extendsType": {
+										"type": "intrinsic",
+										"name": "number"
+									},
+									"trueType": {
+										"type": "intrinsic",
+										"name": "never"
+									},
+									"falseType": {
+										"type": "reference",
+										"name": "K"
+									}
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Interfaces",
+							"children": [
+								52
+							]
+						},
+						{
+							"title": "Type Aliases",
+							"children": [
+								50
+							]
+						}
+					]
+				},
+				{
+					"id": 43,
+					"name": "ExampleValueWithoutNumber",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Use this utility type to omit field with number values."
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 16,
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L16"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 50,
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 52,
+								"name": "ExampleValue"
+							}
+						],
+						"name": "OmitNumberValues"
+					}
+				},
+				{
+					"id": 40,
+					"name": "getMetadataValues",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 22,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L22"
+						}
+					],
+					"signatures": [
+						{
+							"id": 41,
+							"name": "getMetadataValues",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 42,
+									"name": "object",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "string"
+											},
+											{
+												"type": "reference",
+												"id": 22,
+												"name": "Metadata"
+											}
+										],
+										"name": "Record",
+										"qualifiedName": "Record",
+										"package": "typescript"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"id": 22,
+									"name": "Metadata"
+								}
+							}
+						}
+					]
+				},
+				{
+					"id": 37,
+					"name": "getObjectKeys",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 18,
+							"character": 16,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L18"
+						}
+					],
+					"signatures": [
+						{
+							"id": 38,
+							"name": "getObjectKeys",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 39,
+									"name": "object",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "string"
+											},
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										],
+										"name": "Record",
+										"qualifiedName": "Record",
+										"package": "typescript"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Modules",
+					"children": [
+						49
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						43
+					]
+				},
+				{
+					"title": "Functions",
+					"children": [
+						40,
+						37
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "packages/object/keys.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L1"
+				}
+			]
 		}
 	],
 	"groups": [
@@ -1025,7 +1402,8 @@
 				1,
 				5,
 				11,
-				21
+				21,
+				36
 			]
 		}
 	]

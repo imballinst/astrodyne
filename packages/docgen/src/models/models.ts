@@ -4,7 +4,13 @@ import { Flags } from './flags';
 import { Group } from './group';
 import { KindString } from './kindString';
 import { Source } from './source';
-import { IntrinsicType, ReferenceType, JSXType, LiteralType } from './_base';
+import {
+  IntrinsicType,
+  ReferenceType,
+  JSXType,
+  LiteralType,
+  GenericType
+} from './_base';
 
 // These are the remaining types that need to be in 1 file together so we're not do circular imports.
 export interface Child {
@@ -43,7 +49,7 @@ export const Signature = z
     kind: z.number(),
     kindString: KindString,
     flags: Flags,
-    comment: Comment,
+    comment: Comment.optional(),
     type: z.lazy(() => ChildTypeUnion).optional(),
     parameters: z.array(Child)
   })
@@ -74,6 +80,7 @@ export type TopLevelFields = z.infer<typeof TopLevelFields>;
 export const RecordEntry = z
   .object({
     fileName: z.string(),
+    source: Source.optional(),
     components: z.record(Child),
     functions: z.record(Child),
     types: z.record(Child)
@@ -86,7 +93,8 @@ const NonArrayType = z.union([
   ReferenceType,
   ReflectionType,
   JSXType,
-  LiteralType
+  LiteralType,
+  GenericType
 ]);
 type NonArrayType = z.infer<typeof NonArrayType>;
 

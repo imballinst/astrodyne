@@ -3,7 +3,13 @@ import { describe, expect, test } from 'vitest';
 import validIntrinsics from '../test-resources/intrinsics.json';
 import validLiterals from '../test-resources/literals.json';
 import validReferences from '../test-resources/references.json';
-import { IntrinsicType, LiteralType, JSXType, ReferenceType } from './_base';
+import {
+  IntrinsicType,
+  LiteralType,
+  JSXType,
+  ReferenceType,
+  GenericType
+} from './_base';
 
 describe('IntrinsicType', () => {
   for (const validIntrinsic of validIntrinsics) {
@@ -43,8 +49,11 @@ describe('ReferenceType and JSXType', () => {
     test(`parse ${validReferenceStr}`, () => {
       const parsedReference = ReferenceType.safeParse(validReference);
       const parsedJSX = JSXType.safeParse(validReference);
+      const parsedRecord = GenericType.safeParse(validReference);
 
-      expect(parsedReference.success || parsedJSX.success).toBe(true);
+      expect(
+        parsedReference.success || parsedJSX.success || parsedRecord.success
+      ).toBe(true);
     });
   }
 });

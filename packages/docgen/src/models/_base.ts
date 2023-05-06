@@ -34,3 +34,21 @@ export const JSXType = z
   })
   .strict();
 export type JSXType = z.infer<typeof JSXType>;
+
+export const GenericType = z
+  .object({
+    type: z.literal('reference'),
+    id: z.number().optional(),
+    typeArguments: z.array(
+      z.object({
+        type: z.string(),
+        id: z.number().optional(),
+        name: z.string()
+      })
+    ),
+    name: z.string(),
+    qualifiedName: z.string().optional(),
+    package: z.string().optional()
+  })
+  .strict();
+export type GenericType = z.infer<typeof GenericType>;

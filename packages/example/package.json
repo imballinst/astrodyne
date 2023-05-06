@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "gen-md": "node -r esbuild-register ../docgen/src/process-generated-api.ts gen-md ./api.json ../example-website/src/pages/docs",
-    "typedoc": "typedoc --tsconfig tsconfig.esm.json"
+    "typedoc": "typedoc"
   },
   "devDependencies": {
     "@types/node": "18.11.18",

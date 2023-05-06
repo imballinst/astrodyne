@@ -1,18 +1,16 @@
-import fs from 'fs-extra';
-import path from 'path';
 import {
   ChildTypeUnion,
   Child,
   RecordEntry,
   TopLevelFields
 } from '../models/models';
-import { Source } from '../models/source';
 import { JSXType } from '../models/_base';
 import {
   Frontmatter,
   prependWithFrontmatterIfExist
 } from '../utils/frontmatter';
-import { generateTextBasedOnMode, OutputMode } from '../utils/mode';
+import { OutputMode } from '../utils/mode';
+import { RUNTIME_VARIABLES } from '../utils/runtime-variables';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
@@ -22,12 +20,19 @@ const FRONTMATTER_REGEX = /\$(\w+): ([\w\s]+)/;
 export async function convertApiJSONToMarkdown({
   json,
   mode,
+  fileExtension,
   input
 }: {
   json: TopLevelFields;
   mode: OutputMode;
+  fileExtension: 'md' | 'mdx';
   input: string;
 }) {
+  // Set global variables.
+  RUNTIME_VARIABLES.fileExtension = fileExtension;
+  RUNTIME_VARIABLES.outputMode = mode;
+
+  // Process the things.
   const typeIdRecord: Record<number, Child> = {};
   const frontmatterRecord: Record<string, Frontmatter> = {};
 
@@ -118,17 +123,23 @@ export async function convertApiJSONToMarkdown({
     if (Object.keys(tempObj.components).length > 0) {
       componentsSection.push({
         fileName: file.name,
+        source: file.sources?.[0],
         components: tempObj.components,
         types: tempObj.types
       });
     } else if (Object.keys(tempObj.functions).length > 0) {
       functionsSection.push({
         fileName: file.name,
+        source: file.sources?.[0],
         functions: tempObj.functions,
         types: tempObj.types
       });
     } else {
-      typesSection.push({ fileName: file.name, types: tempObj.types });
+      typesSection.push({
+        fileName: file.name,
+        source: file.sources?.[0],
+        types: tempObj.types
+      });
     }
   }
 
@@ -156,10 +167,18 @@ ${convertCommentToString(
     }
 
     types.push(
-      ...getTypeStringArray({ record: section.types, typeIdRecord, mode })
+      ...getTypeStringArray({
+        record: section.types,
+        typeIdRecord,
+        mode,
+        options: { urls: { src: section.source } }
+      })
     );
 
-    const key = generateTextBasedOnMode(`components/${section.fileName}`, mode);
+    const key = generateFileName(
+      `components/${section.fileName}`,
+      fileExtension
+    );
     contents[key] = `
 ## Components
 
@@ -205,7 +224,10 @@ ${sortAndMapTuple(types).join('\n\n')}
       })
     );
 
-    const key = generateTextBasedOnMode(`functions/${section.fileName}`, mode);
+    const key = generateFileName(
+      `functions/${section.fileName}`,
+      fileExtension
+    );
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
     contents[key] += addTextIfArrayIsNonEmpty(
       '\n\n## Types',
@@ -234,7 +256,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       })
     );
 
-    const key = generateTextBasedOnMode(`types/${section.fileName}`, mode);
+    const key = generateFileName(`types/${section.fileName}`, fileExtension);
     contents[key] = addTextIfArrayIsNonEmpty(
       '## Types',
       sortAndMapTuple(types)
@@ -276,4 +298,8 @@ function sortAndMapTuple(array: string[][]) {
   });
 
   return newArray.map((item) => item[1]);
+}
+
+function generateFileName(section: string, extension: string) {
+  return `${section}.${extension}`;
 }

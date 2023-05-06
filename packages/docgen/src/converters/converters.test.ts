@@ -16,14 +16,24 @@ describe('convertApiJSONToMarkdown', async () => {
     mode: OutputMode.PLAIN_MARKDOWN,
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MD,
-    input: 'src'
+    input: 'src',
+    outputDocsDir: '.',
+    leafConfig: {
+      base: '.',
+      injectedFrontmatter: {}
+    }
   });
   const resultMdx = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
     mode: OutputMode.PROCESSED_MARKDOWN,
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MDX,
-    input: 'src'
+    input: 'src',
+    outputDocsDir: '.',
+    leafConfig: {
+      base: '.',
+      injectedFrontmatter: { layout: '{base}/layouts/Layout.astro' }
+    }
   });
 
   test('components', () => {
@@ -50,6 +60,10 @@ The props passed to TestComponent.
     );
     expect(resultMdx['components/components/TestComponent.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Components
 
 ### TestComponent
@@ -116,6 +130,10 @@ Gets the component information from the given metadata.
     );
     expect(resultMdx['functions/helpers/metadata.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Functions
 
 ### convertToMetadata
@@ -160,8 +178,8 @@ Gets the component information from the given metadata.
     expect(resultMd['functions/helpers/array.md']).toBe(
       `
 ---
-title: Array helpers
 description: This file contains the array helpers
+title: Array helpers
 ---
 
 ## Functions
@@ -188,8 +206,9 @@ Converts a string into an array of each characters.
     expect(resultMdx['functions/helpers/array.mdx']).toBe(
       `
 ---
-title: Array helpers
 description: This file contains the array helpers
+title: Array helpers
+layout: ../../layouts/Layout.astro
 ---
 
 ## Functions
@@ -268,6 +287,10 @@ type OmitNumberValues = ;
     );
     expect(resultMdx['functions/packages/object/keys.mdx']).toBe(
       `
+---
+layout: ../../../layouts/Layout.astro
+---
+
 ## Functions
 
 ### getMetadataValues
@@ -373,6 +396,10 @@ Test normal type object.
     );
     expect(resultMdx['types/helpers/types.mdx']).toBe(
       `
+---
+layout: ../../layouts/Layout.astro
+---
+
 ## Types
 
 ### ComponentInfo

@@ -1,6 +1,7 @@
 ---
-title: Array helpers
 description: This file contains the array helpers
+title: Array helpers
+layout: ../../../../layouts/Layout.astro
 ---
 
 ## Functions

@@ -7,9 +7,26 @@ import { convertApiJSONToMarkdown } from './converters/converters';
 import { TopLevelFields } from './models/models';
 import { isDirectoryExist } from './utils/file';
 import { FileExtension, OutputMode } from './utils/mode';
+import { LeafConfig } from './utils/runtime-variables';
 
 (async () => {
   const cwd = process.cwd();
+  let config: LeafConfig = {
+    base: '',
+    injectedFrontmatter: {
+      layout: ''
+    }
+  };
+
+  try {
+    const importedConfig = (await import(`${cwd}/leaf.config.js`)).default;
+    for (const key in importedConfig) {
+      config[key as keyof LeafConfig] = importedConfig[key];
+    }
+  } catch (err) {
+    // No-op.
+  }
+
   const argv = await yargs(hideBin(process.argv))
     .usage('Usage: $0 <command> [options]')
     .command(
@@ -54,9 +71,12 @@ import { FileExtension, OutputMode } from './utils/mode';
   const outDirPath = path.join(cwd, `${output}`);
 
   await Promise.allSettled([
-    fs.rm(path.join(outDirPath, 'components'), { force: true }),
-    fs.rm(path.join(outDirPath, 'types'), { force: true }),
-    fs.rm(path.join(outDirPath, 'functions'), { force: true })
+    fs.rm(path.join(outDirPath, 'components'), {
+      force: true,
+      recursive: true
+    }),
+    fs.rm(path.join(outDirPath, 'types'), { force: true, recursive: true }),
+    fs.rm(path.join(outDirPath, 'functions'), { force: true, recursive: true })
   ]);
 
   await Promise.allSettled([
@@ -71,7 +91,9 @@ import { FileExtension, OutputMode } from './utils/mode';
     mode: argv.mode as OutputMode,
     fileExtension: argv.fileExtension as FileExtension,
     isTrailingSlashUsed: argv.trailingSlash as boolean,
-    input: `${input}`
+    input: `${input}`,
+    outputDocsDir: outDirPath,
+    leafConfig: config
   });
 
   await Promise.allSettled(

@@ -10,11 +10,14 @@
     ]
   },
   "scripts": {
+    "test": "yarn docgen:test",
     "docgen:test": "yarn workspace docgen test",
     "docgen:test:setup": "yarn workspace docgen test:setup",
     "example:gen-md": "yarn workspace example gen-md --fileExtension md --mode processed-markdown",
     "example:typedoc": "yarn workspace example typedoc",
-    "site:dev": "yarn workspace example-website dev"
+    "dev": "yarn site:dev",
+    "site:dev": "yarn workspace example-website dev",
+    "build": "yarn workspace example-website build"
   },
   "devDependencies": {
     "eslint": "8.29.0",

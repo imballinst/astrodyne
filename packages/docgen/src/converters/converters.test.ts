@@ -16,14 +16,26 @@ describe('convertApiJSONToMarkdown', async () => {
     mode: OutputMode.PLAIN_MARKDOWN,
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MD,
-    input: 'src'
+    input: 'src',
+    outputBaseDir: '.',
+    outputDocsDir: '.',
+    leafConfig: {
+      base: '.',
+      injectedFrontmatter: { layout: '{base}/layouts/Layout.astro' }
+    }
   });
   const resultMdx = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
     mode: OutputMode.PROCESSED_MARKDOWN,
     isTrailingSlashUsed: true,
     fileExtension: FileExtension.MDX,
-    input: 'src'
+    input: 'src',
+    outputBaseDir: '.',
+    outputDocsDir: '.',
+    leafConfig: {
+      base: '.',
+      injectedFrontmatter: { layout: '{base}/layouts/Layout.astro' }
+    }
   });
 
   test('components', () => {

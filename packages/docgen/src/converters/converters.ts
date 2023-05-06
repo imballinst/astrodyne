@@ -1,3 +1,4 @@
+import path from 'path';
 import {
   ChildTypeUnion,
   Child,
@@ -10,7 +11,7 @@ import {
   prependWithFrontmatterIfExist
 } from '../utils/frontmatter';
 import { FileExtension, OutputMode } from '../utils/mode';
-import { RUNTIME_VARIABLES } from '../utils/runtime-variables';
+import { LeafConfig, RUNTIME_VARIABLES } from '../utils/runtime-variables';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
@@ -22,13 +23,19 @@ export async function convertApiJSONToMarkdown({
   mode,
   fileExtension,
   isTrailingSlashUsed,
-  input
+  input,
+  outputBaseDir,
+  outputDocsDir,
+  leafConfig
 }: {
   json: TopLevelFields;
   mode: OutputMode;
   fileExtension: FileExtension;
   isTrailingSlashUsed: boolean;
   input: string;
+  outputBaseDir: string;
+  outputDocsDir: string;
+  leafConfig: LeafConfig;
 }) {
   // Set global variables.
   RUNTIME_VARIABLES.fileExtension = fileExtension;
@@ -47,6 +54,8 @@ export async function convertApiJSONToMarkdown({
     RecordEntry,
     'functions' | 'components' | 'frontmatter'
   >[] = [];
+
+  const baseReplacement = path.join(outputBaseDir, leafConfig.base);
 
   for (const file of json.children) {
     if (!file.children) {
@@ -195,7 +204,13 @@ ${sortAndMapTuple(types).join('\n\n')}
     // Prepend frontmatter.
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
-      frontmatterRecord[section.fileName]
+      frontmatterRecord[section.fileName],
+      {
+        layout: getRelativePathToLayout(
+          section.fileName,
+          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
+        )
+      }
     );
   }
 
@@ -240,7 +255,13 @@ ${sortAndMapTuple(types).join('\n\n')}
     // Prepend frontmatter.
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
-      frontmatterRecord[section.fileName]
+      frontmatterRecord[section.fileName],
+      {
+        layout: getRelativePathToLayout(
+          section.fileName,
+          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
+        )
+      }
     );
   }
 
@@ -268,7 +289,13 @@ ${sortAndMapTuple(types).join('\n\n')}
     // Prepend frontmatter.
     contents[key] = prependWithFrontmatterIfExist(
       contents[key],
-      frontmatterRecord[section.fileName]
+      frontmatterRecord[section.fileName],
+      {
+        layout: getRelativePathToLayout(
+          section.fileName,
+          path.join(baseReplacement, leafConfig.injectedFrontmatter.layout)
+        )
+      }
     );
   }
 
@@ -305,4 +332,8 @@ function sortAndMapTuple(array: string[][]) {
 
 function generateFileName(section: string, extension: string) {
   return `${section}.${extension}`;
+}
+
+function getRelativePathToLayout(filePath: string, layoutPath: string) {
+  return path.relative(filePath, layoutPath);
 }

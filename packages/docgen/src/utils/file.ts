@@ -13,10 +13,12 @@ export function getRelativePath({
 }) {
   if (!src || !dst) return '';
 
-  return relative(
-    `docs/stub/${dirname(src.fileName)}`,
-    `docs/types/${dst.fileName}`
-  ).replace(
+  let srcDir = `docs/stub/${dirname(src.fileName)}`;
+  if (RUNTIME_VARIABLES.isTrailingSlashUsed) {
+    srcDir = `${srcDir}/stub`;
+  }
+
+  return relative(srcDir, `docs/types/${dst.fileName}`).replace(
     /\.tsx?/,
     generateTextBasedOnMode(
       '',

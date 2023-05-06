@@ -26,18 +26,22 @@ import { FileExtension, OutputMode } from './utils/mode';
             '$0 gen-md api.json src/pages/docs',
             'generates documentation files from api.json and outputs it into src/pages/docs folder'
           )
-          .option('fileExtension', {
-            alias: 'e',
+          .option('file-extension', {
             describe: 'The output file extension',
             choices: [FileExtension.MD, FileExtension.MDX],
-            default: 'md'
+            default: FileExtension.MD
           })
           .option('mode', {
-            alias: 'm',
             describe:
               'The output mode, choose "plain-markdown" for showing only in Git repository, otherwise "processed-markdown" for processing it using framework like Astro.',
             choices: [OutputMode.PLAIN_MARKDOWN, OutputMode.PROCESSED_MARKDOWN],
             default: 'plain-markdown'
+          })
+          .option('trailing-slash', {
+            describe:
+              'Whether trailing slash is enabled or not in the hosting platform. Further reference: https://github.com/slorber/trailing-slash-guide.',
+            boolean: true,
+            default: true
           });
       }
     )
@@ -66,6 +70,7 @@ import { FileExtension, OutputMode } from './utils/mode';
     json,
     mode: argv.mode as OutputMode,
     fileExtension: argv.fileExtension as FileExtension,
+    isTrailingSlashUsed: argv.trailingSlash as boolean,
     input: `${input}`
   });
 

@@ -6,11 +6,11 @@
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object | Record<string, [Metadata](../../../types/helpers/types)> |  |
+| object | Record<string, [Metadata](../../../../types/helpers/types)> |  |
 
 #### Returns
 
-Array<[Metadata](../../../types/helpers/types)>
+Array<[Metadata](../../../../types/helpers/types)>
 
 ### getObjectKeys
 

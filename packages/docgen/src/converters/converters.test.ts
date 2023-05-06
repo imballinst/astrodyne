@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { convertApiJSONToMarkdown } from './converters';
-import { OutputMode } from '../utils/mode';
+import { FileExtension, OutputMode } from '../utils/mode';
 
 const apiJson = fs.readFileSync(
   path.join(process.cwd(), '../example/api.json'),
@@ -14,13 +14,15 @@ describe('convertApiJSONToMarkdown', async () => {
   const resultMd = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
     mode: OutputMode.PLAIN_MARKDOWN,
-    fileExtension: 'md',
+    isTrailingSlashUsed: true,
+    fileExtension: FileExtension.MD,
     input: 'src'
   });
   const resultMdx = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
     mode: OutputMode.PROCESSED_MARKDOWN,
-    fileExtension: 'mdx',
+    isTrailingSlashUsed: true,
+    fileExtension: FileExtension.MDX,
     input: 'src'
   });
 
@@ -42,8 +44,8 @@ The props passed to TestComponent.
 | Prop | Type | Description |
 | ---- | ---- | ----------- |
 | title | string | The title of the component. This is NOT the component ID. |
-| metadata | [Metadata](../../types/helpers/types.md) | The metadata of the component. |
-| information | [Metadata](../../types/helpers/types.md) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
+| metadata | [Metadata](../../../types/helpers/types.md) | The metadata of the component. |
+| information | [Metadata](../../../types/helpers/types.md) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
     expect(resultMdx['components/components/TestComponent.mdx']).toBe(
@@ -63,8 +65,8 @@ The props passed to TestComponent.
 | Prop | Type | Description |
 | ---- | ---- | ----------- |
 | title | string | The title of the component. This is NOT the component ID. |
-| metadata | [Metadata](../../types/helpers/types) | The metadata of the component. |
-| information | [Metadata](../../types/helpers/types) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
+| metadata | [Metadata](../../../types/helpers/types) | The metadata of the component. |
+| information | [Metadata](../../../types/helpers/types) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
   });
@@ -86,7 +88,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../../types/helpers/types.md)
+[Metadata](../../../types/helpers/types.md)
 
 ### getInformation
 
@@ -96,11 +98,11 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | [Metadata](../../types/helpers/types.md) | The metadata used for the test component. |
+| metadata | [Metadata](../../../types/helpers/types.md) | The metadata used for the test component. |
 
 #### Returns
 
-[ComponentInfo](../../types/helpers/types.md)
+[ComponentInfo](../../../types/helpers/types.md)
 
 ## Types
 
@@ -128,7 +130,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../../types/helpers/types)
+[Metadata](../../../types/helpers/types)
 
 ### getInformation
 
@@ -138,11 +140,11 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | [Metadata](../../types/helpers/types) | The metadata used for the test component. |
+| metadata | [Metadata](../../../types/helpers/types) | The metadata used for the test component. |
 
 #### Returns
 
-[ComponentInfo](../../types/helpers/types)
+[ComponentInfo](../../../types/helpers/types)
 
 ## Types
 
@@ -222,11 +224,11 @@ Converts a string into an array of each characters.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object | Record<string, [Metadata](../../../types/helpers/types.md)> |  |
+| object | Record<string, [Metadata](../../../../types/helpers/types.md)> |  |
 
 #### Returns
 
-Array<[Metadata](../../../types/helpers/types.md)>
+Array<[Metadata](../../../../types/helpers/types.md)>
 
 ### getObjectKeys
 
@@ -274,11 +276,11 @@ type OmitNumberValues = ;
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object | Record<string, [Metadata](../../../types/helpers/types)> |  |
+| object | Record<string, [Metadata](../../../../types/helpers/types)> |  |
 
 #### Returns
 
-Array<[Metadata](../../../types/helpers/types)>
+Array<[Metadata](../../../../types/helpers/types)>
 
 ### getObjectKeys
 

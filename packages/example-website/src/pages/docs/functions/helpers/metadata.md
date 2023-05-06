@@ -12,7 +12,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../../types/helpers/types)
+[Metadata](../../../types/helpers/types)
 
 ### getInformation
 
@@ -22,11 +22,11 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | [Metadata](../../types/helpers/types) | The metadata used for the test component. |
+| metadata | [Metadata](../../../types/helpers/types) | The metadata used for the test component. |
 
 #### Returns
 
-[ComponentInfo](../../types/helpers/types)
+[ComponentInfo](../../../types/helpers/types)
 
 ## Types
 

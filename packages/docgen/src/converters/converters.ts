@@ -9,7 +9,7 @@ import {
   Frontmatter,
   prependWithFrontmatterIfExist
 } from '../utils/frontmatter';
-import { OutputMode } from '../utils/mode';
+import { FileExtension, OutputMode } from '../utils/mode';
 import { RUNTIME_VARIABLES } from '../utils/runtime-variables';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
@@ -21,16 +21,19 @@ export async function convertApiJSONToMarkdown({
   json,
   mode,
   fileExtension,
+  isTrailingSlashUsed,
   input
 }: {
   json: TopLevelFields;
   mode: OutputMode;
-  fileExtension: 'md' | 'mdx';
+  fileExtension: FileExtension;
+  isTrailingSlashUsed: boolean;
   input: string;
 }) {
   // Set global variables.
   RUNTIME_VARIABLES.fileExtension = fileExtension;
   RUNTIME_VARIABLES.outputMode = mode;
+  RUNTIME_VARIABLES.isTrailingSlashUsed = isTrailingSlashUsed;
 
   // Process the things.
   const typeIdRecord: Record<number, Child> = {};

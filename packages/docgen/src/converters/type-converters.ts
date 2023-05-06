@@ -53,8 +53,7 @@ function getTypeBlock({
     const childTypeString = getChildType({
       child,
       typeIdRecord,
-      options,
-      mode
+      options
     });
 
     if (options?.extractInPlace && child.type?.type === 'reflection') {
@@ -64,7 +63,7 @@ function getTypeBlock({
 
     return `
 \`\`\`ts
-type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
+type ${child.name} = ${getChildType({ child, typeIdRecord, options })};
 \`\`\`
   `.trim();
   }
@@ -72,7 +71,7 @@ type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
   if (child.kindString === 'Interface' || child.kindString === 'Type literal') {
     const { children = [] } = child;
 
-    return processChildrenFields({ children, typeIdRecord, options, mode });
+    return processChildrenFields({ children, typeIdRecord, options });
   }
 
   return '';
@@ -81,13 +80,11 @@ type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
 export function processChildrenFields({
   children,
   typeIdRecord,
-  options,
-  mode
+  options
 }: {
   children: Child[];
   typeIdRecord: Record<number, Child>;
   options?: Options;
-  mode: OutputMode;
 }) {
   const rows: string[] = [];
   children.sort((a, b) => a.id - b.id);
@@ -96,7 +93,7 @@ export function processChildrenFields({
     // This only misses description, which we will extract from the tags below.
     const columns = [
       child.name,
-      getChildType({ child, typeIdRecord, options, mode }).replace(/\|/, '\\|')
+      getChildType({ child, typeIdRecord, options }).replace(/\|/, '\\|')
     ];
     columns.push(
       convertCommentToString(child.comment, NewlinePresentation.HTMLLineBreak)
@@ -115,13 +112,11 @@ ${rows.join('\n')}
 export function getChildType({
   child,
   typeIdRecord,
-  options,
-  mode
+  options
 }: {
   child: Child;
   typeIdRecord: Record<number, Child>;
   options?: Options;
-  mode: OutputMode;
 }): string {
   if (child.type?.type === undefined) {
     return '';
@@ -131,8 +126,7 @@ export function getChildType({
     type: child.type,
     name: child.name,
     typeIdRecord,
-    options,
-    mode
+    options
   }).typeString;
 }
 
@@ -140,14 +134,12 @@ export function getEffectiveType({
   type,
   name,
   typeIdRecord,
-  options,
-  mode
+  options
 }: {
   type: ChildTypeUnion | undefined;
   name: string;
   typeIdRecord: Record<number, Child>;
   options?: Options;
-  mode: OutputMode;
 }): EffectiveTypeResultWithDescription {
   const result: EffectiveTypeResultWithDescription = {
     typeString: '',
@@ -162,8 +154,7 @@ export function getEffectiveType({
       type: type.elementType,
       name,
       typeIdRecord,
-      options,
-      mode
+      options
     });
   }
 
@@ -187,8 +178,7 @@ export function getEffectiveType({
               type: { id: arg.id, name: arg.name, type: 'reference' },
               name,
               typeIdRecord,
-              options,
-              mode
+              options
             }).typeString;
           })
           .join(', ')}>`;
@@ -210,7 +200,10 @@ export function getEffectiveType({
 
         if (options?.urls?.src && dst) {
           const { src } = options.urls;
-          typeString = `[${typeString}](${getRelativePath(src, dst, mode)})`;
+          typeString = `[${typeString}](${getRelativePath({
+            src,
+            dst
+          })})`;
         }
 
         result.typeString = typeString;
@@ -238,8 +231,7 @@ export function getEffectiveType({
           type: typeChild,
           name,
           typeIdRecord,
-          options,
-          mode
+          options
         });
         unions.push(childResult.typeString);
       }
@@ -250,8 +242,7 @@ export function getEffectiveType({
       if (options?.extractInPlace) {
         result.typeString = processChildrenFields({
           children: type.declaration.children || [],
-          typeIdRecord,
-          mode
+          typeIdRecord
         });
       } else {
         const id = type.declaration.id;

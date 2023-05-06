@@ -4,13 +4,13 @@ import {
   RecordEntry,
   TopLevelFields
 } from '../models/models';
-import { Source } from '../models/source';
 import { JSXType } from '../models/_base';
 import {
   Frontmatter,
   prependWithFrontmatterIfExist
 } from '../utils/frontmatter';
-import { generateTextBasedOnMode, OutputMode } from '../utils/mode';
+import { OutputMode } from '../utils/mode';
+import { RUNTIME_VARIABLES } from '../utils/runtime-variables';
 import { convertCommentToString } from './comment-converters';
 import { getFunctionStringArray } from './function-converters';
 import { getTypeStringArray, NewlinePresentation } from './type-converters';
@@ -20,12 +20,19 @@ const FRONTMATTER_REGEX = /\$(\w+): ([\w\s]+)/;
 export async function convertApiJSONToMarkdown({
   json,
   mode,
+  fileExtension,
   input
 }: {
   json: TopLevelFields;
   mode: OutputMode;
+  fileExtension: 'md' | 'mdx';
   input: string;
 }) {
+  // Set global variables.
+  RUNTIME_VARIABLES.fileExtension = fileExtension;
+  RUNTIME_VARIABLES.outputMode = mode;
+
+  // Process the things.
   const typeIdRecord: Record<number, Child> = {};
   const frontmatterRecord: Record<string, Frontmatter> = {};
 
@@ -168,7 +175,10 @@ ${convertCommentToString(
       })
     );
 
-    const key = generateTextBasedOnMode(`components/${section.fileName}`, mode);
+    const key = generateFileName(
+      `components/${section.fileName}`,
+      fileExtension
+    );
     contents[key] = `
 ## Components
 
@@ -214,7 +224,10 @@ ${sortAndMapTuple(types).join('\n\n')}
       })
     );
 
-    const key = generateTextBasedOnMode(`functions/${section.fileName}`, mode);
+    const key = generateFileName(
+      `functions/${section.fileName}`,
+      fileExtension
+    );
     contents[key] = addTextIfArrayIsNonEmpty('## Functions', functions);
     contents[key] += addTextIfArrayIsNonEmpty(
       '\n\n## Types',
@@ -243,7 +256,7 @@ ${sortAndMapTuple(types).join('\n\n')}
       })
     );
 
-    const key = generateTextBasedOnMode(`types/${section.fileName}`, mode);
+    const key = generateFileName(`types/${section.fileName}`, fileExtension);
     contents[key] = addTextIfArrayIsNonEmpty(
       '## Types',
       sortAndMapTuple(types)
@@ -285,4 +298,8 @@ function sortAndMapTuple(array: string[][]) {
   });
 
   return newArray.map((item) => item[1]);
+}
+
+function generateFileName(section: string, extension: string) {
+  return `${section}.${extension}`;
 }

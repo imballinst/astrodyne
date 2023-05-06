@@ -136,8 +136,7 @@ function getParameterBlock({
     const temp = getEffectiveType({
       type: child.type,
       name: getLocalFunctionParameterName(functionName, child),
-      typeIdRecord,
-      mode
+      typeIdRecord
     });
 
     result.typeString = `
@@ -156,8 +155,7 @@ function getParameterBlock({
       typeIdRecord,
       options: {
         urls: functionSource ? { src: functionSource } : undefined
-      },
-      mode
+      }
     });
 
     result.typeString = `
@@ -198,11 +196,10 @@ function getFunctionReturns({
   let link = '';
 
   if (reference.success) {
-    link = getRelativePath(
-      functionSource,
-      typeIdRecord[reference.data.id].sources?.[0],
-      mode
-    );
+    link = getRelativePath({
+      src: functionSource,
+      dst: typeIdRecord[reference.data.id].sources?.[0]
+    });
   } else if (reflection.success) {
     link = getLocalFunctionParameterName(signature.name, {
       ...reflection.data.declaration,
@@ -218,8 +215,7 @@ function getFunctionReturns({
   const effectiveType = getEffectiveType({
     type: signature.type,
     name: link,
-    typeIdRecord,
-    mode
+    typeIdRecord
   }).typeString;
   let rendered =
     !effectiveType.includes('[Object]') && !isIntrinsic

@@ -6,13 +6,12 @@ import { hideBin } from 'yargs/helpers';
 import { convertApiJSONToMarkdown } from './converters/converters';
 import { TopLevelFields } from './models/models';
 import { isDirectoryExist } from './utils/file';
-import { OutputMode } from './utils/mode';
+import { FileExtension, OutputMode } from './utils/mode';
 
 (async () => {
   const cwd = process.cwd();
   const argv = await yargs(hideBin(process.argv))
     .usage('Usage: $0 <command> [options]')
-    .demandCommand(3)
     .command(
       'gen-md',
       'Generates documentation files from the output of typedoc JSON',
@@ -21,18 +20,27 @@ import { OutputMode } from './utils/mode';
           .positional('input', {
             describe: 'the path to the JSON output of typedoc'
           })
-          .positional('output', { describe: 'the docs output' });
+          .positional('output', { describe: 'the docs output' })
+          .demandCommand()
+          .example(
+            '$0 gen-md api.json src/pages/docs',
+            'generates documentation files from api.json and outputs it into src/pages/docs folder'
+          )
+          .option('fileExtension', {
+            alias: 'e',
+            describe: 'The output file extension',
+            choices: [FileExtension.MD, FileExtension.MDX],
+            default: 'md'
+          })
+          .option('mode', {
+            alias: 'm',
+            describe:
+              'The output mode, choose "plain-markdown" for showing only in Git repository, otherwise "processed-markdown" for processing it using framework like Astro.',
+            choices: [OutputMode.PLAIN_MARKDOWN, OutputMode.PROCESSED_MARKDOWN],
+            default: 'plain-markdown'
+          });
       }
     )
-    .example(
-      '$0 gen-md api.json src/pages/docs',
-      'generates documentation files from api.json and outputs it into src/pages/docs folder'
-    )
-    .option('mode', {
-      describe: 'the output mode',
-      choices: ['github', 'astro'],
-      default: 'github'
-    })
     .parse();
 
   const [_command, input, output] = argv._;
@@ -57,6 +65,7 @@ import { OutputMode } from './utils/mode';
   const contents = await convertApiJSONToMarkdown({
     json,
     mode: argv.mode as OutputMode,
+    fileExtension: argv.fileExtension as FileExtension,
     input: `${input}`
   });
 

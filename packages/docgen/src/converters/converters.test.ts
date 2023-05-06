@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { convertApiJSONToMarkdown } from './converters';
+import { OutputMode } from '../utils/mode';
 
 const apiJson = fs.readFileSync(
   path.join(process.cwd(), '../example/api.json'),
@@ -10,19 +11,21 @@ const apiJson = fs.readFileSync(
 );
 
 describe('convertApiJSONToMarkdown', async () => {
-  const result = await convertApiJSONToMarkdown({
+  const resultMd = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
-    mode: 'github',
+    mode: OutputMode.PLAIN_MARKDOWN,
+    fileExtension: 'md',
     input: 'src'
   });
-  const resultAstro = await convertApiJSONToMarkdown({
+  const resultMdx = await convertApiJSONToMarkdown({
     json: JSON.parse(apiJson),
-    mode: 'astro',
+    mode: OutputMode.PROCESSED_MARKDOWN,
+    fileExtension: 'mdx',
     input: 'src'
   });
 
   test('components', () => {
-    expect(result['components/components/TestComponent.md']).toBe(
+    expect(resultMd['components/components/TestComponent.md']).toBe(
       `
 ## Components
 
@@ -43,7 +46,7 @@ The props passed to TestComponent.
 | information | [Metadata](../../types/helpers/types.md) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
-    expect(resultAstro['components/components/TestComponent.mdx']).toBe(
+    expect(resultMdx['components/components/TestComponent.mdx']).toBe(
       `
 ## Components
 
@@ -60,14 +63,14 @@ The props passed to TestComponent.
 | Prop | Type | Description |
 | ---- | ---- | ----------- |
 | title | string | The title of the component. This is NOT the component ID. |
-| metadata | [Metadata](../../types/helpers/types.mdx) | The metadata of the component. |
-| information | [Metadata](../../types/helpers/types.mdx) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
+| metadata | [Metadata](../../types/helpers/types) | The metadata of the component. |
+| information | [Metadata](../../types/helpers/types) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
   });
 
   test('functions', () => {
-    expect(result['functions/helpers/metadata.md']).toBe(
+    expect(resultMd['functions/helpers/metadata.md']).toBe(
       `
 ## Functions
 
@@ -109,7 +112,7 @@ Gets the component information from the given metadata.
 | size | number |  |
     `.trim()
     );
-    expect(resultAstro['functions/helpers/metadata.mdx']).toBe(
+    expect(resultMdx['functions/helpers/metadata.mdx']).toBe(
       `
 ## Functions
 
@@ -125,7 +128,7 @@ Converts the information to metadata.
 
 #### Returns
 
-[Metadata](../../types/helpers/types.mdx)
+[Metadata](../../types/helpers/types)
 
 ### getInformation
 
@@ -135,11 +138,11 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | [Metadata](../../types/helpers/types.mdx) | The metadata used for the test component. |
+| metadata | [Metadata](../../types/helpers/types) | The metadata used for the test component. |
 
 #### Returns
 
-[ComponentInfo](../../types/helpers/types.mdx)
+[ComponentInfo](../../types/helpers/types)
 
 ## Types
 
@@ -152,7 +155,7 @@ Gets the component information from the given metadata.
     `.trim()
     );
 
-    expect(result['functions/helpers/array.md']).toBe(
+    expect(resultMd['functions/helpers/array.md']).toBe(
       `
 ---
 title: Array helpers
@@ -180,7 +183,7 @@ Converts a string into an array of each characters.
 | array | string |  |
     `.trim()
     );
-    expect(resultAstro['functions/helpers/array.mdx']).toBe(
+    expect(resultMdx['functions/helpers/array.mdx']).toBe(
       `
 ---
 title: Array helpers
@@ -209,7 +212,7 @@ Converts a string into an array of each characters.
     `.trim()
     );
 
-    expect(result['functions/packages/object/keys.md']).toBe(
+    expect(resultMd['functions/packages/object/keys.md']).toBe(
       `
 ## Functions
 
@@ -261,7 +264,7 @@ type OmitNumberValues = ;
 \`\`\`
     `.trim()
     );
-    expect(resultAstro['functions/packages/object/keys.mdx']).toBe(
+    expect(resultMdx['functions/packages/object/keys.mdx']).toBe(
       `
 ## Functions
 
@@ -271,11 +274,11 @@ type OmitNumberValues = ;
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object | Record<string, [Metadata](../../../types/helpers/types.mdx)> |  |
+| object | Record<string, [Metadata](../../../types/helpers/types)> |  |
 
 #### Returns
 
-Array<[Metadata](../../../types/helpers/types.mdx)>
+Array<[Metadata](../../../types/helpers/types)>
 
 ### getObjectKeys
 
@@ -316,7 +319,7 @@ type OmitNumberValues = ;
   });
 
   test('types', () => {
-    expect(result['types/helpers/types.md']).toBe(
+    expect(resultMd['types/helpers/types.md']).toBe(
       `
 ## Types
 
@@ -366,7 +369,7 @@ Test normal type object.
 | test | string |  |
     `.trim()
     );
-    expect(resultAstro['types/helpers/types.mdx']).toBe(
+    expect(resultMdx['types/helpers/types.mdx']).toBe(
       `
 ## Types
 

@@ -176,13 +176,16 @@ function getFunctionReturns({
 }) {
   const array = ArrayType.safeParse(signature.type);
   let object = signature.type;
+  let isArray = false;
 
   if (array.success) {
-    object = array.data;
+    object = array.data.elementType;
+    isArray = true;
   }
 
-  const reference = ReferenceType.safeParse(object?.type);
-  const reflection = ReflectionType.safeParse(object?.type);
+  const isIntrinsic = object?.type === 'intrinsic';
+  const reference = ReferenceType.safeParse(object);
+  const reflection = ReflectionType.safeParse(object);
   const inlineTypeIds: number[] = [];
   let link = '';
 
@@ -210,9 +213,14 @@ function getFunctionReturns({
     typeIdRecord,
     mode
   }).typeString;
-  const rendered = !effectiveType.includes('[Object]')
-    ? `[${effectiveType}](${link})`
-    : effectiveType;
+  let rendered =
+    !effectiveType.includes('[Object]') && !isIntrinsic
+      ? `[${effectiveType}](${link})`
+      : effectiveType;
+
+  if (isArray) {
+    rendered = `Array<${rendered}>`;
+  }
 
   return {
     returns: `

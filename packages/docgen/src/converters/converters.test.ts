@@ -223,11 +223,96 @@ Converts a string into an array of each characters.
 
 #### Returns
 
-[Metadata](../../types/helpers/types.md)
+Array<[Metadata](../../../types/helpers/types.md)>
 
+### getObjectKeys
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ---- | ---- | ----------- |
+| object |  |  |
+
+#### Returns
+
+Array<string>
+
+## Types
+
+### ExampleValue
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| field | string |  |
+| num | number |  |
+
+### ExampleValueWithoutNumber
+
+Use this utility type to omit field with number values.
+
+\`\`\`ts
+type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
+\`\`\`
+
+### OmitNumberValues
+
+\`\`\`ts
+type OmitNumberValues = ;
+\`\`\`
     `.trim()
     );
-    expect(resultAstro['functions/packages/object/keys.mdx']).toBe('');
+    expect(resultAstro['functions/packages/object/keys.mdx']).toBe(
+      `
+## Functions
+
+### getMetadataValues
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ---- | ---- | ----------- |
+| object |  |  |
+
+#### Returns
+
+Array<[Metadata](../../../types/helpers/types.mdx)>
+
+### getObjectKeys
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ---- | ---- | ----------- |
+| object |  |  |
+
+#### Returns
+
+Array<string>
+
+## Types
+
+### ExampleValue
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| field | string |  |
+| num | number |  |
+
+### ExampleValueWithoutNumber
+
+Use this utility type to omit field with number values.
+
+\`\`\`ts
+type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
+\`\`\`
+
+### OmitNumberValues
+
+\`\`\`ts
+type OmitNumberValues = ;
+\`\`\`
+    `.trim()
+    );
   });
 
   test('types', () => {

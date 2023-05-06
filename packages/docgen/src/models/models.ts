@@ -56,23 +56,6 @@ export const Signature = z
   .strict();
 export type Signature = z.infer<typeof Signature>;
 
-export const TypeScriptRecordType = z
-  .object({
-    type: z.literal('reference'),
-    typeArguments: z.array(
-      z.object({
-        type: z.string(),
-        id: z.number().optional(),
-        name: z.string()
-      })
-    ),
-    name: z.literal('Record'),
-    qualifiedName: z.literal('Record'),
-    package: z.literal('typescript')
-  })
-  .strict();
-export type TypeScriptRecordType = z.infer<typeof TypeScriptRecordType>;
-
 export const ReflectionType = z
   .object({
     type: z.literal('reflection'),
@@ -97,6 +80,7 @@ export type TopLevelFields = z.infer<typeof TopLevelFields>;
 export const RecordEntry = z
   .object({
     fileName: z.string(),
+    source: Source.optional(),
     components: z.record(Child),
     functions: z.record(Child),
     types: z.record(Child)
@@ -110,7 +94,6 @@ const NonArrayType = z.union([
   ReflectionType,
   JSXType,
   LiteralType,
-  TypeScriptRecordType,
   GenericType
 ]);
 type NonArrayType = z.infer<typeof NonArrayType>;

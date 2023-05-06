@@ -1,5 +1,7 @@
 import { Child, ChildTypeUnion } from '../models/models';
+import { Source } from '../models/source';
 import { JSXType, ReferenceType, GenericType } from '../models/_base';
+import { getRelativePath } from '../utils/file';
 import { OutputMode } from '../utils/mode';
 import { convertCommentToString } from './comment-converters';
 import { EffectiveTypeResultWithDescription } from './types';
@@ -11,6 +13,7 @@ export enum NewlinePresentation {
 
 interface Options {
   extractInPlace?: boolean;
+  urls?: { src?: Source };
 }
 
 export function getTypeStringArray({
@@ -69,7 +72,7 @@ type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
   if (child.kindString === 'Interface' || child.kindString === 'Type literal') {
     const { children = [] } = child;
 
-    return processChildrenFields({ children, typeIdRecord, mode });
+    return processChildrenFields({ children, typeIdRecord, options, mode });
   }
 
   return '';
@@ -78,10 +81,12 @@ type ${child.name} = ${getChildType({ child, typeIdRecord, options, mode })};
 export function processChildrenFields({
   children,
   typeIdRecord,
+  options,
   mode
 }: {
   children: Child[];
   typeIdRecord: Record<number, Child>;
+  options?: Options;
   mode: OutputMode;
 }) {
   const rows: string[] = [];
@@ -91,7 +96,7 @@ export function processChildrenFields({
     // This only misses description, which we will extract from the tags below.
     const columns = [
       child.name,
-      getChildType({ child, typeIdRecord, mode }).replace(/\|/, '\\|')
+      getChildType({ child, typeIdRecord, options, mode }).replace(/\|/, '\\|')
     ];
     columns.push(
       convertCommentToString(child.comment, NewlinePresentation.HTMLLineBreak)
@@ -174,28 +179,41 @@ export function getEffectiveType({
       if (parsedTypedArg.success) {
         result.typeString = `${
           parsedTypedArg.data.name
-        }<${parsedTypedArg.data.typeArguments.map((arg) => {
-          if (!arg.id) return arg.name;
+        }<${parsedTypedArg.data.typeArguments
+          .map((arg) => {
+            if (!arg.id) return arg.name;
 
-          return getEffectiveType({
-            type: { id: arg.id, name: arg.name, type: 'reference' },
-            name,
-            typeIdRecord,
-            options,
-            mode
-          }).typeString;
-        })}>`;
-        result.description = convertCommentToString(
-          typeIdRecord[parsedTypedArg.data.id].comment,
-          NewlinePresentation.HTMLLineBreak
-        );
+            return getEffectiveType({
+              type: { id: arg.id, name: arg.name, type: 'reference' },
+              name,
+              typeIdRecord,
+              options,
+              mode
+            }).typeString;
+          })
+          .join(', ')}>`;
+
+        if (parsedTypedArg.data.id) {
+          result.description = convertCommentToString(
+            typeIdRecord[parsedTypedArg.data.id].comment,
+            NewlinePresentation.HTMLLineBreak
+          );
+        }
 
         break;
       }
 
       const parsedReference = ReferenceType.safeParse(type);
       if (parsedReference.success) {
-        result.typeString = type.name;
+        const dst = typeIdRecord[parsedReference.data.id].sources?.[0];
+        let typeString = type.name;
+
+        if (options?.urls?.src && dst) {
+          const { src } = options.urls;
+          typeString = `[${typeString}](${getRelativePath(src, dst, mode)})`;
+        }
+
+        result.typeString = typeString;
         result.description = convertCommentToString(
           typeIdRecord[parsedReference.data.id].comment,
           NewlinePresentation.HTMLLineBreak

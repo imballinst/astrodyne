@@ -38,7 +38,7 @@ export type JSXType = z.infer<typeof JSXType>;
 export const GenericType = z
   .object({
     type: z.literal('reference'),
-    id: z.number(),
+    id: z.number().optional(),
     typeArguments: z.array(
       z.object({
         type: z.string(),
@@ -46,7 +46,9 @@ export const GenericType = z
         name: z.string()
       })
     ),
-    name: z.string()
+    name: z.string(),
+    qualifiedName: z.string().optional(),
+    package: z.string().optional()
   })
   .strict();
 export type GenericType = z.infer<typeof GenericType>;

@@ -39,8 +39,8 @@ The props passed to TestComponent.
 | Prop | Type | Description |
 | ---- | ---- | ----------- |
 | title | string | The title of the component. This is NOT the component ID. |
-| metadata | Metadata | The metadata of the component. |
-| information | Metadata | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
+| metadata | [Metadata](../../types/helpers/types.md) | The metadata of the component. |
+| information | [Metadata](../../types/helpers/types.md) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
     expect(resultAstro['components/components/TestComponent.mdx']).toBe(
@@ -60,8 +60,8 @@ The props passed to TestComponent.
 | Prop | Type | Description |
 | ---- | ---- | ----------- |
 | title | string | The title of the component. This is NOT the component ID. |
-| metadata | Metadata | The metadata of the component. |
-| information | Metadata | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
+| metadata | [Metadata](../../types/helpers/types.mdx) | The metadata of the component. |
+| information | [Metadata](../../types/helpers/types.mdx) | **[Deprecated]** Deprecated since 1.11.1. Please use \`metadata\` field instead as this might be<br/>removed in the future.<br/><br/>The component information. |
     `.trim()
     );
   });
@@ -93,7 +93,7 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | Metadata | The metadata used for the test component. |
+| metadata | [Metadata](../../types/helpers/types.md) | The metadata used for the test component. |
 
 #### Returns
 
@@ -135,7 +135,7 @@ Gets the component information from the given metadata.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| metadata | Metadata | The metadata used for the test component. |
+| metadata | [Metadata](../../types/helpers/types.mdx) | The metadata used for the test component. |
 
 #### Returns
 
@@ -219,7 +219,7 @@ Converts a string into an array of each characters.
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object |  |  |
+| object | Record<string, [Metadata](../../../types/helpers/types.md)> |  |
 
 #### Returns
 
@@ -231,7 +231,7 @@ Array<[Metadata](../../../types/helpers/types.md)>
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object |  |  |
+| object | Record<string, any> |  |
 
 #### Returns
 
@@ -271,7 +271,7 @@ type OmitNumberValues = ;
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object |  |  |
+| object | Record<string, [Metadata](../../../types/helpers/types.mdx)> |  |
 
 #### Returns
 
@@ -283,7 +283,7 @@ Array<[Metadata](../../../types/helpers/types.mdx)>
 
 | Parameter | Type | Description |
 | ---- | ---- | ----------- |
-| object |  |  |
+| object | Record<string, any> |  |
 
 #### Returns
 

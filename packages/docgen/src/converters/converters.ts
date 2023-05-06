@@ -1,5 +1,3 @@
-import fs from 'fs-extra';
-import path from 'path';
 import {
   ChildTypeUnion,
   Child,
@@ -118,17 +116,23 @@ export async function convertApiJSONToMarkdown({
     if (Object.keys(tempObj.components).length > 0) {
       componentsSection.push({
         fileName: file.name,
+        source: file.sources?.[0],
         components: tempObj.components,
         types: tempObj.types
       });
     } else if (Object.keys(tempObj.functions).length > 0) {
       functionsSection.push({
         fileName: file.name,
+        source: file.sources?.[0],
         functions: tempObj.functions,
         types: tempObj.types
       });
     } else {
-      typesSection.push({ fileName: file.name, types: tempObj.types });
+      typesSection.push({
+        fileName: file.name,
+        source: file.sources?.[0],
+        types: tempObj.types
+      });
     }
   }
 
@@ -156,7 +160,12 @@ ${convertCommentToString(
     }
 
     types.push(
-      ...getTypeStringArray({ record: section.types, typeIdRecord, mode })
+      ...getTypeStringArray({
+        record: section.types,
+        typeIdRecord,
+        mode,
+        options: { urls: { src: section.source } }
+      })
     );
 
     const key = generateTextBasedOnMode(`components/${section.fileName}`, mode);

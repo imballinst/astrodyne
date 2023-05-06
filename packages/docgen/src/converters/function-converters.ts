@@ -26,6 +26,7 @@ export function getFunctionStringArray({
   const values = Object.values(entities);
 
   for (const value of values) {
+    const functionSource = value.sources?.[0];
     const overloads = value.signatures || [];
 
     for (const overload of overloads) {
@@ -35,6 +36,7 @@ export function getFunctionStringArray({
         const childResult = getFunctionParameters({
           overload,
           typeIdRecord,
+          functionSource,
           mode
         });
 
@@ -75,10 +77,12 @@ ${(fn.comment?.summary || []).map((block) => block.text)}
 function getFunctionParameters({
   overload,
   typeIdRecord,
+  functionSource,
   mode
 }: {
   overload: Signature;
   typeIdRecord: Record<string, Child>;
+  functionSource: Source | undefined;
   mode: OutputMode;
 }) {
   const result: EffectiveTypeResult = {
@@ -91,6 +95,7 @@ function getFunctionParameters({
       child,
       typeIdRecord,
       functionName: overload.name,
+      functionSource,
       mode
     });
 
@@ -113,11 +118,13 @@ function getParameterBlock({
   child,
   typeIdRecord,
   functionName,
+  functionSource,
   mode
 }: {
   child: Child;
   typeIdRecord: Record<number, Child>;
   functionName: string;
+  functionSource: Source | undefined;
   mode: OutputMode;
 }) {
   let result: EffectiveTypeResult = {
@@ -142,13 +149,14 @@ function getParameterBlock({
     )} |
   `.trim();
     result.inlineTypeIds.push(...temp.inlineTypeIds);
-  }
-
-  if (child.type?.type === 'reference') {
+  } else if (child.type?.type === 'reference') {
     const temp = getEffectiveType({
       type: child.type,
       name: getLocalFunctionParameterName(functionName, child),
       typeIdRecord,
+      options: {
+        urls: functionSource ? { src: functionSource } : undefined
+      },
       mode
     });
 

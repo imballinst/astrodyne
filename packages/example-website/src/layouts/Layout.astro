@@ -1,35 +1,229 @@
 ---
+import type { MarkdownInstance } from 'astro';
+
 export interface Props {
-	title: string;
+  title: string;
 }
 
+function getDocsDisplayName(name: string | undefined) {
+  if (!name) return '';
+
+  const array = name.split('/').slice(3);
+  return array.join('/');
+}
+
+function getActiveClassBasedOnPathname(
+  pathname: string,
+  stringConditionPrefix: string
+) {
+  return pathname.startsWith(stringConditionPrefix) ? 'active' : '';
+}
+
+const posts = await Astro.glob('../pages/docs/**/*.md');
+
+const components: MarkdownInstance<Record<string, any>>[] = [];
+const functions: MarkdownInstance<Record<string, any>>[] = [];
+const types: MarkdownInstance<Record<string, any>>[] = [];
+
+for (const post of posts) {
+  switch (true) {
+    case post.url?.includes('/docs/components/'): {
+      components.push(post);
+      break;
+    }
+    case post.url?.includes('/docs/functions/'): {
+      functions.push(post);
+      break;
+    }
+    case post.url?.includes('/docs/types/'): {
+      types.push(post);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+const pathname = Astro.url.pathname;
 const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <button id="components-collapsible-toggle" class="collapsible-toggle"
+          >Components</button
+        >
+
+        <ul
+          aria-labelledby="components-collapsible-toggle"
+          class={`collapsible-sidebar ${getActiveClassBasedOnPathname(
+            pathname,
+            '/docs/components'
+          )}`}
+        >
+          {
+            components.map((post) => (
+              <li>
+                <a href={post.url || ''}>{getDocsDisplayName(post.url)}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <button id="functions-collapsible-toggle" class="collapsible-toggle"
+          >Functions</button
+        >
+
+        <ul
+          aria-labelledby="functions-collapsible-toggle"
+          class={`collapsible-sidebar ${getActiveClassBasedOnPathname(
+            pathname,
+            '/docs/functions'
+          )}`}
+        >
+          {
+            functions.map((post) => (
+              <li>
+                <a href={post.url || ''}>{getDocsDisplayName(post.url)}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <button id="types-collapsible-toggle" class="collapsible-toggle"
+          >Types</button
+        >
+
+        <ul
+          aria-labelledby="types-collapsible-toggle"
+          class={`collapsible-sidebar ${getActiveClassBasedOnPathname(
+            pathname,
+            '/docs/types'
+          )}`}
+        >
+          {
+            types.map((post) => (
+              <li>
+                <a href={post.url || ''}>{getDocsDisplayName(post.url)}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <script>
+      // Set toggle events.
+      const toggles = document.getElementsByClassName('collapsible-toggle');
+
+      for (const toggle of toggles) {
+        const collapsible = document.querySelector(
+          `[aria-labelledby="${toggle.id}"]`
+        ) as HTMLElement;
+        if (!collapsible) continue;
+
+        toggle.addEventListener('click', () => {
+          if (collapsible.style.maxHeight) {
+            collapsible.style.maxHeight = '';
+            collapsible.classList.remove('active');
+          } else {
+            collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
+            collapsible.classList.add('active');
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  :root {
+    --accent: 124, 58, 237;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      #da62c4 30%,
+      white 60%
+    );
+  }
+  html {
+    font-family: system-ui, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    height: 100vh;
+  }
+  code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+  body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    height: 100%;
+  }
+  main {
+    padding: 8px;
+  }
+</style>
+<style>
+  nav {
+    height: 100%;
+    border-right: 1px solid #bbb;
+  }
+
+  .collapsible-toggle {
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+    border-radius: 0;
+    text-align: left;
+    font-size: 18px;
+    padding: 4px 6px;
+  }
+
+  ul.collapsible-sidebar {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  ul.collapsible-sidebar.active {
+    max-height: unset;
+  }
+  ul.collapsible-sidebar > li {
+    padding: 0;
+  }
+  ul.collapsible-sidebar > li > a {
+    padding: 4px 6px;
+    display: block;
+    width: 100%;
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
+  ul.collapsible-sidebar > li > a:hover {
+    background: #eaeaea;
+  }
+  ul.collapsible-sidebar > li > a:visited {
+    color: unset;
+  }
 </style>

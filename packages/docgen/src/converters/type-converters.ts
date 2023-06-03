@@ -159,6 +159,10 @@ export function getEffectiveType({
   }
 
   switch (type.type) {
+    case 'mapped': {
+      console.info(type);
+      break;
+    }
     case 'reference': {
       const parsedJSX = JSXType.safeParse(type);
       if (parsedJSX.success) {

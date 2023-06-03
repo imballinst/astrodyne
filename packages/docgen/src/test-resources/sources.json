@@ -242,17 +242,33 @@
   [
     {
       "fileName": "packages/object/keys.ts",
-      "line": 22,
-      "character": 16,
-      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L22"
+      "line": 24,
+      "character": 12,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L24"
     }
   ],
   [
     {
       "fileName": "packages/object/keys.ts",
       "line": 18,
-      "character": 16,
+      "character": 12,
       "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L18"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 30,
+      "character": 16,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L30"
+    }
+  ],
+  [
+    {
+      "fileName": "packages/object/keys.ts",
+      "line": 26,
+      "character": 16,
+      "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L26"
     }
   ]
 ]

@@ -52,3 +52,29 @@ export const GenericType = z
   })
   .strict();
 export type GenericType = z.infer<typeof GenericType>;
+
+// const ParameterType = z.object({
+//   type: 'typeOperator',
+//   operator: 'keyof',
+//   target: {
+//     type: 'reference',
+//     id: 51,
+//     name: 'T'
+//   }
+// });
+
+// export const GenericDefinitionType = z.object({
+//   type: z.literal('mapped'),
+//   parameter: z.string(),
+//   parameterType: {
+//     type: 'typeOperator',
+//     operator: 'keyof',
+//     target: {
+//       type: 'reference',
+//       id: 51,
+//       name: 'T'
+//     }
+//   },
+//   templateType: z.any(),
+//   nameType: z.any()
+// });

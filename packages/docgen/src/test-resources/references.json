@@ -16,14 +16,30 @@
   },
   {
     "type": "reference",
-    "id": 50,
+    "id": 54,
     "typeArguments": [
       {
         "type": "reference",
-        "id": 52,
+        "id": 56,
         "name": "ExampleValue"
       }
     ],
     "name": "OmitNumberValues"
+  },
+  {
+    "type": "reference",
+    "id": 44,
+    "typeArguments": [
+      {
+        "type": "reference",
+        "id": 56,
+        "name": "ExampleValue"
+      },
+      {
+        "type": "intrinsic",
+        "name": "number"
+      }
+    ],
+    "name": "OmitValuesOfType"
   }
 ]

@@ -15,7 +15,7 @@
     {
       "title": "Modules",
       "children": [
-        44
+        48
       ]
     },
     {
@@ -29,7 +29,7 @@
     {
       "title": "Interfaces",
       "children": [
-        45
+        49
       ]
     }
   ],
@@ -37,9 +37,9 @@
     {
       "title": "Properties",
       "children": [
-        48,
-        47,
-        46
+        52,
+        51,
+        50
       ]
     }
   ],
@@ -102,13 +102,15 @@
     {
       "title": "Modules",
       "children": [
-        49
+        53
       ]
     },
     {
       "title": "Type Aliases",
       "children": [
-        43
+        43,
+        47,
+        44
       ]
     },
     {
@@ -123,13 +125,13 @@
     {
       "title": "Interfaces",
       "children": [
-        52
+        56
       ]
     },
     {
       "title": "Type Aliases",
       "children": [
-        50
+        54
       ]
     }
   ],
@@ -137,8 +139,8 @@
     {
       "title": "Properties",
       "children": [
-        53,
-        54
+        57,
+        58
       ]
     }
   ]

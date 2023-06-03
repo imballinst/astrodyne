@@ -15,6 +15,14 @@ interface ExampleValue {
  */
 export type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
 
+export type OmitValuesOfType<T extends object, IgnoredType> = {
+  [K in keyof T as T[K] extends IgnoredType
+    ? never
+    : K]: T[K] extends IgnoredType ? never : T[K];
+};
+
+export type ExampleValueWithoutNumber2 = OmitValuesOfType<ExampleValue, number>;
+
 export function getObjectKeys(object: Record<string, any>) {
   return Object.keys(object);
 }

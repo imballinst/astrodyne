@@ -281,7 +281,7 @@ type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
 ### OmitNumberValues
 
 \`\`\`ts
-type OmitNumberValues = ;
+OmitNumberValues<T extends object>
 \`\`\`
     `.trim()
     );

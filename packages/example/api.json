@@ -13,14 +13,14 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 44,
+					"id": 48,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 45,
+							"id": 49,
 							"name": "TestComponentProps",
 							"kind": 256,
 							"kindString": "Interface",
@@ -41,7 +41,7 @@
 							},
 							"children": [
 								{
-									"id": 48,
+									"id": 52,
 									"name": "information",
 									"kind": 1024,
 									"kindString": "Property",
@@ -83,7 +83,7 @@
 									}
 								},
 								{
-									"id": 47,
+									"id": 51,
 									"name": "metadata",
 									"kind": 1024,
 									"kindString": "Property",
@@ -111,7 +111,7 @@
 									}
 								},
 								{
-									"id": 46,
+									"id": 50,
 									"name": "title",
 									"kind": 1024,
 									"kindString": "Property",
@@ -142,9 +142,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										48,
-										47,
-										46
+										52,
+										51,
+										50
 									]
 								}
 							],
@@ -162,7 +162,7 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								45
+								49
 							]
 						}
 					]
@@ -205,7 +205,7 @@
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 45,
+										"id": 49,
 										"name": "TestComponentProps"
 									}
 								}
@@ -224,7 +224,7 @@
 				{
 					"title": "Modules",
 					"children": [
-						44
+						48
 					]
 				},
 				{
@@ -1025,21 +1025,21 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 49,
+					"id": 53,
 					"name": "<internal>",
 					"kind": 2,
 					"kindString": "Module",
 					"flags": {},
 					"children": [
 						{
-							"id": 52,
+							"id": 56,
 							"name": "ExampleValue",
 							"kind": 256,
 							"kindString": "Interface",
 							"flags": {},
 							"children": [
 								{
-									"id": 53,
+									"id": 57,
 									"name": "field",
 									"kind": 1024,
 									"kindString": "Property",
@@ -1058,7 +1058,7 @@
 									}
 								},
 								{
-									"id": 54,
+									"id": 58,
 									"name": "num",
 									"kind": 1024,
 									"kindString": "Property",
@@ -1081,8 +1081,8 @@
 								{
 									"title": "Properties",
 									"children": [
-										53,
-										54
+										57,
+										58
 									]
 								}
 							],
@@ -1096,7 +1096,7 @@
 							]
 						},
 						{
-							"id": 50,
+							"id": 54,
 							"name": "OmitNumberValues",
 							"kind": 4194304,
 							"kindString": "Type alias",
@@ -1111,7 +1111,7 @@
 							],
 							"typeParameters": [
 								{
-									"id": 51,
+									"id": 55,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -1130,7 +1130,7 @@
 									"operator": "keyof",
 									"target": {
 										"type": "reference",
-										"id": 51,
+										"id": 55,
 										"name": "T"
 									}
 								},
@@ -1144,7 +1144,7 @@
 										},
 										"objectType": {
 											"type": "reference",
-											"id": 51,
+											"id": 55,
 											"name": "T"
 										}
 									},
@@ -1164,7 +1164,7 @@
 										},
 										"objectType": {
 											"type": "reference",
-											"id": 51,
+											"id": 55,
 											"name": "T"
 										}
 									}
@@ -1179,7 +1179,7 @@
 										},
 										"objectType": {
 											"type": "reference",
-											"id": 51,
+											"id": 55,
 											"name": "T"
 										}
 									},
@@ -1203,13 +1203,13 @@
 						{
 							"title": "Interfaces",
 							"children": [
-								52
+								56
 							]
 						},
 						{
 							"title": "Type Aliases",
 							"children": [
-								50
+								54
 							]
 						}
 					]
@@ -1238,15 +1238,158 @@
 					],
 					"type": {
 						"type": "reference",
-						"id": 50,
+						"id": 54,
 						"typeArguments": [
 							{
 								"type": "reference",
-								"id": 52,
+								"id": 56,
 								"name": "ExampleValue"
 							}
 						],
 						"name": "OmitNumberValues"
+					}
+				},
+				{
+					"id": 47,
+					"name": "ExampleValueWithoutNumber2",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 24,
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L24"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 44,
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 56,
+								"name": "ExampleValue"
+							},
+							{
+								"type": "intrinsic",
+								"name": "number"
+							}
+						],
+						"name": "OmitValuesOfType"
+					}
+				},
+				{
+					"id": 44,
+					"name": "OmitValuesOfType",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "packages/object/keys.ts",
+							"line": 18,
+							"character": 12,
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L18"
+						}
+					],
+					"typeParameters": [
+						{
+							"id": 45,
+							"name": "T",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "object"
+							}
+						},
+						{
+							"id": 46,
+							"name": "IgnoredType",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						}
+					],
+					"type": {
+						"type": "mapped",
+						"parameter": "K",
+						"parameterType": {
+							"type": "typeOperator",
+							"operator": "keyof",
+							"target": {
+								"type": "reference",
+								"id": 45,
+								"name": "T"
+							}
+						},
+						"templateType": {
+							"type": "conditional",
+							"checkType": {
+								"type": "indexedAccess",
+								"indexType": {
+									"type": "reference",
+									"name": "K"
+								},
+								"objectType": {
+									"type": "reference",
+									"id": 45,
+									"name": "T"
+								}
+							},
+							"extendsType": {
+								"type": "reference",
+								"id": 46,
+								"name": "IgnoredType"
+							},
+							"trueType": {
+								"type": "intrinsic",
+								"name": "never"
+							},
+							"falseType": {
+								"type": "indexedAccess",
+								"indexType": {
+									"type": "reference",
+									"name": "K"
+								},
+								"objectType": {
+									"type": "reference",
+									"id": 45,
+									"name": "T"
+								}
+							}
+						},
+						"nameType": {
+							"type": "conditional",
+							"checkType": {
+								"type": "indexedAccess",
+								"indexType": {
+									"type": "reference",
+									"name": "K"
+								},
+								"objectType": {
+									"type": "reference",
+									"id": 45,
+									"name": "T"
+								}
+							},
+							"extendsType": {
+								"type": "reference",
+								"id": 46,
+								"name": "IgnoredType"
+							},
+							"trueType": {
+								"type": "intrinsic",
+								"name": "never"
+							},
+							"falseType": {
+								"type": "reference",
+								"name": "K"
+							}
+						}
 					}
 				},
 				{
@@ -1258,9 +1401,9 @@
 					"sources": [
 						{
 							"fileName": "packages/object/keys.ts",
-							"line": 22,
+							"line": 30,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L22"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L30"
 						}
 					],
 					"signatures": [
@@ -1316,9 +1459,9 @@
 					"sources": [
 						{
 							"fileName": "packages/object/keys.ts",
-							"line": 18,
+							"line": 26,
 							"character": 16,
-							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L18"
+							"url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L26"
 						}
 					],
 					"signatures": [
@@ -1368,13 +1511,15 @@
 				{
 					"title": "Modules",
 					"children": [
-						49
+						53
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						43
+						43,
+						47,
+						44
 					]
 				},
 				{

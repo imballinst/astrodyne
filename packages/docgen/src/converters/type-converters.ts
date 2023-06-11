@@ -130,6 +130,8 @@ export function getChildType({
   }).typeString;
 }
 
+let xdd = new Set<string>();
+
 export function getEffectiveType({
   type,
   name,
@@ -160,7 +162,11 @@ export function getEffectiveType({
 
   switch (type.type) {
     case 'mapped': {
-      console.info(type);
+      const stringified = JSON.stringify(type, null, 2);
+      if (!xdd.has(stringified)) {
+        console.info(stringified);
+        xdd.add(stringified);
+      }
       break;
     }
     case 'reference': {

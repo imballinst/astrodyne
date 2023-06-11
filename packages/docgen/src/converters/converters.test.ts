@@ -278,6 +278,13 @@ Use this utility type to omit field with number values.
 type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
 \`\`\`
 
+### ExampleValueWithoutNumber2
+
+\`\`\`ts
+type ExampleValueWithoutNumber2 = OmitValuesOfType<ExampleValue, number>;
+\`\`\`
+
+
 ### OmitNumberValues
 
 \`\`\`ts

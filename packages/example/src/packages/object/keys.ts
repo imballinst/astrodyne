@@ -15,6 +15,83 @@ interface ExampleValue {
  */
 export type ExampleValueWithoutNumber = OmitNumberValues<ExampleValue>;
 
+// {
+//   "type": "mapped",
+//   "parameter": "K",
+//   "parameterType": {
+//     "type": "typeOperator",
+//     "operator": "keyof",
+//     "target": {
+//       "type": "reference",
+//       "id": 45,
+//       "name": "T"
+//     }
+//   },
+//   "templateType": {
+//     "type": "conditional",
+//     "checkType": {
+//       "type": "indexedAccess",
+//       "indexType": {
+//         "type": "reference",
+//         "name": "K"
+//       },
+//       "objectType": {
+//         "type": "reference",
+//         "id": 45,
+//         "name": "T"
+//       }
+//     },
+//     "extendsType": {
+//       "type": "reference",
+//       "id": 46,
+//       "name": "IgnoredType"
+//     },
+//     "trueType": {
+//       "type": "intrinsic",
+//       "name": "never"
+//     },
+//     "falseType": {
+//       "type": "indexedAccess",
+//       "indexType": {
+//         "type": "reference",
+//         "name": "K"
+//       },
+//       "objectType": {
+//         "type": "reference",
+//         "id": 45,
+//         "name": "T"
+//       }
+//     }
+//   },
+//   "nameType": {
+//     "type": "conditional",
+//     "checkType": {
+//       "type": "indexedAccess",
+//       "indexType": {
+//         "type": "reference",
+//         "name": "K"
+//       },
+//       "objectType": {
+//         "type": "reference",
+//         "id": 45,
+//         "name": "T"
+//       }
+//     },
+//     "extendsType": {
+//       "type": "reference",
+//       "id": 46,
+//       "name": "IgnoredType"
+//     },
+//     "trueType": {
+//       "type": "intrinsic",
+//       "name": "never"
+//     },
+//     "falseType": {
+//       "type": "reference",
+//       "name": "K"
+//     }
+//   }
+// }
 export type OmitValuesOfType<T extends object, IgnoredType> = {
   [K in keyof T as T[K] extends IgnoredType
     ? never

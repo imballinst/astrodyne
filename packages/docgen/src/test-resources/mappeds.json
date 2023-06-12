@@ -1,153 +1,216 @@
 [
   {
-    "type": "mapped",
-    "parameter": "K",
-    "parameterType": {
-      "type": "typeOperator",
-      "operator": "keyof",
-      "target": {
-        "type": "reference",
+    "id": 54,
+    "name": "OmitNumberValues",
+    "kind": 4194304,
+    "kindString": "Type alias",
+    "flags": {},
+    "sources": [
+      {
+        "fileName": "packages/object/keys.ts",
+        "line": 3,
+        "character": 5,
+        "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L3"
+      }
+    ],
+    "typeParameters": [
+      {
         "id": 55,
-        "name": "T"
-      }
-    },
-    "templateType": {
-      "type": "conditional",
-      "checkType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
-          "type": "reference",
-          "id": 55,
-          "name": "T"
-        }
-      },
-      "extendsType": {
-        "type": "intrinsic",
-        "name": "number"
-      },
-      "trueType": {
-        "type": "intrinsic",
-        "name": "never"
-      },
-      "falseType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
-          "type": "reference",
-          "id": 55,
-          "name": "T"
+        "name": "T",
+        "kind": 131072,
+        "kindString": "Type parameter",
+        "flags": {},
+        "type": {
+          "type": "intrinsic",
+          "name": "object"
         }
       }
-    },
-    "nameType": {
-      "type": "conditional",
-      "checkType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
+    ],
+    "type": {
+      "type": "mapped",
+      "parameter": "K",
+      "parameterType": {
+        "type": "typeOperator",
+        "operator": "keyof",
+        "target": {
           "type": "reference",
           "id": 55,
           "name": "T"
         }
       },
-      "extendsType": {
-        "type": "intrinsic",
-        "name": "number"
+      "templateType": {
+        "type": "conditional",
+        "checkType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 55,
+            "name": "T"
+          }
+        },
+        "extendsType": {
+          "type": "intrinsic",
+          "name": "number"
+        },
+        "trueType": {
+          "type": "intrinsic",
+          "name": "never"
+        },
+        "falseType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 55,
+            "name": "T"
+          }
+        }
       },
-      "trueType": {
-        "type": "intrinsic",
-        "name": "never"
-      },
-      "falseType": {
-        "type": "reference",
-        "name": "K"
+      "nameType": {
+        "type": "conditional",
+        "checkType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 55,
+            "name": "T"
+          }
+        },
+        "extendsType": {
+          "type": "intrinsic",
+          "name": "number"
+        },
+        "trueType": {
+          "type": "intrinsic",
+          "name": "never"
+        },
+        "falseType": {
+          "type": "reference",
+          "name": "K"
+        }
       }
     }
   },
   {
-    "type": "mapped",
-    "parameter": "K",
-    "parameterType": {
-      "type": "typeOperator",
-      "operator": "keyof",
-      "target": {
-        "type": "reference",
+    "id": 44,
+    "name": "OmitValuesOfType",
+    "kind": 4194304,
+    "kindString": "Type alias",
+    "flags": {},
+    "sources": [
+      {
+        "fileName": "packages/object/keys.ts",
+        "line": 18,
+        "character": 12,
+        "url": "https://github.com/imballinst/astrodyne/blob/main/packages/example/src/packages/object/keys.ts#L18"
+      }
+    ],
+    "typeParameters": [
+      {
         "id": 45,
-        "name": "T"
-      }
-    },
-    "templateType": {
-      "type": "conditional",
-      "checkType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
-          "type": "reference",
-          "id": 45,
-          "name": "T"
+        "name": "T",
+        "kind": 131072,
+        "kindString": "Type parameter",
+        "flags": {},
+        "type": {
+          "type": "intrinsic",
+          "name": "object"
         }
       },
-      "extendsType": {
-        "type": "reference",
+      {
         "id": 46,
-        "name": "IgnoredType"
-      },
-      "trueType": {
-        "type": "intrinsic",
-        "name": "never"
-      },
-      "falseType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
-          "type": "reference",
-          "id": 45,
-          "name": "T"
-        }
+        "name": "IgnoredType",
+        "kind": 131072,
+        "kindString": "Type parameter",
+        "flags": {}
       }
-    },
-    "nameType": {
-      "type": "conditional",
-      "checkType": {
-        "type": "indexedAccess",
-        "indexType": {
-          "type": "reference",
-          "name": "K"
-        },
-        "objectType": {
+    ],
+    "type": {
+      "type": "mapped",
+      "parameter": "K",
+      "parameterType": {
+        "type": "typeOperator",
+        "operator": "keyof",
+        "target": {
           "type": "reference",
           "id": 45,
           "name": "T"
         }
       },
-      "extendsType": {
-        "type": "reference",
-        "id": 46,
-        "name": "IgnoredType"
+      "templateType": {
+        "type": "conditional",
+        "checkType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 45,
+            "name": "T"
+          }
+        },
+        "extendsType": {
+          "type": "reference",
+          "id": 46,
+          "name": "IgnoredType"
+        },
+        "trueType": {
+          "type": "intrinsic",
+          "name": "never"
+        },
+        "falseType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 45,
+            "name": "T"
+          }
+        }
       },
-      "trueType": {
-        "type": "intrinsic",
-        "name": "never"
-      },
-      "falseType": {
-        "type": "reference",
-        "name": "K"
+      "nameType": {
+        "type": "conditional",
+        "checkType": {
+          "type": "indexedAccess",
+          "indexType": {
+            "type": "reference",
+            "name": "K"
+          },
+          "objectType": {
+            "type": "reference",
+            "id": 45,
+            "name": "T"
+          }
+        },
+        "extendsType": {
+          "type": "reference",
+          "id": 46,
+          "name": "IgnoredType"
+        },
+        "trueType": {
+          "type": "intrinsic",
+          "name": "never"
+        },
+        "falseType": {
+          "type": "reference",
+          "name": "K"
+        }
       }
     }
   }

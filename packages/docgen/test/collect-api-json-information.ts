@@ -13,6 +13,7 @@ interface AllApiOutputInfo {
   intrinsics: any[];
   literals: any[];
   references: any[];
+  mappeds: any[];
 }
 
 async function main() {
@@ -33,7 +34,8 @@ async function main() {
     reflections: [],
     intrinsics: [],
     literals: [],
-    references: []
+    references: [],
+    mappeds: []
   };
 
   dive(json, result);
@@ -77,6 +79,7 @@ function dive(json: any, result: AllApiOutputInfo) {
   if (json.type?.type === 'intrinsic') result.intrinsics.push(json.type);
   if (json.type?.type === 'literal') result.literals.push(json.type);
   if (json.type?.type === 'reference') result.references.push(json.type);
+  if (json.type?.type === 'mapped') result.mappeds.push(json.type);
 
   if (json.children) {
     for (const child of json.children) {
